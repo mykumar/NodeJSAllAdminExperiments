@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<script src="lib/angular/angular.js"></script>
+<body ng-app="myApp">
+
+<first-directive></first-directive>
+
+<script>
+var app = angular.module("myApp", []);
+app.directive("firstDirective",['$compile', function($compile) {
+    return {
+        templateUrl : './directives/sd.html',
+         scope: {
+         		},
+        controller: function ($scope) {
+	      		this.name = 'Pascal';
+	      		$scope.firstCtrl = function() 
+	      		{
+	      			console.log('I am in the firstCtrl');
+	      			// var res = angular.element(document.querySelector('#abc')).attr('class');
+	      			// var res = angular.element(document.querySelector('#abc')).contents();
+	      			var res = angular.element(document.querySelector('#abc')).text();
+	      			console.log('Hey i got resposne');
+	      			console.log(res);
+
+	      			// angular.element(document.querySelector('#abc')).data( "test", { first: 16, last: "pizza!" } );
+	      			// angular.element(document.querySelector('#abc')).text('This is the from the controller');
+	      			angular.element(document.querySelector('#abc')).append('This is the from the controller');
+
+	      			var ele = $compile('<second-directive></second-directive>')($scope);
+	      			console.log(ele);
+	      			angular.element(document.querySelector('#abc')).append(ele);
+	      		}
+		    }
+    }
+}]);
+
+app.directive("secondDirective", function() {
+    return {
+        templateUrl : './directives/second.html',
+        controller: function ($scope) {
+	      		$scope.name = 'second one baby';
+	      		$scope.secondCtrl = function($scope) 
+	      		{
+	      			console.log('I am in the secondCtrl');
+	      		}
+		    }
+    };
+});
+
+app.directive("thirdDirective", function() {
+    return {
+        templateUrl : './directives/third.html',
+        controller: function ($scope) {
+	      		$scope.name = 'second one baby';
+	      		$scope.thirdCtrl = function($scope) 
+	      		{
+	      			console.log('I am in the thirdCtrl');
+	      		}
+		    }
+    };
+});
+</script>
+
+</body>
+</html>

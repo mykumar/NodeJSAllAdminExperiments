@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8" />
+    <title>AngularJS Plunker</title>
+    <script data-require="angular.js@1.4.x" src="https://code.angularjs.org/1.4.8/angular.js" data-semver="1.4.8"></script>
+    <!-- <link rel="stylesheet" href="style.css" /> -->
+    <script type="text/javascript" src="lib/angular-tree-control/angular-tree-control.js"></script>
+    <!-- link for CSS when using the tree as a Dom element -->
+    <link rel="stylesheet" type="text/css" href="lib/angular-tree-control/css/tree-control.css">
+    <!-- link for CSS when using the tree as an attribute -->
+    <link rel="stylesheet" type="text/css" href="lib/angular-tree-control/css/tree-control-attribute.css">
+    <script src="app.js"></script>
+  </head>
+  <body>
+      <div ng-app="myApp" ng-controller="myCtrl">
+            {{dataForTheTree}}
+            <!-- as a Dom element -->
+            <treecontrol class="tree-classic"
+               tree-model="dataForTheTree"
+               options="treeOptions"
+               on-selection="showSelected(node)"
+               selected-node="node1">
+               employee: {{node.name}} age {{node.age}}
+            </treecontrol>
+            <!-- as an attribute -->
+            <div treecontrol class="tree-classic"
+               tree-model="dataForTheTree"
+               options="treeOptions"
+               on-selection="showSelected(node)"
+               selected-node="node1">
+               employee: {{node.name}} age {{node.age}}
+            </div>
+      </div>
+  </body>
+</html>

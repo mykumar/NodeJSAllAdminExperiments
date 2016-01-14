@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Bootstrap 3, from LayoutIt!</title>
+
+    <meta name="description" content="Source code generated using layoutit.com">
+    <meta name="author" content="LayoutIt!">
+     
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+  </head>
+  <body>
+    <div class="container-fluid">
+	<div class="row">
+		<div class="col-md-3">
+		    <div class="row"> 
+				<div class="col-md-3">
+					<img src="img/logo.gif" class="img-rounded" alt="Cinque Terre" width="200" height="100">
+				</div>	
+			</div>	
+			<div class="row"> 
+				<div class="col-md-3 " ng-controller="TabsDemoCtrl">
+				<uib-tabset>
+				    <uib-tab heading="Static title">Static content</uib-tab>
+				    <uib-tab ng-repeat="tab in tabs" heading="{{tab.title}}" active="tab.active" disable="tab.disabled">
+				      {{tab.content}}
+				    </uib-tab>
+				    <uib-tab select="alertMe()">
+				      <uib-tab-heading>
+				        <i class="glyphicon glyphicon-bell"></i> Alert!
+				      </uib-tab-heading>
+				      I've got an HTML heading, and a select callback. Pretty cool!
+				    </uib-tab>
+				</uib-tabset>
+					 
+				</div>	
+			</div>	
+		</div>
+		<div class="col-md-9">
+			<div class="row">
+				<div class="col-md-12">
+					<nav class="navbar navbar-inverse">
+					  <div class="container-fluid">
+						<ul class="nav navbar-nav navbar-right">
+						  <li><a href="#">Admin</a></li>
+						  <li class="dropdown">
+								<a href="#" data-toggle="dropdown" class="dropdown-toggle">Alerts <b class="caret"></b></a>
+								<ul class="dropdown-menu">
+									<li><a href="#">Inbox</a></li>
+									<li><a href="#">Drafts</a></li>
+									
+									<li class="divider"></li>
+									<li>
+										 <div class="progress">
+											  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40"
+											  aria-valuemin="0" aria-valuemax="100" style="width:40%">
+												40% Complete (success)
+											  </div>
+											</div>
+											<div class="progress">
+											  <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="50"
+											  aria-valuemin="0" aria-valuemax="100" style="width:50%">
+												50% Complete (info)
+											  </div>
+											</div>
+											<div class="progress">
+											  <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60"
+											  aria-valuemin="0" aria-valuemax="100" style="width:60%">
+												60% Complete (warning)
+											  </div>
+											</div>
+											<div class="progress">
+											  <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="70"
+											  aria-valuemin="0" aria-valuemax="100" style="width:70%">
+												70% Complete (danger)
+											  </div>
+											</div>
+									</li>
+								</ul>
+						</li>
+						<li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+						</ul>
+					  </div>
+					</nav>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/scripts.js"></script>
+	
+  </body>
+</html>

@@ -1,0 +1,13 @@
+# Empty CSS file for your own CSS
+.row {
+    padding: 100px;
+}
+
+.col-md-3 {
+    background-color: #e3e3e3;
+}
+
+.col-md-9 {
+//    background-color: #f5f3f3;
+}
+

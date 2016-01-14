@@ -1,0 +1,9 @@
+1) Create DB
+2) Create Collection
+3) Add Collection / Document / Field
+4) Delete Collection / Document / Field
+5) Alter/modify field value, field name
+6) insert document
+7) Search functiinloity with sort and other options (see ui)
+8) Add content to the collection
+

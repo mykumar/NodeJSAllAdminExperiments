@@ -1,0 +1,27 @@
+<uib-tabset>
+      <uib-tab heading="Schemas">
+        	This is tab One Schemas
+        	<ul class="list-group">
+				  <li class="list-group-item" ng-repeat="(key, item) in schemaData" ng-include="'list.html'"></li>
+			</ul>
+      </uib-tab>
+      <uib-tab heading="Management" >
+        	This is tab One Management
+        	<ul class="list-group">
+				  <li class="list-group-item" ng-repeat="(key, item) in managementData" ng-include="'list.html'"></li>
+			</ul>
+      </uib-tab>
+</uib-tabset>
+<script type="text/ng-template" id="list.html">
+    <div ng-if="isObject(item)">
+        <div ng-repeat="(key1, item1) in item">
+          <div ng-if="key1 == 'name'">
+              <li focusable class="list-group-item" id="{{item.id}}">{{item1}}</li>
+          </div>
+          <div ng-if="isArray(item1)">
+            <ul ng-repeat="(key, item) in item1" ng-include="'list.html'">
+            </ul>
+          </div>                 
+        </div>  
+    </div>
+</script>

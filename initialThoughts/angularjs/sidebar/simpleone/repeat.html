@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script src="app.js"></script>
+
+<body>
+
+<div ng-app="myApp" ng-controller="myCtrl">
+     <div ng-repeat="(L1key,L1value) in json">
+         <div ng-if="isArray(L1value)">
+            <!--  connections (it is array)-->
+            <div ng-repeat="L2Objects in L1value">
+                <!--  You will get each connect object here -->
+              <div ng-if="isObject(L2Objects)">
+                <div ng-repeat="(L3key,L3value) in L2Objects">
+                  <div ng-if="isArray(L3value)">
+                      <li>{{ L3key }} </li>
+                  </div>
+                  <div ng-if="!isArray(L3value)">
+                      <ul> {{ L3value }} </ul>
+                  </div>
+                </div>  
+              </div>
+            
+          </div>    
+    </div>
+</div>
+</body>
+</html>
