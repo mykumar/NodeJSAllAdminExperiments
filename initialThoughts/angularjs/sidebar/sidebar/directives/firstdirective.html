@@ -12,16 +12,3 @@
 			</ul>
       </uib-tab>
 </uib-tabset>
-<script type="text/ng-template" id="list.html">
-    <div ng-if="isObject(item)">
-        <div ng-repeat="(key1, item1) in item">
-          <div ng-if="key1 == 'name'">
-              <li focusable class="list-group-item" id="{{item.id}}">{{item1}}</li>
-          </div>
-          <div ng-if="isArray(item1)">
-            <ul ng-repeat="(key, item) in item1" ng-include="'list.html'">
-            </ul>
-          </div>                 
-        </div>  
-    </div>
-</script>

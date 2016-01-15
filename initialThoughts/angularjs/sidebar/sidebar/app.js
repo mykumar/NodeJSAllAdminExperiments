@@ -1,56 +1,85 @@
 var myapp = angular.module('myapp', ['ngAnimate', 'ui.bootstrap']);
 angular.module('myapp').directive("sidebar",['$compile', function($compile) {
     return {
-        templateUrl : './directives/firstdirective.html',
+        templateUrl : './directives/simplified_sidebar.html',
         scope: {
             },
         controller: function ($scope) {
-            var mainSchemaJsonData = [{
+            var schemaJsonData = [{
               "name": "myConnection",
               "id": "SCH_C_myConnection",
-              "databases": [{
+              "children": [{
                 "name": "informationDB",
                 "id": "SCH_C_myConnection_DB_informationDB",
-                "tablesDEF": [{
+                "children": [{
                     "name": "Tables",
                     "id": "SCH_C_myConnection_DB_informationDB_TH",
-                    "tables": [{
+                    "children": [{
                         "name": "table1",
                         "id": "SCH_C_myConnection_DB_informationDB_T_tabe1",
                       }, {
                         "name": "table2",
                         "id": "SCH_C_myConnection_DB_informationDB_T_tabe2",
                     }]
+                },
+                {
+                    "name": "view",
+                    "id": "SCH_C_myConnection_DB_informationDB_TH",
+                    "children": [{
+                        "name": "view1",
+                        "id": "SCH_C_myConnection_DB_informationDB_T_tabe1",
+                      }, {
+                        "name": "view2",
+                        "id": "SCH_C_myConnection_DB_informationDB_T_tabe2",
                 }],
               }]
+            }]
             }];
 
-            var managementSchemaJsonData =[{
+            var managementSchemaJsonData = [{
               "name": "myConnection",
-              "id": "MNG_C_myConnection",
-              "databases": [{
+              "id": "SCH_C_myConnection",
+              "children": [{
                 "name": "informationDB",
-                "id": "MNG_C_myConnection_DB_informationDB",
-                "tablesDEF": [{
+                "id": "SCH_C_myConnection_DB_informationDB",
+                "children": [{
                     "name": "Tables",
-                    "id": "MNG_C_myConnection_DB_informationDB_TH",
-                    "tables": [{
+                    "id": "SCH_C_myConnection_DB_informationDB_TH",
+                    "children": [{
                         "name": "table1",
-                        "id": "MNG_C_myConnection_DB_informationDB_T_tabe1",
+                        "id": "SCH_C_myConnection_DB_informationDB_T_tabe1",
                       }, {
                         "name": "table2",
-                        "id": "MNG_C_myConnection_DB_informationDB_T_tabe2",
+                        "id": "SCH_C_myConnection_DB_informationDB_T_tabe2",
                     }]
+                },
+                {
+                    "name": "view",
+                    "id": "SCH_C_myConnection_DB_informationDB_TH",
+                    "children": [{
+                        "name": "view1",
+                        "id": "SCH_C_myConnection_DB_informationDB_T_tabe1",
+                      }, {
+                        "name": "view2",
+                        "id": "SCH_C_myConnection_DB_informationDB_T_tabe2",
                 }],
               }]
-            }];        
+            }]
+            }];
 
-            $scope.schemaData = mainSchemaJsonData;
+            $scope.schemaData = schemaJsonData;
             $scope.managementData = managementSchemaJsonData;
             $scope.isString = angular.isString;
             $scope.isNumber = angular.isNumber;
             $scope.isArray = angular.isArray;  
             $scope.isObject =  angular.isObject;
+
+            // new simplied Menu 
+            $scope.showChilds = function(item, item2){
+                console.log("THis is the showChilds");
+                item.active = !item.active;
+                console.log(item);
+            };
 
             $scope.$on('keydown', function( msg, obj ) {
                   console.log('This is the keydown');
@@ -69,7 +98,6 @@ angular.module('myapp').directive("sidebar",['$compile', function($compile) {
                     $scope.items.splice($itemScope.$index, 1);
                 }]
             ];
-
         }
     }
 }]);
