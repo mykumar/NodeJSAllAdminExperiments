@@ -4,7 +4,7 @@
           <ul>
               <!-- Connections  -->
               <li ng-repeat="schemaLevel1 in schemaData" ng-click="showChilds(schemaLevel1)">
-                  <span focusable id="{{schemaLevel1.id}}">{{schemaLevel1.name}}</span>
+                  <span id="{{schemaLevel1.id}}" ng-keydown="keypress($event)">{{schemaLevel1.name}}</span>
                   <ul>
                       <!-- Databases  -->
                       <li ng-repeat="schemaLevel2 in schemaLevel1.children"  ng-show="schemaLevel1.active">

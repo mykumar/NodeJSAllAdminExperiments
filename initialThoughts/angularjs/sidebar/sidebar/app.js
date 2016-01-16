@@ -74,6 +74,12 @@ angular.module('myapp').directive("sidebar",['$compile', function($compile) {
             $scope.isArray = angular.isArray;  
             $scope.isObject =  angular.isObject;
 
+            $scope.keypress = function($event) {
+                $scope.lastKey = $event.keyCode
+                console.log('I am on the key press');
+
+          };
+
             // new simplied Menu 
             $scope.showChilds = function(item, item2){
                 console.log("THis is the showChilds");
