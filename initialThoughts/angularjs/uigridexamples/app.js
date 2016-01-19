@@ -28,10 +28,10 @@ myapp.controller('myCtrl', ['$scope', function ($scope) {
     $scope.gridOptions = {
             enableSorting: true,
             columnDefs: [
-              { name:'firstName', field: 'first-name' },
-              { name:'1stFriend', field: 'friends[0]' },
-              { name:'city', field: 'address.city'},
-              { name:'getZip', field: 'getZip()', enableCellEdit:false}
+                  { name:'firstName', field: 'first-name' },
+                  { name:'1stFriend', field: 'friends[0]' },
+                  { name:'city', field: 'address.city'},
+                  { name:'getZip', field: 'getZip()', enableCellEdit:false}
             ],
             data : $scope.jsonData
           };
@@ -39,10 +39,10 @@ myapp.controller('myCtrl', ['$scope', function ($scope) {
       //set gridApi on scope
       $scope.gridApi = gridApi;
       gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
-        //Do your REST call here via $http.get or $http.post
-        console.log('I am in the afterCellEdit'); 
-        console.dir(rowEntity);
-        //Alert to show what info about the edit is available
+          //Do your REST call here via $http.get or $http.post
+          console.log('I am in the afterCellEdit'); 
+          console.dir(rowEntity);
+          //Alert to show what info about the edit is available
       });
     };
 
