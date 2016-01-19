@@ -30,6 +30,9 @@ angular.module('myapp').directive("firstDirective",['$compile', function($compil
             $scope.firstCtrl = function() 
             {
               console.log('I am in the firstCtrl');
+              var obj = { number: 12121, title:'Dynamic Title 77777', content: 'Dynamic Title jskahdjkshdjksad', type: 0, active: 0};
+              $scope.tabs.push(obj);
+              console.dir($scope.tabs);
             }
         }
     }
