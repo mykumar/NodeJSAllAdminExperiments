@@ -26,7 +26,7 @@ angular.module('myapp').directive('directiveEvents', function() {
         $scope.fname = 'fname';
         $scope.lname = 'lname';
 
-        //see this two links for auto comletion
+        //see this two links for auto completion
         // http://plnkr.co/edit/6MVntVmXYUbjR0DI82Cr?p=preview
         // http://stackoverflow.com/questions/15019607/autocompletion-for-ace-editor
 

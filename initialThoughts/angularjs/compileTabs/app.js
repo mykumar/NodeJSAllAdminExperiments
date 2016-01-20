@@ -1,38 +1,55 @@
 var myapp = angular.module('myapp', ['ngAnimate', 'ui.bootstrap', 'ui.ace']);
-angular.module('myapp').directive("firstDirective",['$compile', function($compile) {
+angular.module('myapp').directive("nodeAllAdminTabs",['$compile', function($compile) {
     return {
-        templateUrl : './directives/firstdirective.html',
+        templateUrl : './directives/nodeAllAdminTabs.html',
          scope: {
             },
         controller: function ($scope) {
             $scope.tabs = [
                 { number: 0, title:'Dynamic Title 1', content: 'Dynamic Title 1', type: 0},
                 { number: 1, title:'Dynamic Title 2', content: 'Dynamic Title 2', type: 0},
-                { number: 2, title:'Dynamic Title 3', type: 1, dynamicContent: '<directive-events id="tab_1_546666"></directive-events>'},
+                { number: 2, title:'Dynamic Title 3', type: 1, dynamicContent: '<ace-editor id="tab_44_546666"></ace-editor>'},
             ];
-            var compileTabs = function() {
+            var compileTabs = function(tabIndex) {
               console.log('I am in the compileTabs');
-              for (i = 0; i < $scope.tabs.length; i++) {
-                if($scope.tabs[i].type) {
-                    console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^TAB TYPE^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^');
-                    var ele = $compile($scope.tabs[i].dynamicContent)($scope);
+              if(tabIndex) {
+                    console.log('I am in the tab index and index is ' + tabIndex);
+                    console.dir($scope.tabs[tabIndex]);
+                    var ele = $compile($scope.tabs[tabIndex].dynamicContent)($scope);
                     console.log(ele);
-                    angular.element(document.querySelector('#content' + i)).append(ele);
+                    console.log('#content' + $scope.tabs[tabIndex].number);
+                    console.log('----------------------------------------------');
+                    console.dir(document.querySelector('#content' + $scope.tabs[tabIndex].number));
+                    console.log('----------------------------------------------');
+                    angular.element(document.querySelector('#content' + $scope.tabs[tabIndex].number)).append(ele);
+              } else {
+                  for (i = 0; i < $scope.tabs.length; i++) {
+                    if($scope.tabs[i].type) {
+                        console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^TAB TYPE^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^');
+                        var ele = $compile($scope.tabs[i].dynamicContent)($scope);
+                        console.log(ele);
+                        angular.element(document.querySelector('#content' + i)).append(ele);
+                    }      
+                  }
                 }      
-              }
             };
-            $scope.$evalAsync(function() {
-              angular.element(document).ready(function() {
-                console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^evalAsync^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^');
-                compileTabs(); 
-              });  
-            }); 
+            
+            var compileTabsAsync = function(tabIndex) {
+                $scope.$evalAsync(function() {
+                  angular.element(document).ready(function() {
+                    console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^evalAsync^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^');
+                    compileTabs(tabIndex); 
+                  });  
+                }); 
+            };    
+            compileTabsAsync();
             $scope.firstCtrl = function() 
             {
               console.log('I am in the firstCtrl');
-              var obj = { number: 12121, title:'Dynamic Title 77777', content: 'Dynamic Title jskahdjkshdjksad', type: 0, active: 0};
-              $scope.tabs.push(obj);
+              var obj = { number: 34, title:'Dynamic Title 555', type: 1, dynamicContent: '<ace-editor id="tab_3_88888"></ace-editor>'};
+              $currentTabIndex = $scope.tabs.push(obj);
               console.dir($scope.tabs);
+              compileTabsAsync($currentTabIndex - 1);
             }
         }
     }
@@ -47,7 +64,7 @@ angular.module('myapp').directive("secondDirective",['$compile', function($compi
          } 
     }
 }]);  
-angular.module('myapp').directive('directiveEvents',['$compile', function($compile) {
+angular.module('myapp').directive('aceEditor',['$compile', function($compile) {
   return {
     // require: 'ui.ace',
     scope: {},

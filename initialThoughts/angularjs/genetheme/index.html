@@ -15,9 +15,9 @@
     <link href="lib/components-font-awesome/css/font-awesome.css" rel="stylesheet">
     <!-- Custom styling plus plugins -->
     <link href="css/custom.css" rel="stylesheet">
-    
+    <link href="lib/angular-ui-grid/ui-grid.css" rel="stylesheet">
     <!--[if lt IE 9]>
-        <script src="../assets/js/ie8-responsive-file-warning.js"></script>
+            <script src="../assets/js/ie8-responsive-file-warning.js"></script>
         <![endif]-->
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -25,6 +25,15 @@
           <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
           <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
+    <style>
+        .ace_editor { 
+            height: 200px; 
+        }
+        .grid {
+            width: 600px;
+            height: 600px;
+        }
+    </style>    
 
 </head>
 
@@ -46,25 +55,34 @@
                 <!-- footer content -->
                 <footer></footer>
                 <!-- /footer content -->
-            </div>        
+            </div>    
     </div>        
 </body>
   
 
-<script src="lib/jquery/dist/jquery.js"></script>
-
+<!-- <script src="lib/jquery/dist/jquery.js"></script> -->
 <script src="lib/angular/angular.js"></script>
 <script src="lib/angular-animate/angular-animate.js"></script>
-<script src="lib/angular-bootstrap/ui-bootstrap-tpls.js"></script>
 
+<script src="lib/ace-builds/src-min-noconflict/ace.js"></script>
+<script src="lib/angular-ui-ace/ui-ace.js"></script>
+<script src="lib/ace-builds/src-min-noconflict/ext-language_tools.js"></script>
+<script src="lib/ace-builds/src-min-noconflict/mode-markdown.js"></script>
+<script src="lib/ace-builds/src-min-noconflict/theme-xcode.js"></script>
 <script src="lib/angular-sanitize/angular-sanitize.js"></script>
+<script src="lib/angular-ui-grid/ui-grid.js"></script>
+<script src="lib/angular-bootstrap/ui-bootstrap-tpls.js"></script>
 <script src="lib/angular-ui-router/release/angular-ui-router.js"></script>
 <script src="app.js"></script>
-<script src="directives/js/sidebar.js"></script>
-<script src="directives/js/topNavigation.js"></script>
-<script src="directives/js/pageContent.js"></script>
-<script src="directives/js/footer.js"></script>
 
-<script src="js/leftmenu.js"></script>
+<script src="directives/js/content/sidebar.js"></script>
+<script src="directives/js/content/topNavigation.js"></script>
+<script src="directives/js/content/pageContent.js"></script>
+<script src="directives/js/content/footer.js"></script>
+<script src="directives/js/lib/nodeAllAdminTabs.js"></script>
+<script src="directives/js/lib/aceEditor.js"></script>
+<script src="directives/js/lib/nodeAllAdminGrid.js"></script>
+
+<!-- <script src="js/leftmenu.js"></script> -->
 </body>
 </html>
