@@ -6,3 +6,5 @@ google-chrome  --allow-file-access-from-files
 
 
 http://jsfiddle.net/yaprak/3mcA6/
+
+http://techfunda.com/howto/565/http-post-server-request
