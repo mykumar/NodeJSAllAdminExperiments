@@ -11,6 +11,13 @@ angular.module('nodeAllAdmin').directive("sidebar",['$compile', 'communcationSer
             $scope.clicker = function() {
               console.log('I am in the clicker');
             }
+            $scope.$on('handleBroadcast', function (event, args) {
+                console.log('@@@@@@@@@@@@@@@@@@@@@@@@@sidebar-------------------sidebar');
+                console.dir(args);
+                console.dir('-----------------------------------------------');
+                console.dir(communcationService.message);
+                console.dir('+++++++++++++++++++++++++++++++++++++++++++++++++');
+            });
         }
     };
 }]);

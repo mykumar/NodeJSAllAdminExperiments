@@ -1,4 +1,4 @@
-angular.module('nodeAllAdmin').directive("nodeAllAdminTabs",['$compile', function($compile) {
+angular.module('nodeAllAdmin').directive("nodeAllAdminTabs",['$compile', 'communcationService', function($compile, communcationService) {
     return {
         templateUrl : './directives/html/lib/nodeAllAdminTabs.html',
          scope: {
@@ -49,6 +49,11 @@ angular.module('nodeAllAdmin').directive("nodeAllAdminTabs",['$compile', functio
               $currentTabIndex = $scope.tabs.push(obj);
               console.dir($scope.tabs);
               compileTabsAsync($currentTabIndex - 1);
+
+              console.dir('->->->->->->->->->->->->->->->->->->->->->->->->->->->->->->->->->->');
+              communcationService.prepForBroadcast('This is the node all tabs from the communcation service');
+              console.dir('->->->->->->->->->->->->->->->->->->->->->->->->->->->->->->->->->->');
+          
             }
         }
     }

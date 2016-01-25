@@ -14,6 +14,9 @@ angular.module('nodeAllAdmin').directive("pageContent",['$compile', 'communcatio
                 console.dir('-----------------------------------------------');
                 console.dir(communcationService.message);
                 console.dir('+++++++++++++++++++++++++++++++++++++++++++++++++');
+                console.dir('-----------------------------------------------');
+                console.dir(communcationService.databaseType);
+                console.dir('+++++++++++++++++++++++++++++++++++++++++++++++++');
             });
         }
     };

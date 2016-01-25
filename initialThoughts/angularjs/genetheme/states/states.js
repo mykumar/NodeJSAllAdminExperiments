@@ -1,6 +1,6 @@
 angular.module('nodeAllAdmin').config(['$stateProvider','$urlRouterProvider','$ocLazyLoadProvider',
 	function ($stateProvider,$urlRouterProvider,$ocLazyLoadProvider) {
-    
+
 	    $ocLazyLoadProvider.config({
 	      debug:false,
 	      events:true,
@@ -12,12 +12,8 @@ angular.module('nodeAllAdmin').config(['$stateProvider','$urlRouterProvider','$o
 		    .state('relational', {
 		      url: "/relational/:databaseType",
 		      templateUrl: "states/html/relational.html",
-		      controller: function ($stateParams) {
-			        // If we got here from a url of /contacts/42
-			       	console.dir('&*&*&*&*&*&&**&&&&&&&&**********I am in the relational state ');
-			       	console.dir($stateParams.databaseType);
-		       },
 		      resolve: {
+		            communcationService: 'communcationService',
 		            loadMyDirectives:function($ocLazyLoad){
 		                return $ocLazyLoad.load(
 		                {
@@ -55,7 +51,14 @@ angular.module('nodeAllAdmin').config(['$stateProvider','$urlRouterProvider','$o
 		                   files:['directives/js/lib/aceEditor.js']
 		                })
 		            }
-		        }
+		        },
+		        controller: function ($stateParams, communcationService) {
+			        // If we got here from a url of /contacts/42
+			       	console.dir('&*&*&*&*&*&&**&&&&&&&&**********I am in the relational state ');
+			       	console.dir($stateParams.databaseType);
+			       	communcationService.databaseType = $stateParams.databaseType;
+			       	communcationService.message = "abc";
+		       }
 		      
 		    });
 
