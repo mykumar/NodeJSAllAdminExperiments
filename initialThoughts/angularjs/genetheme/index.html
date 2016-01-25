@@ -39,22 +39,7 @@
 
 <body ng-controller="mainController" class="nav-md">
     <div class="container body">
-            <div class="main_container">
-                <!-- sidebar menu --> 
-                <sidebar></sidebar>
-                <!-- sidebar menu -->            
-                                        
-                <!-- top navigation -->
-                <top-navigation></top-navigation>
-                <!-- top navigation -->
-
-                <!-- page content -->
-                <page-content></page-content>
-                <!-- /page content -->
-
-                <!-- footer content -->
-                <footer></footer>
-                <!-- /footer content -->
+            <div class="main_container" ui-view>
             </div>    
     </div>        
 </body>
@@ -73,15 +58,10 @@
 <script src="lib/angular-ui-grid/ui-grid.js"></script>
 <script src="lib/angular-bootstrap/ui-bootstrap-tpls.js"></script>
 <script src="lib/angular-ui-router/release/angular-ui-router.js"></script>
+<script src="lib/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+<script src="lib/oclazyload/dist/ocLazyLoad.js"></script>
 <script src="app.js"></script>
 
-<script src="directives/js/content/sidebar.js"></script>
-<script src="directives/js/content/topNavigation.js"></script>
-<script src="directives/js/content/pageContent.js"></script>
-<script src="directives/js/content/footer.js"></script>
-<script src="directives/js/lib/nodeAllAdminTabs.js"></script>
-<script src="directives/js/lib/aceEditor.js"></script>
-<script src="directives/js/lib/nodeAllAdminGrid.js"></script>
 
 <!-- <script src="js/leftmenu.js"></script> -->
 </body>

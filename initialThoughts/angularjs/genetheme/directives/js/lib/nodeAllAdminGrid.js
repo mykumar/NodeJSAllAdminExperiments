@@ -20,7 +20,7 @@ angular.module('nodeAllAdmin').directive('nodeAllAdminGrid',['$compile', functio
 		                           },
 		                           {
 		                               "id":66664444,
-		                               "first-name": "John Smith",
+		                               "first-name": "susie",
 		                               "friends": ["friend0"],
 		                               "address": {street:"301 Dove Ave", city:"Laurel", zip:"39565"},
 		                               "getZip" : function() {return this.address.zip;}
@@ -50,7 +50,7 @@ angular.module('nodeAllAdmin').directive('nodeAllAdminGrid',['$compile', functio
 		      $scope.gridApi = gridApi;
 		      gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
 		          //Do your REST call here via $http.get or $http.post
-		          console.log('I am in the afterCellEdit'); 
+		          console.log('I am in the afterCellEdit-------------new'); 
 		          console.dir(rowEntity);
 		          //Alert to show what info about the edit is available
 		      });
