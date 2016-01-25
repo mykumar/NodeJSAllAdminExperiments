@@ -11,9 +11,10 @@ myModule.factory('mySharedService', function($rootScope) {
 
     sharedService.broadcastItem = function() {
         console.log('I am in the mySharedService -- broadcastItem');
-        $rootScope.$broadcast('handleBroadcast');
+        var message2 = {type: 'channel', action: 'create', data: { name: "hot", id: 0}};
+        console.dir(message2);
+        $rootScope.$broadcast('handleBroadcast', message2);
     };
-
     return sharedService;
 });
 myModule.factory('mySharedService2', ['$rootScope', 'mySharedService', function($rootScope, sharedService) {
@@ -34,8 +35,10 @@ myModule.directive('myComponent', function(mySharedService) {
     return {
         restrict: 'E',
         controller: function($scope, $attrs, mySharedService) {
-            $scope.$on('handleBroadcast', function() {
-                console.log('I am in the myComponent --- controller');
+            $scope.$on('handleBroadcast', function (event, args) {
+                console.log('--------I am in the myComponent---controller-----------');
+                console.dir(args);
+                console.dir('-----------------------------------------------');
                 $scope.message = 'Directive: ' + mySharedService.message;
             });
         },
@@ -47,20 +50,26 @@ function ControllerZero($scope, sharedService) {
     $scope.handleClick = function(msg) {
         sharedService.prepForBroadcast(msg);
     };
-    $scope.$on('handleBroadcast', function() {
-        console.log('I am in the ControllerZero --- handleBroadcast');
+    $scope.$on('handleBroadcast', function (event, args) {
+        console.log('--------I am in the myComponent---controller-----------');
+        console.dir(args);
+        console.dir('-----------------------------------------------');
         $scope.message = sharedService.message;
     });
 }
 function ControllerOne($scope, sharedService) {
-    $scope.$on('handleBroadcast', function() {
+    $scope.$on('handleBroadcast', function (event, args) {
         console.log('I am in the ControllerOne --- handleBroadcast');
+        console.dir(args);
+        console.dir('-----------------------------------------------');
         $scope.message = 'ONE: ' + sharedService.message;
     });
 }
 function ControllerTwo($scope, sharedService) {
-    $scope.$on('handleBroadcast', function() {
+    $scope.$on('handleBroadcast', function (event, args) {
         console.log('I am in the ControllerTwo --- handleBroadcast');
+        console.dir(args);
+        console.dir('-----------------------------------------------');
         $scope.message = 'TWO: ' + sharedService.message;
     });
 }
