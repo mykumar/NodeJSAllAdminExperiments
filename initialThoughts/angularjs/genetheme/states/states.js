@@ -42,8 +42,8 @@ angular.module('nodeAllAdmin').config(['$stateProvider','$urlRouterProvider','$o
 		                }),
 		                $ocLazyLoad.load(
 		                {
-		                   name:'node-all-admin-grid',
-		                   files:['directives/js/lib/nodeAllAdminGrid.js']
+		                   name:'node-all-admin-grid-tabs',
+		                   files:['directives/js/lib/nodeAllAdminGridTabs.js']
 		                }), //
 		                $ocLazyLoad.load(
 		                {
