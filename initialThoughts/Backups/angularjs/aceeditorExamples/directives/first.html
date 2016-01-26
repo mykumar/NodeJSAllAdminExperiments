@@ -1,0 +1,22 @@
+First name: <input type="text" ng-model="fname"><br>
+Last name: <input type="text" ng-model="lname" ng-change="onChange()"><br>
+{{$parent.scopeIsoDirectiveVar}}
+{{fname + " " + lname}} 
+ <div ui-ace="{
+              useWrapMode : true,
+              showGutter: false,
+              theme:'twilight',
+              mode: 'xml',
+              firstLineNumber: 5,
+              onLoad: aceLoaded,
+              onChange: aceChanged,
+              require: ['ace/ext/language_tools'],
+              advanced: {
+                  enableSnippets: true,
+                  enableBasicAutocompletion: true,
+                  enableLiveAutocompletion: true,
+                  
+                  fontSize: '25px'
+              }
+            }">
+</div>

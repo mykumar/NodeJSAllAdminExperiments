@@ -1,0 +1,14 @@
+<uib-tabset>
+      <uib-tab heading="Schemas">
+        	This is tab One Schemas
+        	<ul class="list-group">
+				  <li class="list-group-item" ng-repeat="(key, item) in schemaData" ng-include="'list.html'"></li>
+			</ul>
+      </uib-tab>
+      <uib-tab heading="Management" >
+        	This is tab One Management
+        	<ul class="list-group">
+				  <li class="list-group-item" ng-repeat="(key, item) in managementData" ng-include="'list.html'"></li>
+			</ul>
+      </uib-tab>
+</uib-tabset>

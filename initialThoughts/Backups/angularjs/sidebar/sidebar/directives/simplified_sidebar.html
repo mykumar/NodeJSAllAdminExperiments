@@ -1,0 +1,54 @@
+<uib-tabset>
+      <uib-tab heading="Schemas">
+        	This is tab One Schemas
+          <ul>
+              <!-- Connections  -->
+              <li ng-repeat="schemaLevel1 in schemaData" ng-click="showChilds(schemaLevel1)">
+                  <span id="{{schemaLevel1.id}}" ng-keydown="keypress($event)">{{schemaLevel1.name}}</span>
+                  <ul>
+                      <!-- Databases  -->
+                      <li ng-repeat="schemaLevel2 in schemaLevel1.children"  ng-show="schemaLevel1.active">
+                          <span focusable id="{{schemaLevel2.id}}">{{schemaLevel2.name}}</span>
+                          <ul>
+                              <!-- Tables, views etc  -->
+                              <li ng-repeat="schemaLevel3 in schemaLevel2.children" >
+                                  <span focusable id="{{schemaLevel3.id}}">{{schemaLevel3.name}}</span>
+                                  <ul>
+                                    <li ng-repeat="schemaLevel4 in schemaLevel3.children">
+                                        <span focusable id="{{schemaLevel4.id}}">{{schemaLevel4.name}}</span>
+                                    </li>
+                                  </ul>
+                              </li>
+                          </ul>
+                      </li>
+                  </ul>
+                </li>
+              </ul>                          
+      </uib-tab>
+      <uib-tab heading="Management">
+          This is tab One Schemas
+          <ul>
+              <!-- Connections  -->
+              <li ng-repeat="mngLevel1 in managementData" ng-click="showChilds(mngLevel1)">
+                  <span focusable id="{{mngLevel1.id}}">{{mngLevel1.name}}</span>
+                  <ul>
+                      <!-- Databases  -->
+                      <li ng-repeat="mngLevel2 in mngLevel1.children"  ng-show="mngLevel1.active">
+                          <span focusable id="{{mngLevel2.id}}">{{mngLevel2.name}}</span>
+                          <ul>
+                              <!-- Tables, views etc  -->
+                              <li ng-repeat="mngLevel3 in mngLevel2.children" >
+                                  <span focusable id="{{mngLevel3.id}}">{{mngLevel3.name}}</span>
+                                  <ul>
+                                    <li ng-repeat="mngLevel4 in mngLevel3.children">
+                                        <span focusable id="{{mngLevel4.id}}">{{mngLevel4.name}}</span>
+                                    </li>
+                                  </ul>
+                              </li>
+                          </ul>
+                      </li>
+                  </ul>
+                </li>
+              </ul>                          
+      </uib-tab>
+</uib-tabset>

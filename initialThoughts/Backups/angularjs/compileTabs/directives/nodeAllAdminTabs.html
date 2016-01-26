@@ -1,0 +1,9 @@
+<uib-tabset>
+      <uib-tab ng-repeat="tab in tabs track by $index" heading="{{tab.title}}">
+        <div id="content{{tab.number}}"></div>
+        	{{tab.content}}
+        <div>
+      </uib-tab>
+
+      <button type="button" ng-click="firstCtrl()">Click Me!</button>
+  </uib-tabset>

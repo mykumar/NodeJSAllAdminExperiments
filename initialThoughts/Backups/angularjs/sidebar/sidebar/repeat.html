@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+<div ng-app="myApp" ng-controller="myCtrl">
+
+    <ul ng-repeat="(L1key,L1value) in schemaData"> 
+        <div ng-if="isArray(L1value)">
+        <!-- {{L1key}} -->
+        <!-- {{L1value}}  -->
+          <div ng-repeat="L2value in L1Value">  
+             {{L2value}} 
+            <div ng-if="isArray(L2value)"> 
+                <ul ng-repeat="(L3key,L3value) in L2Value">  
+                  <div ng-if="isArray(L3value)"> 
+                  </div>
+                  <div ng-if="!isArray(L3value)">
+                      {{L3value}}
+                  </div>  
+                </ul>
+            </div>     
+            <div ng-if="!isArray(L2value)">
+                <ul>{{L2value}}</ul>
+            </div> 
+          </dv>  
+        </div>
+        <div ng-if="!isArray(L1value)">
+            {{L1value}} 
+        </div> 
+    </ul>
+</div>
+<script src="lib/angular/angular.js"></script>
+<script>
+var app = angular.module('myApp', []);
+app.controller('myCtrl', function($scope) {
+
+  var schemaJsonData = {
+       "connectionName":"connection",
+       "connections":[
+          {
+             "name":"connection",
+             "databases":[
+                {
+                   "name":"information_schema",
+                   "tables":[
+
+                   ],
+                   "views":[
+
+                   ],
+                   "storedProcedures":[
+
+                   ],
+                   "functions":[
+
+                   ]
+                },
+                {
+                   "name":"mysql",
+                   "tables":[
+
+                   ],
+                   "views":[
+
+                   ],
+                   "storedProcedures":[
+
+                   ],
+                   "functions":[
+
+                   ]
+                },
+                {
+                   "name":"performance_schema",
+                   "tables":[
+
+                   ],
+                   "views":[
+
+                   ],
+                   "storedProcedures":[
+
+                   ],
+                   "functions":[
+
+                   ]
+                },
+                {
+                   "name":"timetrack",
+                   "tables":[
+                      {
+                         "name":"employee",
+                         "columns":[
+                            {
+                               "name":"idemployee"
+                            },
+                            {
+                               "name":"name"
+                            },
+                            {
+                               "name":"salary"
+                            },
+                            {
+                               "name":"age"
+                            }
+                         ],
+                         "indexes":[
+
+                         ],
+                         "foreignKeys":[
+
+                         ],
+                         "triggers":[
+
+                         ]
+                      },
+                      {
+                         "name":"work",
+                         "columns":[
+                            {
+                               "name":"id"
+                            },
+                            {
+                               "name":"hours"
+                            },
+                            {
+                               "name":"date"
+                            },
+                            {
+                               "name":"archived"
+                            },
+                            {
+                               "name":"description"
+                            }
+                         ],
+                         "indexes":[
+
+                         ],
+                         "foreignKeys":[
+
+                         ],
+                         "triggers":[
+
+                         ]
+                      }
+                   ],
+                   "views":[
+
+                   ],
+                   "storedProcedures":[
+
+                   ],
+                   "functions":[
+
+                   ]
+                }
+             ]
+          }
+       ]
+    };
+  $scope.schemaData = schemaJsonData;
+  $scope.isArray = angular.isArray;
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+
+<head>
+    <title>AngularJS: UI-Router Quick Start</title>
+    <!-- Bootstrap CSS -->
+    <link href="lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+    
+</head>
+
+<body ng-controller="myCtrl">
+  
+  PARENT CONTROLLER VARIABLE : {{controllerVar}} 
+  <br />
+  <br />
+  SCOPE FALSE DIRECTIVE TEMPLATE OUPUT IN PARENT CONTROL:: {{scopeFalseDirectiveVar}}
+  <br />
+  <br />
+  SCOPE TRUE DIRECTIVE TEMPLATE OUPUT IN PARENT CONTROL:: {{scopeTrueDirectiveVar}} 
+  <br />
+  <br />
+  SCOPE ISO DIRECTIVE TEMPLATE OUPUT IN PARENT CONTROL:: {{scopeIsoDirectiveVar}} 
+  <br />
+  <br />
+  <scope-false></scope-false>
+  <br />
+  <br />
+  <scope-true></scope-true>
+  <br />
+  <br />
+  <scope-iso></scope-iso>
+  <br />
+  <br />
+  PARENT CONTROLLER VARIABLE : {{controllerVar}} 
+  <br />
+  <br />
+  <directive-events></directive-events>
+
+
+<script src="lib/angular/angular.js"></script>
+<script src="lib/angular-animate/angular-animate.js"></script>
+<script src="lib/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+<script src="lib/angular-bootstrap-contextmenu/contextMenu.js"></script>
+
+<script src="lib/angular-sanitize/angular-sanitize.js"></script>
+<script src="lib/angular-ui-router/release/angular-ui-router.js"></script>
+<script src="app.js"></script>
+
+</body>
+</html>
