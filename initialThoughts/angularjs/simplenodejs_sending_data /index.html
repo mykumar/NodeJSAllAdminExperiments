@@ -16,29 +16,83 @@ Full Name: {{firstName + " " + lastName}}
 
 <script>
 var app = angular.module('myApp', []);
-app.controller('myCtrl', function($scope, $http) {
+
+// app.service('MyService', function($http) {
+// 	this.createHttpRequest = function (requestType,requestUrl ) {
+// 		console.dir('I am in the createHttpRequest');
+// 		return $http({
+// 		  method: 'GET',
+// 		  url: requestUrl
+// 		});
+// 	};
+
+//     this.sendRequest = function() {
+//     	console.dir('I am sendRequest');
+//     	var data = {};
+//     	// this.createHttpRequest('GET', 'http://localhost:3000/json')
+//     	$http({
+// 		  method: 'GET',
+// 		  url: 'http://localhost:3000/json'
+// 		}).then(
+// 			function successCallback(response) {
+// 				console.dir('This is the response -- promise');
+// 			    console.dir(response);
+// 			    angular.extend(data, response);
+// 			}, function errorCallback(response) {
+// 			    console.dir('This is the error');
+// 			    console.dir(response);
+// 			    angular.extend(data, response);
+// 	  		}
+// 	  	);
+// 		return data;
+//     };
+//     this.addition = function(a,b) {
+//     	return a+b;
+//     }; 
+// });
+
+app.service('MyService', function($http) {
+    this.sendRequest = function() {
+        // You should return $http's result
+        // $http will return a promise
+        return $http({
+          method: 'GET',
+          url: 'http://localhost:3000/json'
+        }).then(
+            function successCallback(response) {
+                console.dir('This is the response');
+                console.dir(response);
+                return response.data;
+            }, function errorCallback(response) {
+                console.dir('This is the error');
+                console.dir(response);
+                return response;
+            }
+        );
+    };
+    this.addition = function(a,b) {
+        return a+b;
+    }; 
+});
+
+app.controller('myCtrl', function($scope, MyService) {
     $scope.firstName = "John";
     $scope.lastName = "Doe";
+    console.dir(MyService.addition(4,5));
+    // var a = MyService.sendRequest();
+    // console.dir("Main program " + a);
+    // $scope.content = a;
+    var a = {}; 
+    MyService.sendRequest().then(function success(data){
+       // here you will get your server data
+       console.dir('This is main program suig the promises ' );
+       console.dir(data);
+      $scope.content = data;
+    }, function error(){
 
-    $http({
-	  method: 'GET',
-	  url: 'http://localhost:3000/json'
-	}).then(
-		function successCallback(response) {
-			console.dir('This is the response');
-		    console.dir(response.data);
-		    console.dir(response.status);
-		    console.dir(response.statusText);
-		    console.dir(response.config);
-		    console.dir(response.headers);
-		    $scope.content = response;
-		}, function errorCallback(response) {
-		    console.dir('This is the error');
-		    console.dir(response);
-		    $scope.content = response;
-  		}
-  	);
-
+    });
+    console.dir("Main program " + a);
+    $scope.content = a;
 });
 </script>
 

@@ -41,12 +41,12 @@ app.get('/', function (req, res) {
   res.sendFile(__dirname + '/index.html');
 });
 app.get('/json', function (req, res) {
-  res.sendFile(__dirname + '/first.json');
+  console.log('Welcome to My Console,');
+  setTimeout(function() {
+      console.log('Blah blah blah blah extra-blah');
+      res.sendFile(__dirname + '/first.json');
+  }, 3);
 });
-
-//http://127.0.0.1:3000/json
-
-
 
 
 app.listen(3000, function () {
