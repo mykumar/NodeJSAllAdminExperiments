@@ -13,9 +13,14 @@ angular.module('nodeAllAdmin').config(['$stateProvider','$urlRouterProvider','$o
 		      url: "/relational/:databaseType",
 		      templateUrl: "/genetheme/states/html/relational.html",
 		      resolve: {
-		            communcationService: 'communcationService',
+		            communcationService1: 'communcationService',
 		            loadMyDirectives:function($ocLazyLoad){
 		                return $ocLazyLoad.load(
+		                {
+		                   name:'top-navigation',
+		                   files:['/genetheme/directives/js/content/topNavigation.js']
+		                }),
+		                $ocLazyLoad.load(
 		                {
 		                    name:'sidebar',
 		                    files:['/genetheme/directives/js/content/sidebar.js']
@@ -54,8 +59,8 @@ angular.module('nodeAllAdmin').config(['$stateProvider','$urlRouterProvider','$o
 		        },
 		        controller: function ($stateParams, communcationService) {
 			        // If we got here from a url of /contacts/42
-			       	console.dir('&*&*&*&*&*&&**&&&&&&&&**********I am in the relational state ');
-			       	console.dir($stateParams.databaseType);
+			       	//console.dir('&*&*&*&*&*&&**&&&&&&&&**********I am in the relational state ');
+			       	//console.dir($stateParams.databaseType);
 			       	communcationService.databaseType = $stateParams.databaseType;
 			       	communcationService.message = "abc";
 		       }

@@ -2,7 +2,7 @@
 var express = require('express');
 var app = express();
 
-
+app.use('/', express.static(__dirname));
 
 app.all('*', function(req, res,next) {
     /**
@@ -38,7 +38,7 @@ app.all('*', function(req, res,next) {
 
 
 app.get('/', function (req, res) {
-  res.send('Hello World Express!');
+  res.sendFile(__dirname + '/index.html');
 });
 app.get('/json', function (req, res) {
   res.sendFile(__dirname + '/first.json');

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<script src="lib/angular/angular.js"></script>
+<body>
+
+<div ng-app="myApp" ng-controller="myCtrl">
+
+First Name: <input type="text" ng-model="firstName"><br>
+Last Name: <input type="text" ng-model="lastName"><br>
+<br>
+Full Name: {{firstName + " " + lastName}}
+
+<br><br><br><br><br><br><br><br><br>
+<p>The content is {{content}}</p>
+</div>
+
+<script>
+var app = angular.module('myApp', []);
+app.controller('myCtrl', function($scope, $http) {
+    $scope.firstName = "John";
+    $scope.lastName = "Doe";
+
+    $http({
+	  method: 'GET',
+	  url: 'http://localhost:3000/json'
+	}).then(
+		function successCallback(response) {
+			console.dir('This is the response');
+		    console.dir(response.data);
+		    console.dir(response.status);
+		    console.dir(response.statusText);
+		    console.dir(response.config);
+		    console.dir(response.headers);
+		    $scope.content = response;
+		}, function errorCallback(response) {
+		    console.dir('This is the error');
+		    console.dir(response);
+		    $scope.content = response;
+  		}
+  	);
+
+});
+</script>
+
+</body>
+</html>

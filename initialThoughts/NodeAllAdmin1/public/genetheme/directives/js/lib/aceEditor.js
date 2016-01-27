@@ -5,8 +5,8 @@ angular.module('nodeAllAdmin').directive('aceEditor',['$compile', function($comp
     // restrict: 'E',
     templateUrl: '/genetheme/directives/html/lib/aceEditor.html',
     link: function (scope, element, attrs) {
-         console.log('This is the link+++++++++++++++++++++++++++++++++++++++++++++++++++++');   
-         console.dir(element[0].id);
+         //console.log('This is the link+++++++++++++++++++++++++++++++++++++++++++++++++++++');   
+         //console.dir(element[0].id);
          scope.id = element[0].id;
     },
     controller: function ($scope) {
@@ -38,9 +38,9 @@ angular.module('nodeAllAdmin').directive('aceEditor',['$compile', function($comp
         // }; 
 
         $scope.executeSelectedLine = function() {
-            // console.log('I am in the executeSelectedLine callback function');
-            // console.log($scope);
-            // console.log($scope.tmpValue);
+            // //console.log('I am in the executeSelectedLine callback function');
+            // //console.log($scope);
+            // //console.log($scope.tmpValue);
 
             var selectionRange = $scope.editor.getSelectionRange();
 
@@ -48,8 +48,8 @@ angular.module('nodeAllAdmin').directive('aceEditor',['$compile', function($comp
             var endLine = selectionRange.end.row;
 
             var content = $scope.editor.session.getTextRange(selectionRange);
-            console.log('----------------------------------------------------This is the selected line----------------------------------------------------');
-            console.log(content);
+            //console.log('----------------------------------------------------This is the selected line----------------------------------------------------');
+            //console.log(content);
         };
 
         $scope.aceLoaded = function(_editor) {
@@ -57,7 +57,7 @@ angular.module('nodeAllAdmin').directive('aceEditor',['$compile', function($comp
                     var _renderer = _editor.renderer;    
                     
                     // Options
-                    console.log('I am in the aceLoaded');
+                    //console.log('I am in the aceLoaded');
                     _editor.$blockScrolling = Infinity
                     _editor.commands.addCommand({
                         name: "executeSelectedLine",
@@ -65,11 +65,11 @@ angular.module('nodeAllAdmin').directive('aceEditor',['$compile', function($comp
                         bindKey: {mac: "cmd-x", win: "ctrl-x"}
                     });
                     _editor.commands.on("afterExec", function(e){ 
-                        console.log('This is the after executaion');
-                        console.log(e.command.name);
-                        console.log(e.args);
-                        console.log('+++++++++++++++++++++++++++This is the ID+++++++++++++++++++++++++++++++++++++');
-                        console.log($scope.id); 
+                        //console.log('This is the after executaion');
+                        //console.log(e.command.name);
+                        //console.log(e.args);
+                        //console.log('+++++++++++++++++++++++++++This is the ID+++++++++++++++++++++++++++++++++++++');
+                        //console.log($scope.id); 
                     });    
 
                     _session.setUndoManager(new ace.UndoManager());
@@ -109,7 +109,7 @@ angular.module('nodeAllAdmin').directive('aceEditor',['$compile', function($comp
 
                 $scope.onChange = function() {
                    //alert('change');
-                   console.log('I am the onChange');
+                   //console.log('I am the onChange');
                 };
         }
     }

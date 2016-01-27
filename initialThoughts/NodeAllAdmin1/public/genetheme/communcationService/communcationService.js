@@ -1,6 +1,6 @@
 angular.module('nodeAllAdmin').factory('communcationService', function($rootScope) {
     var communcationService = {};
-    console.dir('@@@@@@@@@@@@communcationService-----------------------------');
+    //console.dir('@@@@@@@@@@@@communcationService-----------------------------');
     communcationService.message = '';
     communcationService.databaseType = '';
 
@@ -10,9 +10,9 @@ angular.module('nodeAllAdmin').factory('communcationService', function($rootScop
     };
 
     communcationService.broadcastItem = function() {
-        console.log('I am in the mySharedService -- broadcastItem');
+        //console.log('I am in the mySharedService -- broadcastItem');
         var message2 = {type: 'channel', action: 'create', data: { name: "hot", id: 0}};
-        console.dir(message2);
+        //console.dir(message2);
         $rootScope.$broadcast('handleBroadcast', message2);
     };
     return communcationService;
