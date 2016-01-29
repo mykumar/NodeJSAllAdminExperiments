@@ -5,8 +5,7 @@ var myapp = angular.module('nodeAllAdmin', ['ngAnimate',
 
 angular.module('nodeAllAdmin').controller('mainController', function($scope) {
   console.log('++++++++++++++++++++++++++++++=I am in the mainController');
-  console.log = function() {};
-  console.dir = function() {};
-
+  // console.log = function() {};
+  // console.dir = function() {};
 });    
 
