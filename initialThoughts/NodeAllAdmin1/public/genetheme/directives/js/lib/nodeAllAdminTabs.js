@@ -10,25 +10,25 @@ angular.module('nodeAllAdmin').directive("nodeAllAdminTabs",['$compile', 'commun
                 { number: 2, title:'Dynamic Title 3', type: 1, dynamicContent: '<ace-editor id="tab_44_546666"></ace-editor>'},
             ];
             var compileTabs = function(tabIndex) {
-              //console.log('I am in the compileTabs');
+              console.log('I am in the compileTabs');
               if(tabIndex) {
-                    //console.log('I am in the tab index and index is ' + tabIndex);
-                    //console.dir($scope.tabs[tabIndex]);
+                    console.log('I am in the tab index and index is ' + tabIndex);
+                    console.dir($scope.tabs[tabIndex]);
                     var ele = $compile($scope.tabs[tabIndex].dynamicContent)($scope);
-                    //console.log(ele);
-                    //console.log('#content' + $scope.tabs[tabIndex].number);
-                    //console.log('----------------------------------------------');
-                    //console.dir(document.querySelector('#content' + $scope.tabs[tabIndex].number));
-                    //console.log('----------------------------------------------');
+                    console.log(ele);
+                    console.log('#content' + $scope.tabs[tabIndex].number);
+                    console.log('----------------------------------------------');
+                    console.dir(document.querySelector('#content' + $scope.tabs[tabIndex].number));
+                    console.log('----------------------------------------------');
                     angular.element(document.querySelector('#content' + $scope.tabs[tabIndex].number)).append(ele);
               } else {
                   for (i = 0; i < $scope.tabs.length; i++) {
                     if($scope.tabs[i].type) {
-                      //console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^TAB TYPE^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^');
+                      console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^TAB TYPE^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^');
                       var ele = $compile($scope.tabs[i].dynamicContent)($scope);
-                      //console.log(ele);
+                      console.log(ele);
                       angular.element(document.querySelector('#content' + i)).append(ele);
-                      //console.dir(document.querySelector('#content' + i));
+                      console.dir(document.querySelector('#content' + i));
                     }      
                   }
                 }      
@@ -36,7 +36,7 @@ angular.module('nodeAllAdmin').directive("nodeAllAdminTabs",['$compile', 'commun
             var compileTabsAsync = function(tabIndex) {
                 $scope.$evalAsync(function() {
                   angular.element(document).ready(function() {
-                    //console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^evalAsync^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^');
+                    console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^evalAsync^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^');
                     compileTabs(tabIndex); 
                   });  
                 }); 
@@ -44,15 +44,15 @@ angular.module('nodeAllAdmin').directive("nodeAllAdminTabs",['$compile', 'commun
             compileTabsAsync();
             $scope.firstCtrl = function() 
             {
-              //console.log('I am in the firstCtrl');
+              console.log('I am in the firstCtrl');
               var obj = { number: 34, title:'Dynamic Title 555', type: 1, dynamicContent: '<ace-editor id="tab_3_88888"></ace-editor>'};
               $currentTabIndex = $scope.tabs.push(obj);
-              //console.dir($scope.tabs);
+              console.dir($scope.tabs);
               compileTabsAsync($currentTabIndex - 1);
 
-              //console.dir('->->->->->->->->->->->->->->->->->->->->->->->->->->->->->->->->->->');
+              console.dir('->->->->->->->->->->->->->->->->->->->->->->->->->->->->->->->->->->');
               communcationService.prepForBroadcast('This is the node all tabs from the communcation service');
-              //console.dir('->->->->->->->->->->->->->->->->->->->->->->->->->->->->->->->->->->');
+              console.dir('->->->->->->->->->->->->->->->->->->->->->->->->->->->->->->->->->->');
           
             }
         }

@@ -4,19 +4,19 @@ angular.module('nodeAllAdmin').directive("sidebar",['$compile', 'communcationSer
         scope: {},
         restrict: 'E',
         controller: function ($scope) {
-            //console.log('I am in the sidebar');
-            //console.dir('->->->->->->->->->->->->->->->->->->->->->->->->->->->->->->->->->->');
+            console.log('I am in the sidebar');
+            console.dir('->->->->->->->->->->->->->->->->->->->->->->->->->->->->->->->->->->');
             communcationService.prepForBroadcast('This is the sidebar from the communcation service');
-            //console.dir('->->->->->->->->->->->->->->->->->->->->->->->->->->->->->->->->->->');
+            console.dir('->->->->->->->->->->->->->->->->->->->->->->->->->->->->->->->->->->');
             $scope.clicker = function() {
-              //console.log('I am in the clicker');
+              console.log('I am in the clicker');
             }
             $scope.$on('handleBroadcast', function (event, args) {
-                //console.log('@@@@@@@@@@@@@@@@@@@@@@@@@sidebar-------------------sidebar');
-                //console.dir(args);
-                //console.dir('-----------------------------------------------');
-                //console.dir(communcationService.message);
-                //console.dir('+++++++++++++++++++++++++++++++++++++++++++++++++');
+                console.log('@@@@@@@@@@@@@@@@@@@@@@@@@sidebar-------------------sidebar');
+                console.dir(args);
+                console.dir('-----------------------------------------------');
+                console.dir(communcationService.message);
+                console.dir('+++++++++++++++++++++++++++++++++++++++++++++++++');
             });
         }
     };

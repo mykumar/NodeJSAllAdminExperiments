@@ -4,9 +4,9 @@ angular.module('nodeAllAdmin').directive("topNavigation",['$compile', function($
         scope: {},
         restrict: 'E',
         controller: function ($scope) {
-            //console.log('I am in the topNavigation');
+            console.log('I am in the topNavigation');
             $scope.clicker = function() {
-              //console.log('I am in the topNavigation');
+              console.log('I am in the topNavigation');
             }
         }
     };

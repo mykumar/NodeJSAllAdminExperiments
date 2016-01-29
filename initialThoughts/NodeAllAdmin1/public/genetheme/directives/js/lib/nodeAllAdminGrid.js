@@ -8,7 +8,7 @@ angular.module('nodeAllAdmin').directive('nodeAllAdminGrid',['$compile', functio
     },
     controller: function ($scope) {
 
-    		//console.log('####################################3nodeAllAdminGrid#########################################################');
+    		console.log('####################################3nodeAllAdminGrid#########################################################');
 
 			$scope.firstName = "John Smith";  
 		    $scope.jsonData = [      {
@@ -34,7 +34,7 @@ angular.module('nodeAllAdmin').directive('nodeAllAdminGrid',['$compile', functio
 		                           }
 		                       ];
 
-		    //console.dir($scope.jsonData);                    
+		    console.dir($scope.jsonData);                    
 		    $scope.gridOptions = {
 		            enableSorting: true,
 		            columnDefs: [
@@ -50,8 +50,8 @@ angular.module('nodeAllAdmin').directive('nodeAllAdminGrid',['$compile', functio
 		      $scope.gridApi = gridApi;
 		      gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
 		          //Do your REST call here via $http.get or $http.post
-		          //console.log('I am in the afterCellEdit-------------new'); 
-		          //console.dir(rowEntity);
+		          console.log('I am in the afterCellEdit-------------new'); 
+		          console.dir(rowEntity);
 		          //Alert to show what info about the edit is available
 		      });
 		    };
