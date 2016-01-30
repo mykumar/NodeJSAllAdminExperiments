@@ -16,6 +16,11 @@ dispatcher.prototype.root= function(req, res, next) {
 	console.dir('This is root-------------------------------------');
 	res.sendFile(__dirname + '/public/genetheme/index.html');
 };
+dispatcher.prototype.sendJson= function(req, res, next) {
+    console.dir('This is sendJson-------------------------------------');
+    res.sendFile(__dirname + '/testJson.json');
+    // res.sendFile(__dirname + '/public/genetheme/index.html');
+};
 dispatcher.prototype.dispatch= function(req, res, next) {
 	console.dir('This is dispatcher- dispatch');
 	if(req.databaseType == 'mysql') {

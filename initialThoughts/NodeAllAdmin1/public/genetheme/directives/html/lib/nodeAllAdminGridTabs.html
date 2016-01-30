@@ -1,5 +1,5 @@
 <uib-tabset>
-      <uib-tab ng-repeat="tab in tabs track by $index" heading="{{tab.title}}">
+      <uib-tab ng-repeat="tab in tabs track by $index" heading="{{tab.title}}" select="selectedTabClick($index)">
         <div id="grid{{tab.number}}"></div>
         	{{tab.content}}
         <div>

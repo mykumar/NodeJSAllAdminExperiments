@@ -4,6 +4,23 @@ angular.module('nodeAllAdmin').directive("nodeAllAdminTabs",['$compile', 'commun
          scope: {
             },
         controller: function ($scope) {
+            $scope.$on('handleBroadcast', function (event, args) {
+                console.log('--------I am in the TABSSSSSSSSSSSSSS---controller-----------');
+                if(angular.isObject(args)) { 
+                  if(args.to === "Tabs") {
+                    console.dir('-------------------YES IT IS FOR TABS----------------------------');    
+                    console.dir(args);
+                  }
+                }   
+                console.dir('-----------------------------------------------');
+            }); 
+            $scope.selectedTabIndex = 0;
+            $scope.selectedTabClick = function(index) {
+                console.dir('------------selectedTabClick-----------------------------------');
+                console.dir(index);
+                $scope.selectedTabIndex =  index;
+                console.dir('----------------------------selectedTabClick-------------------');
+            };  
             $scope.tabs = [
                 { number: 0, title:'Dynamic Title 1', content: 'Dynamic Title 1', type: 0},
                 { number: 1, title:'Dynamic Title 2', content: 'Dynamic Title 2', type: 0},
@@ -40,7 +57,7 @@ angular.module('nodeAllAdmin').directive("nodeAllAdminTabs",['$compile', 'commun
                     compileTabs(tabIndex); 
                   });  
                 }); 
-            };    
+            }; 
             compileTabsAsync();
             $scope.firstCtrl = function() 
             {
@@ -49,11 +66,6 @@ angular.module('nodeAllAdmin').directive("nodeAllAdminTabs",['$compile', 'commun
               $currentTabIndex = $scope.tabs.push(obj);
               console.dir($scope.tabs);
               compileTabsAsync($currentTabIndex - 1);
-
-              console.dir('->->->->->->->->->->->->->->->->->->->->->->->->->->->->->->->->->->');
-              communcationService.prepForBroadcast('This is the node all tabs from the communcation service');
-              console.dir('->->->->->->->->->->->->->->->->->->->->->->->->->->->->->->->->->->');
-          
             }
         }
     }

@@ -1,4 +1,4 @@
-angular.module('nodeAllAdmin').directive('aceEditor',['$compile', function($compile) {
+angular.module('nodeAllAdmin').directive('aceEditor',['$compile', 'communcationService', function($compile, communcationService) {
   return {
     // require: 'ui.ace',
     scope: {},
@@ -50,6 +50,9 @@ angular.module('nodeAllAdmin').directive('aceEditor',['$compile', function($comp
             var content = $scope.editor.session.getTextRange(selectionRange);
             console.log('----------------------------------------------------This is the selected line----------------------------------------------------');
             console.log(content);
+
+            var obj = {"from": "ace-grid", "data": content, "to": "Grid"};
+            communcationService.prepForBroadcast(obj);
         };
 
         $scope.aceLoaded = function(_editor) {

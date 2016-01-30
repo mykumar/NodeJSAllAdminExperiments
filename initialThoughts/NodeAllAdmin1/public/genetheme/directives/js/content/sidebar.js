@@ -5,27 +5,24 @@ angular.module('nodeAllAdmin').directive("sidebar",['$compile', 'communcationSer
         restrict: 'E',
         controller: function ($scope) {
             console.log('I am in the sidebar');
-            console.dir('->->->->->->->->->->->->->->->->->->->->->->->->->->->->->->->->->->');
-            communcationService.prepForBroadcast('This is the sidebar from the communcation service');
-            console.dir('->->->->->->->->->->->->->->->->->->->->->->->->->->->->->->->->->->');
+            
             $scope.clicker = function() {
               console.log('I am in the clicker');
             };
             var level1Expand = true;
             var level2Expand = true;
-            $scope.endClick = function() {
+            $scope.endClick = function(id) {
               console.log('zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzI am in the clicker');
+              console.log(id);
+              var obj = {"from": "sidebar", "data": id, "to": "Grid", "action": "select"};
+              communcationService.prepForBroadcast(obj);
             };  
             $scope.Level1Click = function() {
               console.log('222222222222222222222222I am in the clicker');
               level1Expand = !level1Expand;
             };
             $scope.$on('handleBroadcast', function (event, args) {
-                console.log('@@@@@@@@@@@@@@@@@@@@@@@@@sidebar-------------------sidebar');
-                console.dir(args);
-                console.dir('-----------------------------------------------');
-                console.dir(communcationService.message);
-                console.dir('+++++++++++++++++++++++++++++++++++++++++++++++++');
+                
             });
 
 

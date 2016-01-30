@@ -62,7 +62,7 @@ angular.module('nodeAllAdmin').config(['$stateProvider','$urlRouterProvider','$o
 			       	console.dir('&*&*&*&*&*&&**&&&&&&&&**********I am in the relational state ');
 			       	console.dir($stateParams.databaseType);
 			       	communcationService.databaseType = $stateParams.databaseType;
-			       	communcationService.message = "abc";
+			       	// communcationService.message = "abc";
 		       }
 		      
 		    });
