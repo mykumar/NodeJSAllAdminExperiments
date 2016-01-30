@@ -1,3 +1,4 @@
+var async = require('async');
 var mysql = require('mysql');
 var mysqlUtilities = require('mysql-utilities');
 var async = require('async');
@@ -11,14 +12,14 @@ var mysqlManager = function() {
   				'mysql',
   				'performance_schema'
   			];
-  	this.isSystemDatabasesIgnored = false;		
+  	this.isSystemDatabasesIgnored = true;		
 }
 mysqlManager.prototype.getConnectionParameters= function(connectionName) {
 	//Get the connection parametrs using this name 'connectionName'
 	return {
 				host:     'localhost',
 			    user:     'root',
-			    password: 'orbit786',
+			    password: 'newpwd',
 			};
 }
 mysqlManager.prototype.createConnectionString= function(dataBaseName,connectionName) {
@@ -38,9 +39,9 @@ mysqlManager.prototype.connectToDatabase= function(req, res,callback) {
 	mysqlUtilities.upgrade(this.connection);
 	// Mix-in for Introspection Methods
 	mysqlUtilities.introspection(this.connection);
-	console.dir(this.connection);
+	// console.dir(this.connection);
 	this.connection.connect();
-	console.dir(this.connection);
+	// console.dir(this.connection);
 
 	if(callback) { callback(); }
 }
@@ -48,8 +49,10 @@ mysqlManager.prototype.init = function(val) {
     var connectionParams = {};
 	connectionParams.name =  'connection'; 
 	connectionParams.host =  'localhost';
+	connectionParams.id = "SCH_C_" + connectionParams.name;
+
 	connectionParams.user =   'root';
-	connectionParams.password =   'orbit786';
+	connectionParams.password =   'newpwd';
 	// // connectionParams.database =   'timetrack';
 	// this.connection.connect();
 	this.ds.createConnection(connectionParams);
@@ -69,18 +72,82 @@ mysqlManager.prototype.query = function(req, res, that){
  	res.send(JSON.stringify(results));   
 }
 mysqlManager.prototype.fillMetaDetails = function(req, res, that){
+	// var callmes = [
+	// 	    function getDatases(callback) {
+	// 	        that.connection.databases(function(err, databases) {
+ //    				// console.dir({databases:databases});
+ //    				console.dir('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$');
+ //    				for(database=0;database < databases.length; database++) {
+ //    						// console.dir(databases[database]);
+ //    						var databaseParams = {};
+	// 			            databaseParams.name =  databases[database]; 
+	// 			            databaseParams.id =  "SCH_C_connection_DB_" + databases[database]; 
+	// 			            that.ds.createDatabase(databaseParams);
+	// 			            if(!that.isSystemDatabase(databases[database])) {
+	// 			            	that.ds.setDatabase(databases[database]);
+	// 			            	that.connection.databaseTables(databases[database], function(err, tables) {
+	// 			            		for (var table in tables) {
+	// 			            			console.dir('-------------TABLE NAME-----------');
+	//             		                var tableParams = {};
+	// 					                tableParams.name =  table;
+	// 					                tableParams.id =  "SCH_C_connection_DB_" + that.ds.databaseName + "_T_" + table; 
+	// 					                // that.ds.setDatabase(databaseNames[database]);
+	// 					                console.dir(tableParams);
+	// 					                that.ds.createTable(tableParams);
+	// 			            		}	
+	// 			            	});
+	// 			            }		
+ //    				}	
+ //    				callback(null);
+ //    			});	
+	// 	    },
+	// 	    function getTables(callback) {
+	// 			// var databaseNames = this.ds.getDatabaseNames();
+	// 		 //    for(database=0;database < databaseNames.length; database++) {
+	// 		 //        if(!this.isSystemDatabase(databaseNames[database])) {
+	// 		 //        	var tables = this.wait.forMethod(this.connection, 'databaseTables', databaseNames[database]);
+	// 		 //        	for (var table in tables) {
+	// 		 //                var tableParams = {};
+	// 		 //                tableParams.name =  table;
+	// 		 //                tableParams.id =  "SCH_C_connection_DB_" + databaseNames[database] + "_T_" + table; 
+	// 		 //                this.ds.setDatabase(databaseNames[database]);
+	// 		 //                this.ds.createTable(tableParams);
+	// 		 //            }    
+	// 		 //        }
+	// 		 //    }	    	
+	// 	  //       that.connection.databaseTables("timetrack", function(err, tables) {
+ //    // 				// console.dir({databaseTables:tables});
+ 
+ //    				callback(null, 'results');
+ //    // 			});	
+	// 	    }
+	// ];
+
+	// async.waterfall(callmes, function(err, results) {
+	//     // results is now equals to: {one: 'abc\n', two: 'xyz\n'}
+	//     console.dir(results);
+	// 	console.dir('--------------------------------------------------------------------');
+	// 	console.dir(that.ds.json());
+	// 	console.dir('--------------------------------------------------------------------');
+	// });
 
 	that.fillDatabasesDetails()
-		.fillTablesDetails()
-		.fillColumnDetails();	
-
- 	res.send(JSON.stringify(that.ds));   
+		.fillTablesDetails();
+		
+	var jsonData = that.ds.connections;
+	// // jsonData = jsonData.replace("\\", "");
+	// console.dir('--------------------------------------------------------------------');
+	// console.dir(jsonData);
+	// console.dir('--------------------------------------------------------------------');
+	// res.setHeader('Content-Type', 'application/json');
+ 	res.json(jsonData);   
 }
 mysqlManager.prototype.fillDatabasesDetails = function(){
 	var databaseNames = this.wait.forMethod(this.connection, 'databases');
 	for(database=0;database < databaseNames.length; database++) {
             var databaseParams = {};
             databaseParams.name =  databaseNames[database]; 
+            databaseParams.id =  "SCH_C_connection_DB_" + databaseNames[database]; 
             this.ds.createDatabase(databaseParams);
     }
     return this;	
@@ -99,6 +166,7 @@ mysqlManager.prototype.fillTablesDetails = function(){
         	for (var table in tables) {
                 var tableParams = {};
                 tableParams.name =  table;
+                tableParams.id =  "SCH_C_connection_DB_" + databaseNames[database] + "_T_" + table; 
                 this.ds.setDatabase(databaseNames[database]);
                 this.ds.createTable(tableParams);
             }    

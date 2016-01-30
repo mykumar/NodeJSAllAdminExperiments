@@ -145,7 +145,7 @@ DB.prototype.createDatabase = function(object) {
 		newDatabaseParams.children = []; 
 		var tableParams = {};
 		tableParams.name =  "Tables"; 
-		tableParams.id = "SCH_C_myConnection_DB_" + object.name + "_TH";
+		tableParams.id = "SCH_C_myConnection_DB_informationDB_TH";
 		tableParams.children = []; 
 		newDatabaseParams.children.push(tableParams);
 		// newDatabaseParams.views = [];
@@ -157,10 +157,6 @@ DB.prototype.createDatabase = function(object) {
 	return this;
 }
 DB.prototype.createTable = function(object) {
-	console.dir('------createTable------------------');
-	console.dir(object);
-	console.dir('------createTable------------------');
-	
 	var connectionIndex = this.getConnectionIndex();
 	var databaseIndex = this.getDatabaseIndex();
 	var tableIndex = this.getTableIndex(object.name);
@@ -168,12 +164,12 @@ DB.prototype.createTable = function(object) {
 		var newTableParams = {};
 		var isColumns = false;
 		for (prop in object) {
-				// if(prop == 'columns') {
-				// 	isColumns = true;
-				// } 
-			newTableParams[prop] = object[prop];
+				if(prop == 'columns') {
+					isColumns = true;
+				} 
+				newTableParams[prop] = object[prop];
 		}
-		// if(isColumns) { newTableParams.columns = []; }
+		if(isColumns) { newTableParams.columns = []; }
 		// newTableParams.indexes = [];
 		// newTableParams.foreignKeys = []; 
 		// newTableParams.triggers = []; 

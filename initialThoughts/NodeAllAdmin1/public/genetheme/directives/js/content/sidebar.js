@@ -27,37 +27,8 @@ angular.module('nodeAllAdmin').directive("sidebar",['$compile', 'communcationSer
 
 
 
-            var schemaJsonData = [{
-              "name": "myConnection",
-              "id": "SCH_C_myConnection",
-              "children": [{
-                "name": "informationDB",
-                "id": "SCH_C_myConnection_DB_informationDB",
-                "children": [{
-                    "name": "Tables",
-                    "id": "SCH_C_myConnection_DB_informationDB_TH",
-                    "children": [{
-                        "name": "table1",
-                        "id": "SCH_C_myConnection_DB_informationDB_T_tabe1",
-                      }, {
-                        "name": "table2",
-                        "id": "SCH_C_myConnection_DB_informationDB_T_tabe2",
-                    }]
-                },
-                {
-                    "name": "view",
-                    "id": "SCH_C_myConnection_DB_informationDB_TH",
-                    "children": [{
-                        "name": "view1",
-                        "id": "SCH_C_myConnection_DB_informationDB_T_tabe1",
-                      }, {
-                        "name": "view2",
-                        "id": "SCH_C_myConnection_DB_informationDB_T_tabe2",
-                }],
-              }]
-            }]
-            }];
-
+            // var schemaJsonData = [{"name":"Connection","id":"SCH_C_myConnection","ip":"127.0.0.1","children":[{"name":"informationDB","id":"SCH_C_myConnection_DB_informationDB","children":[{"name":"Tables","id":"SCH_C_myConnection_DB_informationDB_TH","children":[{"name":"table1","id":"SCH_C_myConnection_DB_informationDB_T_tabe1"},{"name":"table2","id":"SCH_C_myConnection_DB_informationDB_T_tabe2"}]}]},{"name":"exampleDB","id":"SCH_C_myConnection_DB_exampleDB","children":[{"name":"Tables","id":"SCH_C_myConnection_DB_informationDB_TH","children":[]}]}]},{"name":"Connection2222","id":"SCH_C_myConnection222","ip":"127.0.0.12222","children":[{"name":"informationDB","id":"SCH_C_myConnection_DB_informationDB","children":[{"name":"Tables","id":"SCH_C_myConnection_DB_informationDB_TH","children":[{"name":"exampleTable1","id":"SCH_C_myConnection_DB_informationDB_T_exampleTable1"}]}]}]}];
+            var schemaJsonData = [{"name":"connection","host":"localhost","id":"SCH_C_connection","user":"root","password":"newpwd","children":[{"name":"information_schema","id":"SCH_C_connection_DB_information_schema","children":[{"name":"Tables","id":"SCH_C_myConnection_DB_informationDB_TH","children":[]}]},{"name":"mysql","id":"SCH_C_connection_DB_mysql","children":[{"name":"Tables","id":"SCH_C_myConnection_DB_informationDB_TH","children":[]}]},{"name":"performance_schema","id":"SCH_C_connection_DB_performance_schema","children":[{"name":"Tables","id":"SCH_C_myConnection_DB_informationDB_TH","children":[]}]},{"name":"timetrack","id":"SCH_C_connection_DB_timetrack","children":[{"name":"Tables","id":"SCH_C_myConnection_DB_informationDB_TH","children":[{"name":"employee","id":"SCH_C_connection_DB_timetrack_T_employee"},{"name":"work","id":"SCH_C_connection_DB_timetrack_T_work"}]}]}]}];
             var managementSchemaJsonData = [{
               "name": "myConnection",
               "id": "SCH_C_myConnection",
