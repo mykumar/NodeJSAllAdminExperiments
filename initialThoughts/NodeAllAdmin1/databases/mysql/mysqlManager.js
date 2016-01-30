@@ -71,76 +71,61 @@ mysqlManager.prototype.query = function(req, res, that){
 	var results = this.wait.forMethod(that.connection, 'query', details.query);
  	res.send(JSON.stringify(results));   
 }
-mysqlManager.prototype.fillMetaDetails = function(req, res, that){
-	// var callmes = [
-	// 	    function getDatases(callback) {
-	// 	        that.connection.databases(function(err, databases) {
- //    				// console.dir({databases:databases});
- //    				console.dir('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$');
- //    				for(database=0;database < databases.length; database++) {
- //    						// console.dir(databases[database]);
- //    						var databaseParams = {};
-	// 			            databaseParams.name =  databases[database]; 
-	// 			            databaseParams.id =  "SCH_C_connection_DB_" + databases[database]; 
-	// 			            that.ds.createDatabase(databaseParams);
-	// 			            if(!that.isSystemDatabase(databases[database])) {
-	// 			            	that.ds.setDatabase(databases[database]);
-	// 			            	that.connection.databaseTables(databases[database], function(err, tables) {
-	// 			            		for (var table in tables) {
-	// 			            			console.dir('-------------TABLE NAME-----------');
-	//             		                var tableParams = {};
-	// 					                tableParams.name =  table;
-	// 					                tableParams.id =  "SCH_C_connection_DB_" + that.ds.databaseName + "_T_" + table; 
-	// 					                // that.ds.setDatabase(databaseNames[database]);
-	// 					                console.dir(tableParams);
-	// 					                that.ds.createTable(tableParams);
-	// 			            		}	
-	// 			            	});
-	// 			            }		
- //    				}	
- //    				callback(null);
- //    			});	
-	// 	    },
-	// 	    function getTables(callback) {
-	// 			// var databaseNames = this.ds.getDatabaseNames();
-	// 		 //    for(database=0;database < databaseNames.length; database++) {
-	// 		 //        if(!this.isSystemDatabase(databaseNames[database])) {
-	// 		 //        	var tables = this.wait.forMethod(this.connection, 'databaseTables', databaseNames[database]);
-	// 		 //        	for (var table in tables) {
-	// 		 //                var tableParams = {};
-	// 		 //                tableParams.name =  table;
-	// 		 //                tableParams.id =  "SCH_C_connection_DB_" + databaseNames[database] + "_T_" + table; 
-	// 		 //                this.ds.setDatabase(databaseNames[database]);
-	// 		 //                this.ds.createTable(tableParams);
-	// 		 //            }    
-	// 		 //        }
-	// 		 //    }	    	
-	// 	  //       that.connection.databaseTables("timetrack", function(err, tables) {
- //    // 				// console.dir({databaseTables:tables});
- 
- //    				callback(null, 'results');
- //    // 			});	
-	// 	    }
-	// ];
+mysqlManager.prototype.fillMetaDetails = function(req, res){
+	var that = this;
+	var callmes = [
+		    function getDatases(callback) {
+		        that.connection.databases(function(err, databases) {
+    				// console.dir({databases:databases});
+    				console.dir('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$');
+    				for(database=0;database < databases.length; database++) {
+    						// console.dir(databases[database]);
+    						var databaseParams = {};
+				            databaseParams.name =  databases[database]; 
+				            databaseParams.id =  "SCH_C_connection_DB_" + databases[database]; 
+				            that.ds.createDatabase(databaseParams);
+    				}	
+    				callback(null);
+    			});	
+		    },
+		    function getTables(callback) {
+				var databaseNames = that.ds.getDatabaseNames();
+				async.mapSeries(databaseNames, function(dataBaseName,mapseriesCallback){
+						console.dir('$$$$$$$$$$DATABASE NAME$$$$$$$$$$$$$$$$');
+						console.dir(dataBaseName);	
+						if(!that.isSystemDatabase(dataBaseName)) {
+							that.connection.databaseTables(dataBaseName, function(err, tables) {
+				            		for (var table in tables) {
+				            			console.dir('-------------TABLE NAME-----------');
+	            		                var tableParams = {};
+						                tableParams.name =  table;
+						                tableParams.id =  "SCH_C_connection_DB_" + that.ds.databaseName + "_T_" + table; 
+						                // that.ds.setDatabase(databaseNames[database]);
+						                console.dir(tableParams);
+						                that.ds.createTable(tableParams);
+				            		}
+				            		mapseriesCallback(null, "abc");			
+				            });
+				        } else {
+				        	mapseriesCallback(null, "abc");	
+				        }    
+					}, function(error, result){
+						console.dir('$$$$$$$$$$DATABASE NAME RESULT$$$$$$$$$$$$$$$$');
+						console.dir(result);
+						callback(null, 'results');
+					});
+		    }
+	];
 
-	// async.waterfall(callmes, function(err, results) {
-	//     // results is now equals to: {one: 'abc\n', two: 'xyz\n'}
-	//     console.dir(results);
-	// 	console.dir('--------------------------------------------------------------------');
-	// 	console.dir(that.ds.json());
-	// 	console.dir('--------------------------------------------------------------------');
-	// });
-
-	that.fillDatabasesDetails()
-		.fillTablesDetails();
-		
-	var jsonData = that.ds.connections;
-	// // jsonData = jsonData.replace("\\", "");
-	// console.dir('--------------------------------------------------------------------');
-	// console.dir(jsonData);
-	// console.dir('--------------------------------------------------------------------');
-	// res.setHeader('Content-Type', 'application/json');
- 	res.json(jsonData);   
+	async.waterfall(callmes, function(err, results) {
+	    // results is now equals to: {one: 'abc\n', two: 'xyz\n'}
+	    console.dir(results);
+		console.dir('--------------------------------------------------------------------');
+		console.dir(that.ds.json());
+		console.dir('--------------------------------------------------------------------');
+		var jsonData = that.ds.connections;
+		res.json(jsonData);   
+	});
 }
 mysqlManager.prototype.fillDatabasesDetails = function(){
 	var databaseNames = this.wait.forMethod(this.connection, 'databases');

@@ -23,11 +23,11 @@ dispatcher.prototype.sendJson= function(req, res, next) {
 };
 dispatcher.prototype.dispatch= function(req, res, next) {
 	console.dir('This is dispatcher- dispatch');
-	if(req.databaseType == 'mysql') {
-    	req.databaseManager.waitforLaunchFiber(req, res, req.methodToInvoke);
-    } else {
+	// if(req.databaseType == 'mysql') {
+ //    	req.databaseManager.waitforLaunchFiber(req, res, req.methodToInvoke);
+ //    } else {
     	req.databaseManager[req.methodToInvoke](req, res);
-    }	
+    // }	
 };	
 
 module.exports = dispatcher;

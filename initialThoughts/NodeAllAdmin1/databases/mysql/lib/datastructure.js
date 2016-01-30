@@ -157,9 +157,9 @@ DB.prototype.createDatabase = function(object) {
 	return this;
 }
 DB.prototype.createTable = function(object) {
-	console.dir('------createTable------------------');
-	console.dir(object);
-	console.dir('------createTable------------------');
+	// console.dir('------createTable------------------');
+	// console.dir(object);
+	// console.dir('------createTable------------------');
 	
 	var connectionIndex = this.getConnectionIndex();
 	var databaseIndex = this.getDatabaseIndex();
