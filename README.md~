@@ -14,6 +14,3 @@ How to create the Angular JS factory / service instance dynamically (I mean some
 For the asyncohronius opertaions on the mysql i think we can use async.mapseries
 
 check this question raised by me : http://stackoverflow.com/questions/34603338/node-js-async-map-is-synchronous-or-asynchronous-call
-
-
-http://dinosaur.is/
