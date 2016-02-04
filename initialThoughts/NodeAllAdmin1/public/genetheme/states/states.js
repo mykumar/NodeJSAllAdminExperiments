@@ -27,6 +27,11 @@ angular.module('nodeAllAdmin').config(['$stateProvider','$urlRouterProvider','$o
 		                }),
 		                $ocLazyLoad.load(
 		                {
+		                    name:'modalContentCtrl',
+		                    files:['/genetheme/directives/js/lib/modalContentCtrl.js']
+		                }),
+		                $ocLazyLoad.load(
+		                {
 		                   name:'top-navigation',
 		                   files:['/genetheme/directives/js/content/topNavigation.js']
 		                }),
