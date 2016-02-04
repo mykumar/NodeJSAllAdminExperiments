@@ -41,17 +41,13 @@ angular.module('nodeAllAdmin').directive('aceEditor',['$compile', 'communcationS
             // console.log('I am in the executeSelectedLine callback function');
             // console.log($scope);
             // console.log($scope.tmpValue);
-
             var selectionRange = $scope.editor.getSelectionRange();
-
             var startLine = selectionRange.start.row;
             var endLine = selectionRange.end.row;
-
             var content = $scope.editor.session.getTextRange(selectionRange);
             console.log('----------------------------------------------------This is the selected line----------------------------------------------------');
             console.log(content);
-
-            var obj = {"from": "ace-grid", "data": content, "to": "Grid"};
+            var obj = {"from": "ace-grid", "data": content, "to": "Grid" , "action": "aceQuery"};
             communcationService.prepForBroadcast(obj);
         };
 

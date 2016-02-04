@@ -1,11 +1,12 @@
-angular.module('nodeAllAdmin').directive("nodeAllAdminGridTabs",['$compile', function($compile) {
+angular.module('nodeAllAdmin').directive("nodeAllAdminGridTabs",['$compile', 'communcationService', function($compile, communcationService) {
     return {
         templateUrl : '/genetheme/directives/html/lib/nodeAllAdminGridTabs.html',
          scope: {
             },
         controller: function ($scope) {
-            console.log('GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG-      nodeAllAdminGridTabs        -GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG');
+            console.log('GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG-nodeAllAdminGridTabs-GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG');
             $scope.jsonData = [];
+            $scope.modifiedJsonData = [];
             $scope.$on('handleBroadcast', function (event, args) {
                 console.log('--------I am in the GRIDDDDDDDDDDDD---controller-----------');
                 if(angular.isObject(args)) { 
@@ -61,7 +62,58 @@ angular.module('nodeAllAdmin').directive("nodeAllAdminGridTabs",['$compile', fun
               $currentTabIndex = $scope.tabs.push(obj);
               console.dir($scope.tabs);
               compileTabsAsync($currentTabIndex - 1);
-            }
+            };
+            $scope.apply = function() {
+                console.dir('+++++++++++++++++++++++++++++APPLY+++++++++++++++++++++++++++++++++++++++++++++++++++++');           
+                console.dir($scope.modifiedJsonData);   
+                if($scope.modifiedJsonData.length > 0) {
+                  var obj = {"from": "sidebar", "data": $scope.modifiedJsonData, "to": "server", "action": "updateTable"};
+                  communcationService.prepForBroadcast(obj);
+                }    
+            };  
+            $scope.getRecordFromActualData = function(id) {
+                for (var i=0; i < $scope.jsonData.length; i++){
+                    if($scope.jsonData[i].id == id) {
+                       return $scope.jsonData[i];
+                    }
+                }
+            };
+            $scope.getRecordFromModifiedData = function(id) {
+                for (var i=0; i < $scope.modifiedJsonData.length; i++){
+                    if($scope.modifiedJsonData[i].id == id) {
+                      return $scope.modifiedJsonData[i];
+                    }
+                }
+                return null;
+            };  
+            $scope.updateModifiedData = function(rowEntity, colDef, newValue, oldValue) {
+                // $scope.modifiedJsonData
+                actualData = $scope.getRecordFromActualData(rowEntity.id);
+                modifiedData = $scope.getRecordFromModifiedData(rowEntity.id);
+
+                console.dir('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
+                console.dir(actualData);
+                console.dir(modifiedData);
+                console.dir('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
+                
+                if(!modifiedData) {
+                    // if modifiedData is null 
+                    console.dir('**********************************IF*******************************************************');  
+                    // actualData[colDef.name] = newValue;
+                    delete actualData["$$hashKey"]; 
+                    $scope.modifiedJsonData.push(actualData);
+                    console.dir(actualData);
+                    console.dir($scope.modifiedJsonData);
+                    console.dir('**********************************IF*******************************************************');  
+                } 
+                
+                console.dir('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
+                console.dir(actualData);
+                console.dir('Modified Data');
+                console.dir($scope.modifiedJsonData);
+                console.dir('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
+
+            };
             console.log('####################################3nodeAllAdminGrid#########################################################');
 
             $scope.firstName = "John Smith";  
@@ -80,10 +132,12 @@ angular.module('nodeAllAdmin').directive("nodeAllAdminGridTabs",['$compile', fun
               //set gridApi on scope
               // $scope.gridApi = gridApi;
               gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
-                  //Do your REST call here via $http.get or $http.post
                   console.log('I am in the afterCellEdit'); 
-                  console.dir(rowEntity);
-                  //Alert to show what info about the edit is available
+                  if(!(newValue.toUpperCase() === oldValue.toUpperCase())) {
+                      console.dir('---------------------------------------------------');
+                      $scope.updateModifiedData(rowEntity, colDef, newValue, oldValue);
+                      console.dir('---------------------------------------------------');
+                  }  
               });
             };
         }

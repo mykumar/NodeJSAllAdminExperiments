@@ -29,19 +29,29 @@ angular.module('nodeAllAdmin').factory('communcationService', function($rootScop
         {
             if(obj.action) {
                 if(obj.action === "select") {
-                    console.dir(" @@@@@@@@@@@@@@@@@@@@@@@@@This is the select action @@@@@@@@@@@@@@@@@@@@@@@@@")
+                    console.dir(" @@@@@@@@@@@@@@@@@@@@@@@@@This is the select action @@@@@@@@@@@@@@@@@@@@@@@@@");
+                    communcationService.sendRequest().then(function success(data){
+                           // here you will get your server data
+                            console.dir('++++++++++++++++This is main program suig the promises++++++++++++++++' );
+                            console.dir(data);
+                            obj.data = data;               
+                            console.dir(obj);
+                            communcationService.broadcastItem(obj);
+                           // $scope.content = data;
+                        }, function error(){
+                    });
                 }
-            }
-            communcationService.sendRequest().then(function success(data){
-                   // here you will get your server data
-                    console.dir('++++++++++++++++This is main program suig the promises ' );
-                    console.dir(data);
-                    obj.data = data;               
+                if(obj.action === "updateTable") {
+                    console.dir(" @@@@@@@@@@@@@@@@@@@@@@@@@This is the updateTable action @@@@@@@@@@@@@@@@@@@@@@@@@");
                     console.dir(obj);
-                    communcationService.broadcastItem(obj);
-                   // $scope.content = data;
-                }, function error(){
-            });
+                }
+                if(obj.action === "aceQuery") {
+                    console.dir(" @@@@@@@@@@@@@@@@@@@@@@@@@This is the aceQuery action @@@@@@@@@@@@@@@@@@@@@@@@@");
+                    console.dir(obj);   
+                }
+                
+            }
+            
         }    
     };    
     communcationService.prepForBroadcast = function(obj) {
