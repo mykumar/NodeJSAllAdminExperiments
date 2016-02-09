@@ -27,7 +27,7 @@
       <uib-tabset justified="true">
         <uib-tab heading="Main ">  
               <div class="row">
-                  <div class="col-md-3">
+                  <div class="col-md-2">
                       <div class="input-group">
                         <span class="input-group-addon" id="basic-addon1">Format Search</span>
                         <input type="text" class="form-control" ng-model="search">
@@ -50,7 +50,7 @@
                         </a>
                       </div>
                   </div>
-                  <div class="col-md-3">
+                  <div class="col-md-2">
                       <div class="input-group">
                         <span class="input-group-addon" id="basic-addon1">Tech Search</span>
                         <input type="text" class="form-control" ng-model="search">
@@ -73,7 +73,7 @@
                         </a>
                       </div>
                   </div>
-                  <div class="col-md-6">
+                  <div class="col-md-8">
                       <uib-tabset justified="true">
                           <uib-tab heading="Work Space">
                               <div class="row">
@@ -124,7 +124,7 @@
                         <a href="#" class="list-group-item">Third item</a>
                       </div>
                   </div>
-                  <div class="col-md-2">
+                  <div class="col-md-1">
                       <div class="input-group">
                         <span class="input-group-addon" id="basic-addon1">Date</span>
                         <input type="text" class="form-control" ng-model="search">
@@ -135,7 +135,7 @@
                         <a href="#" class="list-group-item">Third item</a>
                       </div>
                   </div>
-                  <div class="col-md-3">
+                  <div class="col-md-2">
                       <div class="input-group">
                         <span class="input-group-addon" id="basic-addon1">Company Names</span>
                         <input type="text" class="form-control" ng-model="search">
@@ -146,7 +146,7 @@
                         <a href="#" class="list-group-item">Third item</a>
                       </div>
                   </div>
-                  <div class="col-md-6">
+                  <div class="col-md-8">
                       <uib-tabset justified="true">
                           <uib-tab heading="Preview">
                               <form method="post">
@@ -159,6 +159,41 @@
           </uib-tab>
           
     </div>
+
+    <script type="text/ng-template" id="ModalContent.html">
+        <div class="modal-header">
+            <h3 class="modal-title">I'm a modal!</h3>
+        </div>
+        <div class="modal-body">
+            TEXT IS :::: {{parentText}}
+              <div class="row">
+                <div class="col-12"> First ROW</div>
+              </div>
+              <div class="row">
+                <div class="col-12"> 
+                  <div id="grid1" ui-grid="gridOptions" ui-grid-edit class="grid"></div>
+                </div>
+                <div class="col-12"> 
+                  <div id="grid1" ui-grid="gridOptions" ui-grid-edit class="grid"></div>
+                </div>
+                <div class="col-12"> 
+                  <div id="grid1" ui-grid="gridOptions" ui-grid-edit class="grid"></div>
+                </div>
+                <div class="col-12"> 
+                  <div id="grid1" ui-grid="gridOptions" ui-grid-edit class="grid"></div>
+                </div>
+                <div class="col-12"> 
+                  <div id="grid1" ui-grid="gridOptions" ui-grid-edit class="grid"></div>
+                </div>
+              </div>     
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+            <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
 </div>
+
+
   </body>
 </html>

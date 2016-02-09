@@ -1,10 +1,48 @@
 var myapp = angular.module('myApp',  ['ngAnimate', 'ui.bootstrap','ui.grid', 'ui.grid.edit', 'ui.tinymce']);
-myapp.controller('myCtrl', ['$scope', function ($scope) {
+myapp.controller('myCtrl', ['$scope','$uibModal','$rootScope', function ($scope, $uibModal, $rootScope) {
+    $scope.animationsEnabled = true;
+    $rootScope.parentText = "Thsi is the myCtrl controller text :: parentText";
     $scope.successClick = function(value) {
-      console.dir('This is the successClick --------------------------------------');
-      console.dir(value);
-      console.dir('This is the successClick --------------------------------------');
-    };  
+        console.dir('This is the successClick --------------------------------------');
+        console.dir(value);
+        console.dir('This is the successClick --------------------------------------');
+        $rootScope.jsonData = $scope.jsonData;
+        $rootScope.gridOptions  = $scope.gridOptions;
+        $scope.items = ['item1', 'item2', 'item3'];
+        $scope.basket = ['basket1', 'basket2', 'basket3'];
+        modalInstance = $uibModal.open({
+            animation: $scope.animationsEnabled,
+            templateUrl: 'ModalContent.html',
+            controller: 'ModalInstanceCtrl',
+            resolve: {
+              items: function () {
+                return $scope.items;
+              },
+              baskets : function () {
+                return $scope.basket;
+              },
+
+            }
+        });
+
+        modalInstance.result.then( $scope.modalInstanceResult, $scope.modalInstanceCancel);
+
+
+
+    };
+    
+    $scope.modalInstanceResult = function(selectedItem) {
+          console.dir('-----------------------modalInstance->>>result-----------------------------------------------------');
+          console.dir(selectedItem);
+          console.dir($rootScope.parentText);
+    }
+    $scope.modalInstanceCancel = function () {
+            console.dir('-----------------------modalInstance->>>cancel-----------------------------------------------------');
+    };
+    
+   
+
+
     $scope.tinymceModel =  "Thus is the model^^^^^^^^^^^^^^^6";
     $scope.tinymceOptions = {
         onChange: function(e) {
@@ -18,6 +56,7 @@ myapp.controller('myCtrl', ['$scope', function ($scope) {
         theme : 'modern'
       };
     $scope.firstName = "John Smith";  
+
     $scope.jsonData = [      {
                                "id":12,
                                "first-name": "abcccc",
@@ -65,3 +104,26 @@ myapp.controller('myCtrl', ['$scope', function ($scope) {
 
 
 }]);
+
+
+myapp.controller('ModalInstanceCtrl', function ($scope, $uibModalInstance, $rootScope, items, baskets) {
+
+    $scope.text = "This is the text from ModalInstanceCtrl";
+    $scope.items = items;
+    console.dir('-----------------------------------ModalInstanceCtrl----------------------------------------------------------------');
+    console.dir($rootScope.parentText);
+    console.dir($scope.items);
+    console.dir(baskets);
+    
+    $scope.jsonData = $rootScope.jsonData;
+    $scope.gridOptions  = $rootScope.gridOptions;
+    
+    $scope.ok = function () {
+      $rootScope.parentText = "Resetted in the ModalInstanceCtrl :: child";
+      $uibModalInstance.close($scope.text);
+    };
+
+    $scope.cancel = function () {
+      $uibModalInstance.dismiss('cancel');
+    };
+});
