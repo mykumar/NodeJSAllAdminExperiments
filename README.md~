@@ -14,3 +14,52 @@ How to create the Angular JS factory / service instance dynamically (I mean some
 For the asyncohronius opertaions on the mysql i think we can use async.mapseries
 
 check this question raised by me : http://stackoverflow.com/questions/34603338/node-js-async-map-is-synchronous-or-asynchronous-call
+
+
+Node all Admin
+=================================
+clean code
+load the side bar data from server (Schemas, Management)
+Cllopse and open the side bar (check why it is not working, for help check the rdash theme)
+Put image on the right top side header for the user name and add logout to dropdown
+Add css to everything to look good (sidebar, tabs, color etc)
+
+Combine both the ace-editor and the grid into a single directive, so that when we add-tab we can add both the ace-editor and the grid to each and every single tab (Check can we do like that)
+
+Create a directive to add the cnnection data -- so that we can add this directive as a tab
+
+USe this same layout for the Main Screen (sidebar --- content is for different databases)
+
+check the mysql operations working
+
+Add a keyword support -- navigation, short cut keys etc 
+
+Add a context menu to the side bar items
+
+Add a tool bar in the content section with different actions
+
+RESGEN
+=================================
+noDE JS CREATE MS WORD DOCUMENT, PDF DOCUMENTS
+
+think ABOUT TO ADD NEW TECH  -- NEW TABE OR NEW dIALOG
+------------------------DATA FORMATS------------------------------------------------------------------------------------
+Res Templates :: same as the Appiled JOBS expect, res template name, desc etc will be like for example :: [{"name" : "template example name", "desc": "ssadas", "details": [{section:"Bulltien", details : { "tech": "anglaurjs", "version": "v1", "desc": "blah blkah bakh" }]  }
+
+Appiled jobs --- structure is different  like  [{section:"Bulltien", details : { "tech": "anglaurjs", "version": "v1", "desc": "blah blkah bakh" }]
+Appiled jobs Database Table : Columns :: date, company name, desc, user name, others, json data [that is above json data] 
+
+Edited content ;; for example:: we edited the angularjs ::p1:v1 : <desc>
+
+main / standard content :: Tech :: section : versions
+
+------------------------DATA FORMATS------------------------------------------------------------------------------------
+FIRST WE WILL SAVE EVERYTHING IN FILE THEN WE CAN USE THE DATABASE TABLES AS FOLLOWS:
+Three Tables
+--------------
+1) id, tech name, 
+2) id, section name,
+3) id, TECH TABLE ID,SECTION TABLE ID, v1, v2, v3, v4, 
+
+
+http://jsfiddle.net/jaredwilli/ajm2hvxd/
