@@ -1,0 +1,29 @@
+<html>
+    <script src="./es6/docxgen.js"></script>
+    <script src="./vendor/FileSaver.min.js"></script>
+    <script src="./vendor/jszip-utils.js"></script>
+    <!--
+    Mandatory in IE 6, 7, 8 and 9.
+    -->
+    <!--[if IE]>
+        <script type="text/javascript" src="examples/vendor/jszip-utils-ie.js"></script>
+    <![endif]-->
+    <script>
+    var loadFile=function(url,callback){
+        JSZipUtils.getBinaryContent(url,callback);
+    }
+    loadFile("./tagExample.docx",function(err,content){
+        if (err) { throw e};
+        doc=new Docxgen(content);
+        doc.setData( {"first_name":"Hipp",
+            "last_name":"Edgar",
+            "phone":"0652455478",
+            "description":"New Website"
+            }
+        ) //set the templateVariables
+        doc.render() //apply them (replace all occurences of {first_name} by Hipp, ...)
+        out=doc.getZip().generate({type:"blob"}) //Output the document using Data-URI
+        saveAs(out,"output.docx")
+    })
+    </script>
+</html>
