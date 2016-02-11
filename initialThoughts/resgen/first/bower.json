@@ -1,0 +1,23 @@
+{
+  "name": "resgen",
+  "authors": [
+    "smielofninja"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "lib",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "docxtemplater-pykiss": "~1.0.6",
+    "jszip-utils": "Stuk/jszip-utils#~0.0.2",
+    "jszip": "Stuk/jszip#~2.5.0",
+    "FileSaver.js": "eligrey/FileSaver.js"
+  }
+}

@@ -3,16 +3,30 @@
   <head>
     <script type="text/javascript" src="lib/tinymce-dist/tinymce.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.js"></script>
+
+    
+    
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-animate.js"></script>
     <script src="lib/angular-ui-grid/ui-grid.js"></script>
+    <script src="lib/angularjs-dropdown-multiselect/dist/angularjs-dropdown-multiselect.min.js"></script>
     <script type="text/javascript" src="lib/angular-ui-tinymce/src/tinymce.js"></script>
     <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-1.1.2.js"></script>
     <script src="app.js"></script>
     <script src="appCntrl.js"></script>
     <script src="modalCntrl.js"></script>
+    
     <script src="basicDS.js"></script>
+
+    <script src="lib/docxtemplater-pykiss/browser/docxgen.js"></script>
+    <script src="lib/jszip/dist/jszip.min.js"></script>
+    <script src="lib/jszip-utils/dist/jszip-utils.min.js"></script>
+    <script src="lib/FileSaver.js/FileSaver.min.js"></script>
+    <script src="lib/underscore/underscore.js"></script>
+    
+
     <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <link href="lib/angular-ui-grid/ui-grid.css" rel="stylesheet">
+
   </head>
   <body>
 
@@ -24,6 +38,9 @@
             width: 100%;
             height: 150px;
       }
+  .dropdown-menu {
+            width: 1000%;
+  }    
 </style>
 <div class="container-fluid" >
 <div ng-controller="myCtrl">
@@ -84,6 +101,8 @@
                               </div>
                               <div class="row">
                                 <div class="col-12"> 
+                                  <div ng-dropdown-multiselect="" options="example14data" selected-model="example14model" extra-settings="example14settings" checkboxes="true"></div>
+                                  {{example14model}}
                                   <div id="grid1" ui-grid="gridOptions" ui-grid-edit class="grid"></div>
                                 </div>
                                 <div class="col-12"> 

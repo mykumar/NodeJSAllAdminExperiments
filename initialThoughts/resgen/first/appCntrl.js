@@ -1,87 +1,127 @@
-angular.module('myApp').controller('myCtrl', ['$scope','$uibModal','$rootScope','BasicDS', function ($scope, $uibModal, $rootScope, BasicDS) {
+angular.module('myApp').controller('myCtrl', ['$scope','$uibModal','$rootScope','BasicDS',  function ($scope, $uibModal, $rootScope, BasicDS) {
     $scope.animationsEnabled = true;
     $rootScope.parentText = "Thsi is the myCtrl controller text :: parentText";
+    $scope.example14model = [];
+    $scope.example14data = [
+        {id: 1, label: "David"},
+        {id: 2, label: "Jhon"},
+        {id: 3, label: "Lisa"},
+        {id: 4, label: "Nicole"},
+        {id: 5, label: "Danny"},
+        {id: 6, label: "Dan"},
+        {id: 7, label: "Dean"},
+        {id: 8, label: "Adam"},
+        {id: 9, label: "Uri"},
+        {id: 10, label: "Phil"}
+    ];
+
+    $scope.example14settings = {
+        scrollableHeight: '250px',
+        width: '500px',
+        scrollable: true,
+        enableSearch: true,
+        externalIdProp: '',
+        closeOnBlur: true,
+    };
+
+
+
     $scope.successClick = function(value) {
-        console.dir('@@@@@@@@@@@@@@CALLING BasicDS --------------------------------------');
-        var jsonDb = new BasicDS();
-        jsonDb.hello();
-        var techParams = {};
-        techParams.name =  'Angular JS'; 
-        techParams.desc = "Angular JS by google",
-        jsonDb.createTech(techParams);
 
-        techParams.name =  'JQuery'; 
-        techParams.desc = "Jquery by open source world",
-        jsonDb.createTech(techParams).setTech('Angular JS');
+      var loadFile=function(url,callback){
+        JSZipUtils.getBinaryContent(url,callback);
+      }
 
-        var sectionParams = {};
-        sectionParams.name =  'P1'; 
-        sectionParams.desc = "This is the project for the xerox";
-        jsonDb.createSection(sectionParams);
-
-        // second stage
-
-        sectionParams.name =  'P2'; 
-        sectionParams.desc = "This is the project for the epslon";
-        jsonDb.createSection(sectionParams).setSection('P2');
-
-        var versionParams = {};
-        versionParams.name =  'V1'; 
-        versionParams.desc = "Worked on the angular JS Modules";
-        jsonDb.createVersion(versionParams);
-
-        versionParams.name =  'V2'; 
-        versionParams.desc = "Worked on the angular JS Modules";
-        jsonDb.createVersion(versionParams);
+      loadFile("./model.docx",function(err,content){
+          if (err) { throw err};
+          doc=new Docxgen(content);
+          doc.setData({"name":"Check the new output man"}); //set the templateVariables
+          doc.render(); 
+          out=doc.getZip().generate({type:"blob"}); //Output the document using Data-URI
+          saveAs(out,"angularoutput.docx");
+      })
 
 
+        // console.dir('@@@@@@@@@@@@@@CALLING BasicDS --------------------------------------');
+        // var jsonDb = new BasicDS();
+        // jsonDb.hello();
+        // var techParams = {};
+        // techParams.name =  'Angular JS'; 
+        // techParams.desc = "Angular JS by google",
+        // jsonDb.createTech(techParams);
 
-        // Third stage - rename / changes names and desc
+        // techParams.name =  'JQuery'; 
+        // techParams.desc = "Jquery by open source world",
+        // jsonDb.createTech(techParams).setTech('Angular JS');
 
-        console.dir('-------------------------Before Rename-------------');
-        console.log(jsonDb.json());
+        // var sectionParams = {};
+        // sectionParams.name =  'P1'; 
+        // sectionParams.desc = "This is the project for the xerox";
+        // jsonDb.createSection(sectionParams);
+
+        // // second stage
+
+        // sectionParams.name =  'P2'; 
+        // sectionParams.desc = "This is the project for the epslon";
+        // jsonDb.createSection(sectionParams).setSection('P2');
+
+        // var versionParams = {};
+        // versionParams.name =  'V1'; 
+        // versionParams.desc = "Worked on the angular JS Modules";
+        // jsonDb.createVersion(versionParams);
+
+        // versionParams.name =  'V2'; 
+        // versionParams.desc = "Worked on the angular JS Modules";
+        // jsonDb.createVersion(versionParams);
 
 
 
-        jsonDb.changeTechName('Angular JS', 'Google Angular JS');
-        jsonDb.changeTechDesc('Google Angular JS', 'This is google product called Angular JS');
+        // // Third stage - rename / changes names and desc
 
-        jsonDb.changeSectionName('P2','P25');
-        jsonDb.changeSectionDesc('P25','This is the name changed now for section');
-        jsonDb.setSection('P25');
-        jsonDb.changeVersionName('V1','V10');
-        jsonDb.changeVersionDesc('V10','This is chnaged version descritpation');
+        // console.dir('-------------------------Before Rename-------------');
+        // console.log(jsonDb.json());
+
+
+
+        // jsonDb.changeTechName('Angular JS', 'Google Angular JS');
+        // jsonDb.changeTechDesc('Google Angular JS', 'This is google product called Angular JS');
+
+        // jsonDb.changeSectionName('P2','P25');
+        // jsonDb.changeSectionDesc('P25','This is the name changed now for section');
+        // jsonDb.setSection('P25');
+        // jsonDb.changeVersionName('V1','V10');
+        // jsonDb.changeVersionDesc('V10','This is chnaged version descritpation');
 
         
-        console.dir('-------------------------output-------------');
-        console.log(jsonDb.json());
+        // console.dir('-------------------------output-------------');
+        // console.log(jsonDb.json());
 
 
-        console.dir('@@@@@@@@@@@@@@CALLING BasicDS --------------------------------------');
+        // console.dir('@@@@@@@@@@@@@@CALLING BasicDS --------------------------------------');
 
-        console.dir('This is the successClick --------------------------------------');
-        console.dir(value);
-        console.dir('This is the successClick --------------------------------------');
-        $rootScope.jsonData = $scope.jsonData;
-        $rootScope.gridOptions  = $scope.gridOptions;
-        $scope.items = ['item1', 'item2', 'item3'];
-        $scope.basket = ['basket1', 'basket2', 'basket3'];
-        modalInstance = $uibModal.open({
-            animation: $scope.animationsEnabled,
-            templateUrl: 'ModalContent.html',
-            controller: 'ModalInstanceCtrl',
-            resolve: {
-              items: function () {
-                return $scope.items;
-              },
-              baskets : function () {
-                return $scope.basket;
-              },
+        // console.dir('This is the successClick --------------------------------------');
+        // console.dir(value);
+        // console.dir('This is the successClick --------------------------------------');
+        // $rootScope.jsonData = $scope.jsonData;
+        // $rootScope.gridOptions  = $scope.gridOptions;
+        // $scope.items = ['item1', 'item2', 'item3'];
+        // $scope.basket = ['basket1', 'basket2', 'basket3'];
+        // modalInstance = $uibModal.open({
+        //     animation: $scope.animationsEnabled,
+        //     templateUrl: 'ModalContent.html',
+        //     controller: 'ModalInstanceCtrl',
+        //     resolve: {
+        //       items: function () {
+        //         return $scope.items;
+        //       },
+        //       baskets : function () {
+        //         return $scope.basket;
+        //       },
 
-            }
-        });
+        //     }
+        // });
 
-        modalInstance.result.then( $scope.modalInstanceResult, $scope.modalInstanceCancel);
+        // modalInstance.result.then( $scope.modalInstanceResult, $scope.modalInstanceCancel);
 
 
 
