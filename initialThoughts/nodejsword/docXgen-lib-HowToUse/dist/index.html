@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- All imports used by the DocXTemplater -->
+	<script src="bower_components/docxtemplater-pykiss/browser/docxgen.js"></script>
+	<script src="bower_components/jszip/dist/jszip.min.js"></script>
+	<script src="bower_components/jszip-utils/dist/jszip-utils.min.js"></script>
+	<script src="bower_components/FileSaver.js/FileSaver.min.js"></script>
+</head>
+<body>
+
+<span>Name:</span><input id="name"/>
+<button onclick="docGenerate()">Generate</button>
+
+</body>
+<script type="text/javascript">
+	var docGenerate = function(){
+		var loadFile=function(url,callback){
+		    JSZipUtils.getBinaryContent(url,callback);
+		}
+
+		loadFile("model.docx",function(err,content){
+		    if (err) { throw err};
+		    doc=new Docxgen(content);
+		    doc.setData({"name":document.getElementById('name').value}) //set the templateVariables
+		    doc.render() 
+		    out=doc.getZip().generate({type:"blob"}) //Output the document using Data-URI
+		    saveAs(out,"output.docx")
+		})
+	}
+</script>
+</html>

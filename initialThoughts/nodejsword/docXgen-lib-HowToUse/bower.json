@@ -1,0 +1,24 @@
+{
+  "name": "docXgen-HowToUse",
+  "homepage": "https://github.com/pacellyjcax/docXgen-HowToUse",
+  "authors": [
+    "PacellyJCAX <pacellyjcax@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "docxtemplater-pykiss": "~1.0.6",
+    "jszip-utils": "Stuk/jszip-utils#~0.0.2",
+    "jszip": "Stuk/jszip#~2.5.0",
+    "FileSaver.js": "eligrey/FileSaver.js"
+  }
+}
