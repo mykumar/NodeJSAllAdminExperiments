@@ -51,7 +51,7 @@ jsonDb.changeVersionName('V1','V10');
 jsonDb.changeVersionDesc('V10','This is chnaged version descritpation');
 
 //fourth stage get
-// console.dir('-------------------------GET------------------');
+console.dir('-------------------------GET------------------');
 // console.dir(jsonDb.getCompleteTech('JQuery'));
 var ang = jsonDb.getCompleteTech('Google Angular JS');
 ang.name = "New tech";
@@ -83,8 +83,21 @@ console.dir('-------------------------GET with STRURE-------------');
 // console.log(JSON.stringify(ang2));
 
 
+var ang = jsonDb.getAllVersions('Google Angular JS', 'P25');
+// ang.name = "Section P2 -- P10 GETT ANGULAR JS";
+console.dir(ang);
+
+// for (var key in ang) {
+	// console.dir(key);
+	// ang[key].id = parseInt(key);
+	// console.dir(ang[key]);		
+// }	
+// console.dir('---AFTER---');
+// console.dir(ang);
+// console.log(JSON.stringify(ang, null, 4));
+
 console.dir('-------------------------output-------------');
-console.log(jsonDb.json());
+// console.log(jsonDb.json());
 
 
 process.exit();

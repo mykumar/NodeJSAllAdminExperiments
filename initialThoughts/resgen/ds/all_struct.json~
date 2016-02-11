@@ -1,0 +1,78 @@
+-----------------------------------------------------------------------------------
+Res Templates :: same as the Appiled JOBS expect, res template name, desc etc will be like for example :: 
+
+[
+   {
+      "name":"template example name",
+      "desc":"ssadas",
+      "details":[
+         {
+            "section":"Bulltien",
+            "details":[
+               {
+                  "tech":"anglaurjs",
+                  "version":"v1",
+                  "desc":"blah blkah bakh"
+               }
+            ]
+         }
+      ]
+   }
+]
+-----------------------------------------------------------------------------------
+
+
+-----------------------------------------------------------------------------------
+Appiled jobs --- structure is different like:
+
+[
+   {
+      "section":"Bulltien",
+      "details":[
+         {
+            "tech":"anglaurjs",
+            "version":"v1",
+            "desc":"blah blkah bakh"
+         }
+      ]
+   }
+]
+
+Appiled jobs Database Table : Columns :: date, company name, desc, user name, others, json data [that is above json data]
+-----------------------------------------------------------------------------------
+
+Edited content ;; for example:: we edited the angularjs ::p1:v1 :
+
+-----------------------------------------------------------------------------------
+main / standard content :: Tech :: section : versions 
+
+ {
+   "name":"Google Angular JS",
+   "desc":"This is google product called Angular JS",
+   "sections":[
+      {
+         "name":"P1",
+         "desc":"This is the project for the xerox",
+         "versions":[
+
+         ]
+      },
+      {
+         "name":"P25",
+         "desc":"This is the name changed now for section",
+         "versions":[
+            {
+               "name":"V2",
+               "desc":"Worked on the angular JS Modules"
+            },
+            {
+               "name":"V10",
+               "desc":"This is chnaged version descritpation"
+            }
+         ]
+      }
+   ]
+}
+
+-----------------------------------------------------------------------------------
+

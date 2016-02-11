@@ -159,6 +159,24 @@ DS.prototype.getCompleteSectionWithStruct = function(techName, sectionName) {
 	}
 	return false;		
 };
+DS.prototype.addIdsToVersions = function(versionArray) {
+	for (var key in versionArray) {
+		versionArray[key].id = parseInt(key);
+	}	
+	return versionArray;
+};	
+
+DS.prototype.getAllVersions = function(techName, sectionName) {
+	var techIndex = this.getTechIndex(techName);
+	var sectionIndex = this.getSectionIndex(sectionName);
+	
+
+	if(sectionIndex != -1 && techIndex != -1) {
+		return this.addIdsToVersions((JSON.parse(JSON.stringify(this.dataRes[techIndex].sections[sectionIndex].versions))));
+	}
+	return false;
+};	
+
 DS.prototype.getCompleteVersion = function(techName, sectionName, versionName) {
 	var techIndex = this.getTechIndex(techName);
 	var sectionIndex = this.getSectionIndex(sectionName);
