@@ -67,6 +67,8 @@ angular.module('nodeAllAdmin').factory('communcationService', function($rootScop
                 if(obj.action === "aceQuery") {
                     console.dir(" @@@@@@@@@@@@@@@@@@@@@@@@@This is the aceQuery action @@@@@@@@@@@@@@@@@@@@@@@@@");
                     console.dir(obj);   
+                } else {
+                    communcationService.broadcastItem(obj);
                 }
                 
             }

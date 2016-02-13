@@ -1,6 +1,7 @@
 <uib-tabset>
-      <uib-tab ng-repeat="tab in tabs track by $index" heading="{{tab.title}}" select="selectedTabClick($index,tab.number)" 
+      <uib-tab ng-repeat="tab in tabs track by $index" select="selectedTabClick($index,tab.number)" 
       active="tab.active">
+      	<uib-tab-heading>abc   <a ng-click="removeTabClick($index,tab.number)"> <i class="fa fa-times"></i></a></uib-tab-heading>
         <div id="content{{tab.number}}"></div>
         	{{tab.content}}
         <div>

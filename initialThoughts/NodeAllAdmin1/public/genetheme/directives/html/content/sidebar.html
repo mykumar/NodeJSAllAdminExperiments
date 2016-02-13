@@ -8,36 +8,9 @@
         <br />
         <!-- sidebar menu -->
         <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-            <uib-tabset>
-                <uib-tab heading="Schemas">
-                    <div class="menu_section">
-                        <ul class="nav side-menu">
-                            <li ng-repeat="schemaLevel1 in schemaData">
-                                <a ng-click="expand = !expand"><i class="fa fa-home"></i> {{schemaLevel1.name}} <span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu" style=" " class="slide" ng-show="expand">
-                                        <li ng-repeat="schemaLevel2 in schemaLevel1.children">
-                                            <a ng-click="level2Expand = !level2Expand"><i class="fa fa-database"></i> {{schemaLevel2.name}} <span class="fa fa-chevron-down"></span></a>
-                                            <ul class="nav child_menu" style=" " ng-show="level2Expand">
-                                                <li ng-repeat="schemaLevel3 in schemaLevel2.children">
-                                                    <a ng-click="level3Expand = !level3Expand"><i class="fa fa-th fa-2x"></i> {{schemaLevel3.name}} <span class="fa fa-chevron-down"></span></a>
-                                                    <ul class="nav child_menu" style=" " ng-show="level3Expand">
-                                                        <li ng-repeat="schemaLevel4 in schemaLevel3.children">
-                                                            <a ng-click="endClick(schemaLevel4.id)"> <i class="fa fa-th fa-2x"></i> {{schemaLevel4.name}} </a>
-                                                        </li> 
-                                                    </ul>
-                                                </li>
-                                                
-                                            </ul>
-                                        </li>
-                                    </ul>
-                            </li>
-                        </ul>
-                    </div>
-                </uib-tab>
-                <uib-tab heading="Management">
-                    This is tab One Schemas        
-                </uib-tab>
-            </uib-tabset>    
+        <button type="button" ng-click="addConfigTab()">Add Config Tab!</button>
+        <button type="button" ng-click="addMainTab()">Add Config Tab!</button>
+            <div id="tpl-content" ng-include src="currentTpl"></div>
         </div>
         <!-- /sidebar menu -->                  
         <!-- /menu footer buttons -->
@@ -58,3 +31,50 @@
         <!-- /menu footer buttons -->
     </div>
 </div>  
+
+<script type="text/ng-template" id="/realtionalTpl.html">
+    <uib-tabset>
+                <uib-tab heading="Schemas">
+                    <div class="menu_section">
+                        <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon1">Table</span>
+                            <input type="text" class="form-control" ng-model="schemaSearch">
+                        </div>
+                        
+                        <ul class="nav side-menu">
+                            <li ng-repeat="schemaLevel1 in schemaData">
+                                <a ng-click="expand = !expand"><i class="fa fa-certificate"></i>
+</i> {{schemaLevel1.name}} <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu" style=" " class="slide" ng-show="expand">
+                                        <li ng-repeat="schemaLevel2 in schemaLevel1.children">
+                                            <a ng-click="level2Expand = !level2Expand"><i class="fa fa-database"></i> {{schemaLevel2.name}} <span class="fa fa-chevron-down"></span></a>
+                                            <ul class="nav child_menu" style=" " ng-show="level2Expand">
+                                                <li ng-repeat="schemaLevel3 in schemaLevel2.children">
+                                                    <a ng-click="level3Expand = !level3Expand"><i class="fa fa-th fa-2x"></i> {{schemaLevel3.name}} <span class="fa fa-chevron-down"></span></a>
+                                                    <ul class="nav child_menu" style=" " ng-show="level3Expand">
+                                                        <li ng-repeat="schemaLevel4 in schemaLevel3.children | filter : schemaSearch">
+                                                            <a ng-click="endClick(schemaLevel4.id)"> <i class="fa fa-th fa-2x"></i> {{schemaLevel4.name}} </a>
+                                                        </li> 
+                                                    </ul>
+                                                </li>
+                                                
+                                            </ul>
+                                        </li>
+                                    </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </uib-tab>
+                <uib-tab heading="Management">
+                    This is tab One Schemas        
+                </uib-tab>
+            </uib-tabset>    
+</script>
+
+<script type="text/ng-template" id="/main.html">
+    <uib-tabset>        
+        <uib-tab heading="MainTab">
+                    This is tab One Schemas        
+        </uib-tab>
+    </uib-tabset>                
+</script>                

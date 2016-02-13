@@ -15,7 +15,7 @@ angular.module('nodeAllAdmin').directive('aceEditor',['$compile', 'communcationS
                 console.log('--------I am in the GRIDDDDDDDDDDDD---controller-----------');
                 if(angular.isObject(args)) { 
                   if(args.to === "Grid" && args.TabId == $scope.fromTheParentID) {
-                    console.dir('-------------------YES IT IS FOR Grid----------------------------');    
+                    console.dir('-------------------YES IT IS FOR Grid NEW ONE BABY----------------------------');    
                     console.dir(args);
                     $scope.jsonData = args.data;
                   }
@@ -157,15 +157,11 @@ angular.module('nodeAllAdmin').directive('aceEditor',['$compile', 'communcationS
 
             console.dir($scope.jsonData);                    
               
-
+            $scope.columnData = [{ id:'ID', field: 'id' },];
             $scope.gridOptions = {};
             $scope.gridOptions.enableSorting= true;
-            $scope.gridOptions.columnDefs= [
-                  // { name:'firstName', field: 'first-name' },
-                  // { name:'1stFriend', field: 'friends[0]' },
-                  // { name:'city', field: 'address.city'},
-                  // { name:'getZip', field: 'getZip()', enableCellEdit:false}
-            ];
+            $scope.gridOptions.columnDefs = $scope.columnData;
+            
             $scope.gridOptions.data = 'jsonData';
             $scope.gridOptions.onRegisterApi = function(gridApi) {
               //set gridApi on scope
@@ -174,7 +170,7 @@ angular.module('nodeAllAdmin').directive('aceEditor',['$compile', 'communcationS
                   console.log('I am in the afterCellEdit'); 
                   if(!(newValue.toUpperCase() === oldValue.toUpperCase())) {
                       console.dir('---------------------------------------------------');
-                      $scope.updateModifiedData(rowEntity, colDef, newValue, oldValue);
+                      // $scope.updateModifiedData(rowEntity, colDef, newValue, oldValue);
                       console.dir('---------------------------------------------------');
                   }  
             });

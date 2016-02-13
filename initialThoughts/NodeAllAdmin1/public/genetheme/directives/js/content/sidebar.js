@@ -1,4 +1,4 @@
-angular.module('nodeAllAdmin').directive("sidebar",['$compile', 'communcationService', '$uibModal', function($compile, communcationService,$uibModal) {
+angular.module('nodeAllAdmin').directive("sidebar",['$compile', 'communcationService', '$uibModal','hotkeys', function($compile, communcationService,$uibModal, hotkeys) {
     return {
         templateUrl : '/genetheme/directives/html/content/sidebar.html',
         scope: {},
@@ -7,14 +7,23 @@ angular.module('nodeAllAdmin').directive("sidebar",['$compile', 'communcationSer
             console.log('I am in the sidebar');
 
             $scope.clicker = function() {
-              console.log('I am in the clicker');
+                console.log('I am in the clicker');
             };
 
             var level1Expand = true;
             var level2Expand = true;
 
             $scope.animationsEnabled = true;
+            
+            $scope.addMainTab = function() {
+                console.dir('-----------------addMainTab-------------------------');                
+                $scope.sendRequest("Tabs", "addMainTab");
+            };  
 
+            $scope.addConfigTab = function() {
+                console.dir('-----------------addConfigTab-------------------------');                
+                $scope.sendRequest("Tabs", "addConfigTab");
+            };  
             $scope.endClick = function(id) {
                   console.log('zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzI am in the clicker');
                   console.log(id);
@@ -40,10 +49,10 @@ angular.module('nodeAllAdmin').directive("sidebar",['$compile', 'communcationSer
               console.log('222222222222222222222222I am in the clicker');
               level1Expand = !level1Expand;
             };
+            $scope.currentTpl = '/realtionalTpl.html';
+            // $scope.currentTpl ='/main.html';
+            $scope.schemaSearch = "";
             
-            $scope.$on('handleBroadcast', function (event, args) {
-
-            });
 
             // var schemaJsonData = [{"name":"Connection","id":"SCH_C_myConnection","ip":"127.0.0.1","children":[{"name":"informationDB","id":"SCH_C_myConnection_DB_informationDB","children":[{"name":"Tables","id":"SCH_C_myConnection_DB_informationDB_TH","children":[{"name":"table1","id":"SCH_C_myConnection_DB_informationDB_T_tabe1"},{"name":"table2","id":"SCH_C_myConnection_DB_informationDB_T_tabe2"}]}]},{"name":"exampleDB","id":"SCH_C_myConnection_DB_exampleDB","children":[{"name":"Tables","id":"SCH_C_myConnection_DB_informationDB_TH","children":[]}]}]},{"name":"Connection2222","id":"SCH_C_myConnection222","ip":"127.0.0.12222","children":[{"name":"informationDB","id":"SCH_C_myConnection_DB_informationDB","children":[{"name":"Tables","id":"SCH_C_myConnection_DB_informationDB_TH","children":[{"name":"exampleTable1","id":"SCH_C_myConnection_DB_informationDB_T_exampleTable1"}]}]}]}];
             var schemaJsonData = [{"name":"connection","host":"localhost","id":"SCH_C_connection","user":"root","password":"newpwd","children":[{"name":"information_schema","id":"SCH_C_connection_DB_information_schema","children":[{"name":"Tables","id":"SCH_C_myConnection_DB_informationDB_TH","children":[]}]},{"name":"mysql","id":"SCH_C_connection_DB_mysql","children":[{"name":"Tables","id":"SCH_C_myConnection_DB_informationDB_TH","children":[]}]},{"name":"performance_schema","id":"SCH_C_connection_DB_performance_schema","children":[{"name":"Tables","id":"SCH_C_myConnection_DB_informationDB_TH","children":[]}]},{"name":"timetrack","id":"SCH_C_connection_DB_timetrack","children":[{"name":"Tables","id":"SCH_C_myConnection_DB_informationDB_TH","children":[{"name":"employee","id":"SCH_C_connection_DB_timetrack_T_employee"},{"name":"work","id":"SCH_C_connection_DB_timetrack_T_work"}]}]}]}];
@@ -77,11 +86,11 @@ angular.module('nodeAllAdmin').directive("sidebar",['$compile', 'communcationSer
               }]
             }]
             }];
-            $scope.sendRequest = function() {
-                var localSchemaJsonData = [{"name":"connection","host":"localhost","id":"SCH_C_connection","user":"root","password":"newpwd","children":[{"name":"information_schema","id":"SCH_C_connection_DB_information_schema","children":[{"name":"Tables","id":"SCH_C_myConnection_DB_informationDB_TH","children":[]}]},{"name":"mysql","id":"SCH_C_connection_DB_mysql","children":[{"name":"Tables","id":"SCH_C_myConnection_DB_informationDB_TH","children":[]}]},{"name":"performance_schema","id":"SCH_C_connection_DB_performance_schema","children":[{"name":"Tables","id":"SCH_C_myConnection_DB_informationDB_TH","children":[]}]},{"name":"timetrack","id":"SCH_C_connection_DB_timetrack","children":[{"name":"Tables","id":"SCH_C_myConnection_DB_informationDB_TH","children":[{"name":"employee","id":"SCH_C_connection_DB_timetrack_T_employee"},{"name":"work","id":"SCH_C_connection_DB_timetrack_T_work"}]}]}]}];
-                var obj = {"from": "sidebar", "to": "sidebar", "action": "loadMetaSchema"};
+            $scope.sendRequest = function(to,type) {
+                
+                var obj = {"from": "sidebar", "to": to, "action": type};
                 communcationService.prepForBroadcast(obj);
-                return localSchemaJsonData;
+                
             };
 
             $scope.$on('handleBroadcast', function (event, args) {
@@ -95,7 +104,14 @@ angular.module('nodeAllAdmin').directive("sidebar",['$compile', 'communcationSer
                   }   
                   console.dir('-----------------------------------------------');
             }); 
+            hotkeys.add({
+                  combo: 'ctrl+g',
+                  description: 'This one goes to 11',
+                  callback: function() {
+                      console.dir('----------------------sidebar directive ctrl+ggggggggggggggggg----------------------------');
 
+                  }
+            });
 
 
             var onDocumentReady = function(index) {
@@ -103,7 +119,7 @@ angular.module('nodeAllAdmin').directive("sidebar",['$compile', 'communcationSer
                   angular.element(document).ready(function() {
                       console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^evalAsync^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^');
                       // $scope.schemaData = $scope.getSchemeData();
-                      $scope.sendRequest();
+                      $scope.sendRequest("sidebar","loadMetaSchema");
                   });  
                 }); 
             }; 

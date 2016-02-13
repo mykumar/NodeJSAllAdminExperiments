@@ -6,11 +6,11 @@ angular.module('nodeAllAdmin').config(['$stateProvider','$urlRouterProvider','$o
 	      events:true,
 	    });
 	    
-	    $urlRouterProvider.otherwise('/relational/mysql');	
+	    $urlRouterProvider.otherwise('/main');	
 
 	    $stateProvider
-		    .state('relational', {
-		      url: "/relational/:databaseType",
+		    .state('main', {
+		      url: "/:databaseType",
 		      templateUrl: "/genetheme/states/html/relational.html",
 		      resolve: {
 		            communcationService: 'communcationService',
@@ -59,11 +59,22 @@ angular.module('nodeAllAdmin').config(['$stateProvider','$urlRouterProvider','$o
 		                {
 		                   name:'ace-editor',
 		                   files:['/genetheme/directives/js/lib/aceEditor.js']
+		                }),
+		                $ocLazyLoad.load(
+		                {
+		                   name:'connectin-dlg',
+		                   files:['/genetheme/directives/js/lib/connectinDlg.js']
+		                }), 
+		                $ocLazyLoad.load(
+		                {
+		                   name:'main-dlg',
+		                   files:['/genetheme/directives/js/lib/mainDlg.js']
 		                })
 		            }
 		        },
 		        controller: function ($stateParams, communcationService) {
 			        // If we got here from a url of /contacts/42
+			        console.dir('------ I AM READLOINGNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN-------------------------------------------------------------------------------------------');
 			       	console.dir('&*&*&*&*&*&&**&&&&&&&&**********I am in the relational state ');
 			       	console.dir($stateParams.databaseType);
 			       	communcationService.databaseType = $stateParams.databaseType;

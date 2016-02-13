@@ -10,6 +10,16 @@ angular.module('nodeAllAdmin').directive("nodeAllAdminTabs",['$compile', 'commun
                   if(args.to === "Tabs") {
                     console.dir('-------------------YES IT IS FOR TABS----------------------------');    
                     console.dir(args);
+                    if(args.action === "addConfigTab") {
+                        console.dir('$$$$$$$$$$$$$$$$$$$$$$$I got the event called as addConfigTab');
+                        var newTabIndex = $scope.pushNewTab(args.action);
+                        compileTabsAsync(newTabIndex);
+                    }
+                    if(args.action === "addMainTab") {
+                        console.dir('$$$$$$$$$$$$$$$$$$$$$$$I got the event called as addMainTab');
+                        var newTabIndex = $scope.pushNewTab(args.action);
+                        compileTabsAsync(newTabIndex);
+                    }
                   }
                 }   
                 console.dir('-----------------------------------------------');
@@ -17,7 +27,7 @@ angular.module('nodeAllAdmin').directive("nodeAllAdminTabs",['$compile', 'commun
             $scope.getActiveTab = function() 
             {
                 
-            }
+            };
             $scope.getTabUniqueNumber = function() {
                 console.dir('-----------getTabUniqueNumber-----------------------------');
                 while(true) {
@@ -51,6 +61,9 @@ angular.module('nodeAllAdmin').directive("nodeAllAdminTabs",['$compile', 'commun
             $scope.setTabActive = function(index) {              
                 $scope.selectedTabIndex =  index;  
             };  
+            $scope.removeTabClick = function(index,tabNumber) {
+                $scope.tabs.splice(index, 1);
+            };    
             $scope.selectedTabClick = function(index,tabNumber) {
                 console.dir('------------selectedTabClick-----------------------------------');
                 console.dir(index);
@@ -69,11 +82,22 @@ angular.module('nodeAllAdmin').directive("nodeAllAdminTabs",['$compile', 'commun
                    return true;
                 }
             };
-            $scope.getTabContent = function() {
+            $scope.getTabContent = function(action) {
+                console.dir('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$getTabContent--------------------------------------');
                 var tabcontent = { };
                 tabcontent.number = $scope.getTabUniqueNumber();
                 tabcontent.title = 'Dynamic Title ' + tabcontent.number;
-                tabcontent.dynamicContent = '<ace-editor id="' + tabcontent.number + '"></ace-editor>';
+                
+                if(action === undefined) {
+                    tabcontent.dynamicContent = '<ace-editor id="' + tabcontent.number + '"></ace-editor>';
+                } else if(action === "addConfigTab") {
+                    console.dir('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$getTabContent-------addConfigTab-------------------------------');
+                    tabcontent.dynamicContent = '<connectin-dlg id="' + tabcontent.number + '"></connectin-dlg>';
+                } 
+                else if(action === "addMainTab") {
+                    console.dir('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$getTabContent-------addConfigTab-------------------------------');
+                    tabcontent.dynamicContent = '<main-dlg id="' + tabcontent.number + '"></main-dlg>';
+                }        
                 tabcontent.active = true;
                 
                 return tabcontent;
@@ -81,8 +105,8 @@ angular.module('nodeAllAdmin').directive("nodeAllAdminTabs",['$compile', 'commun
             $scope.getTabNumber = function(index) {  
                 return $scope.tabs[index].number;
             }; 
-            $scope.pushNewTab = function() {  
-                var obj = $scope.getTabContent();
+            $scope.pushNewTab = function(action) {  
+                var obj = $scope.getTabContent(action);
                 var newTabIndex = $scope.tabs.push(obj);
                 $scope.selectedTabIndex = $scope.getTabNumber(newTabIndex-1);
                 communcationService.selectedTabId = $scope.getTabNumber(newTabIndex-1);
