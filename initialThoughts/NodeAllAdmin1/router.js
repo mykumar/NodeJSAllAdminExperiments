@@ -98,6 +98,7 @@ var router = function(config) {
   // routes
   appRouter.get('/', dispatcher.root);
   appRouter.get('/sendJson', dispatcher.sendJson);
+  appRouter.get('/sendSchemaJson', dispatcher.sendSchemaJson);
   appRouter.post('/checkValid', dispatcher.dispatch);
   appRouter.get('/:databaseType/:connectionName/:methodName', dispatcher.dispatch); 
   appRouter.get('/:databaseType/:connectionName/:databaseName/:methodName', dispatcher.dispatch);

@@ -15,13 +15,11 @@ angular.module('nodeAllAdmin').directive("sidebar",['$compile', 'communcationSer
 
             $scope.animationsEnabled = true;
 
-            
-
-
             $scope.endClick = function(id) {
                   console.log('zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzI am in the clicker');
                   console.log(id);
-                  var obj = {"from": "sidebar", "data": id, "to": "Grid", "action": "select"};
+                  // var obj = {"from": "sidebar", "data": id, "to": "Grid", "action": "select"};
+                  var obj = {"from": "sidebar", "data": id, "to": "Grid", "action": "select", "TabId": communcationService.selectedTabId};
                   communcationService.prepForBroadcast(obj);
                   var modalInstance = $uibModal.open({
                     templateUrl: './genetheme/directives/html/content/modalContent.html',
@@ -79,8 +77,39 @@ angular.module('nodeAllAdmin').directive("sidebar",['$compile', 'communcationSer
               }]
             }]
             }];
+            $scope.sendRequest = function() {
+                var localSchemaJsonData = [{"name":"connection","host":"localhost","id":"SCH_C_connection","user":"root","password":"newpwd","children":[{"name":"information_schema","id":"SCH_C_connection_DB_information_schema","children":[{"name":"Tables","id":"SCH_C_myConnection_DB_informationDB_TH","children":[]}]},{"name":"mysql","id":"SCH_C_connection_DB_mysql","children":[{"name":"Tables","id":"SCH_C_myConnection_DB_informationDB_TH","children":[]}]},{"name":"performance_schema","id":"SCH_C_connection_DB_performance_schema","children":[{"name":"Tables","id":"SCH_C_myConnection_DB_informationDB_TH","children":[]}]},{"name":"timetrack","id":"SCH_C_connection_DB_timetrack","children":[{"name":"Tables","id":"SCH_C_myConnection_DB_informationDB_TH","children":[{"name":"employee","id":"SCH_C_connection_DB_timetrack_T_employee"},{"name":"work","id":"SCH_C_connection_DB_timetrack_T_work"}]}]}]}];
+                var obj = {"from": "sidebar", "to": "sidebar", "action": "loadMetaSchema"};
+                communcationService.prepForBroadcast(obj);
+                return localSchemaJsonData;
+            };
 
-            $scope.schemaData = schemaJsonData;
+            $scope.$on('handleBroadcast', function (event, args) {
+                  console.log('--------I am in the GRIDDDDDDDDDDDD---controller-----------');
+                  if(angular.isObject(args)) { 
+                    if(args.to === "sidebar") {
+                      console.dir('-------------------YES IT IS FOR Grid----------------------------');    
+                      console.dir(args);
+                      $scope.schemaData = args.data;
+                    }
+                  }   
+                  console.dir('-----------------------------------------------');
+            }); 
+
+
+
+            var onDocumentReady = function(index) {
+                $scope.$evalAsync(function() {
+                  angular.element(document).ready(function() {
+                      console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^evalAsync^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^');
+                      // $scope.schemaData = $scope.getSchemeData();
+                      $scope.sendRequest();
+                  });  
+                }); 
+            }; 
+            onDocumentReady();
+
+            $scope.schemaData = [];
             $scope.managementData = managementSchemaJsonData;
         }
     };

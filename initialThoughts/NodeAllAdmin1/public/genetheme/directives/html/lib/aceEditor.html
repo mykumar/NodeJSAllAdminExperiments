@@ -1,7 +1,6 @@
 <div ui-ace="{
               useWrapMode : true,
               showGutter: false,
-              theme:'twilight',
               mode: 'xml',
               firstLineNumber: 5,
               onLoad: aceLoaded,
@@ -16,3 +15,7 @@
               }
             }">
 </div>
+
+<br /><br /><br /><div id="grid1" ui-grid="gridOptions" ui-grid-edit class="grid"></div>
+
+<button type="button" ng-click="printPassedVar()">Print Passed var</button>

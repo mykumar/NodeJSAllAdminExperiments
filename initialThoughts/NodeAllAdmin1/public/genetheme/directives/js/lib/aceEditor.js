@@ -7,9 +7,28 @@ angular.module('nodeAllAdmin').directive('aceEditor',['$compile', 'communcationS
     link: function (scope, element, attrs) {
          console.log('This is the link+++++++++++++++++++++++++++++++++++++++++++++++++++++');   
          console.dir(element[0].id);
-         scope.id = element[0].id;
+         scope.fromTheParentID = element[0].id;
+         // scope.tabIndex = element[0].tabIndex;
     },
     controller: function ($scope) {
+        $scope.$on('handleBroadcast', function (event, args) {
+                console.log('--------I am in the GRIDDDDDDDDDDDD---controller-----------');
+                if(angular.isObject(args)) { 
+                  if(args.to === "Grid" && args.TabId == $scope.fromTheParentID) {
+                    console.dir('-------------------YES IT IS FOR Grid----------------------------');    
+                    console.dir(args);
+                    $scope.jsonData = args.data;
+                  }
+                }   
+                console.dir('-----------------------------------------------');
+        }); 
+
+        $scope.printPassedVar = function() {
+            console.log('This is the printPassedVar+++++++++++++++++++++++++++++++++++++++++++++++++++++');   
+            console.dir($scope.fromTheParentID);      
+            // console.dir($scope.tabIndex);
+        };    
+
 
         $scope.fname = 'fname';
         $scope.lname = 'lname';
@@ -111,6 +130,57 @@ angular.module('nodeAllAdmin').directive('aceEditor',['$compile', 'communcationS
                    console.log('I am the onChange');
                 };
         }
+
+        $scope.firstName = "John Smith";  
+              // $scope.jsonData = [      {
+              //                            "id":12,
+              //                            "first-name": "Cox",
+              //                            "friends": ["friend0"],
+              //                            "address": {street:"301 Dove Ave", city:"Laurel", zip:"39565"},
+              //                            "getZip" : function() {return this.address.zip;}
+              //                        },
+              //                        {
+              //                            "id":66664444,
+              //                            "first-name": "susie",
+              //                            "friends": ["friend0"],
+              //                            "address": {street:"301 Dove Ave", city:"Laurel", zip:"39565"},
+              //                            "getZip" : function() {return this.address.zip;}
+              //                        },
+              //                        {
+              //                            "id":3322222,
+              //                            "first-name": "Jessie",
+              //                            "friends": ["friend0"],
+              //                            "address": {street:"301 Dove Ave", city:"Laurel", zip:"39565"},
+              //                            "getZip" : function() {return this.address.zip;}
+              //                        }
+              //                    ];
+
+            console.dir($scope.jsonData);                    
+              
+
+            $scope.gridOptions = {};
+            $scope.gridOptions.enableSorting= true;
+            $scope.gridOptions.columnDefs= [
+                  // { name:'firstName', field: 'first-name' },
+                  // { name:'1stFriend', field: 'friends[0]' },
+                  // { name:'city', field: 'address.city'},
+                  // { name:'getZip', field: 'getZip()', enableCellEdit:false}
+            ];
+            $scope.gridOptions.data = 'jsonData';
+            $scope.gridOptions.onRegisterApi = function(gridApi) {
+              //set gridApi on scope
+              // $scope.gridApi = gridApi;
+              gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
+                  console.log('I am in the afterCellEdit'); 
+                  if(!(newValue.toUpperCase() === oldValue.toUpperCase())) {
+                      console.dir('---------------------------------------------------');
+                      $scope.updateModifiedData(rowEntity, colDef, newValue, oldValue);
+                      console.dir('---------------------------------------------------');
+                  }  
+            });
+
+          };
+
     }
   }
 }]);

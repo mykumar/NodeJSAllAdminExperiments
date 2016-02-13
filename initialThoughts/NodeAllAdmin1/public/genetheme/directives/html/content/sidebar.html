@@ -16,13 +16,13 @@
                                 <a ng-click="expand = !expand"><i class="fa fa-home"></i> {{schemaLevel1.name}} <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu" style=" " class="slide" ng-show="expand">
                                         <li ng-repeat="schemaLevel2 in schemaLevel1.children">
-                                            <a ng-click="level2Expand = !level2Expand"><i class="fa fa-home"></i> {{schemaLevel2.name}} <span class="fa fa-chevron-down"></span></a>
+                                            <a ng-click="level2Expand = !level2Expand"><i class="fa fa-database"></i> {{schemaLevel2.name}} <span class="fa fa-chevron-down"></span></a>
                                             <ul class="nav child_menu" style=" " ng-show="level2Expand">
                                                 <li ng-repeat="schemaLevel3 in schemaLevel2.children">
-                                                    <a ng-click="level2Expand = !level2Expand"><i class="fa fa-home"></i> {{schemaLevel3.name}} </a>
-                                                    <ul>
+                                                    <a ng-click="level3Expand = !level3Expand"><i class="fa fa-th fa-2x"></i> {{schemaLevel3.name}} <span class="fa fa-chevron-down"></span></a>
+                                                    <ul class="nav child_menu" style=" " ng-show="level3Expand">
                                                         <li ng-repeat="schemaLevel4 in schemaLevel3.children">
-                                                            <a ng-click="endClick(schemaLevel4.id)"> {{schemaLevel4.name}} </a>
+                                                            <a ng-click="endClick(schemaLevel4.id)"> <i class="fa fa-th fa-2x"></i> {{schemaLevel4.name}} </a>
                                                         </li> 
                                                     </ul>
                                                 </li>

@@ -1,9 +1,11 @@
 <uib-tabset>
-      <uib-tab ng-repeat="tab in tabs track by $index" heading="{{tab.title}}" select="selectedTabClick($index)">
+      <uib-tab ng-repeat="tab in tabs track by $index" heading="{{tab.title}}" select="selectedTabClick($index,tab.number)" 
+      active="tab.active">
         <div id="content{{tab.number}}"></div>
         	{{tab.content}}
         <div>
-      </uib-tab>
+      </uib>
 
       <button type="button" ng-click="firstCtrl()">Add Tab!</button>
+      <button type="button" ng-click="getActiveTab()">Get Active Tab!</button>
 </uib-tabset>

@@ -3,12 +3,13 @@ angular.module('nodeAllAdmin').factory('communcationService', function($rootScop
     console.dir('@@@@@@@@@@@@communcationService-----------------------------');
     communcationService.message = '';
     communcationService.databaseType = '';
-    communcationService.sendRequest = function() {
+    communcationService.selectedTabId = 0;
+    communcationService.sendRequest = function(requestUrl) {
         // You should return $http's result
         // $http will return a promise
         return $http({
           method: 'GET',
-          url: 'http://localhost:5000/sendJson'
+          url: requestUrl 
         }).then(
             function successCallback(response) {
                 console.dir('This is the response');
@@ -28,9 +29,27 @@ angular.module('nodeAllAdmin').factory('communcationService', function($rootScop
         if(obj)
         {
             if(obj.action) {
+                if(obj.action === "loadMetaSchema") {
+                    console.dir(" @@@@@@@@@@@@@@@@@@@@@@@@@This is the select action @@@@@@@@@@@@@@@@@@@@@@@@@");
+                    console.dir(obj);
+                    var url = 'http://localhost:5000/sendSchemaJson';
+                    communcationService.sendRequest(url).then(function success(data) {
+                           // here you will get your server data
+                            console.dir('++++++++++++++++This is main program suig the promises++++++++++++++++' );
+                            console.dir(data);
+                            obj.data = data;               
+                            console.dir(obj);
+                            communcationService.broadcastItem(obj);
+                           // $scope.content = data;
+                        }, function error(){
+                    });
+                }
+
                 if(obj.action === "select") {
                     console.dir(" @@@@@@@@@@@@@@@@@@@@@@@@@This is the select action @@@@@@@@@@@@@@@@@@@@@@@@@");
-                    communcationService.sendRequest().then(function success(data){
+                    console.dir(obj);
+                    var url = 'http://localhost:5000/sendJson';
+                    communcationService.sendRequest(url).then(function success(data){
                            // here you will get your server data
                             console.dir('++++++++++++++++This is main program suig the promises++++++++++++++++' );
                             console.dir(data);
