@@ -1,0 +1,221 @@
+<!doctype html>
+<html ng-app="myApp">
+  <head>
+    <script type="text/javascript" src="lib/tinymce-dist/tinymce.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.js"></script>
+
+    
+    
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-animate.js"></script>
+    <script src="lib/angular-ui-grid/ui-grid.js"></script>
+    <script src="lib/angularjs-dropdown-multiselect/dist/angularjs-dropdown-multiselect.min.js"></script>
+    <script type="text/javascript" src="lib/angular-ui-tinymce/src/tinymce.js"></script>
+    <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-1.1.2.js"></script>
+    <script src="app.js"></script>
+    <script src="appCntrl.js"></script>
+    <script src="modalCntrl.js"></script>
+    
+    <script src="basicDS.js"></script>
+
+    <script src="lib/docxtemplater-pykiss/browser/docxgen.js"></script>
+    <script src="lib/jszip/dist/jszip.min.js"></script>
+    <script src="lib/jszip-utils/dist/jszip-utils.min.js"></script>
+    <script src="lib/FileSaver.js/FileSaver.min.js"></script>
+    <script src="lib/underscore/underscore.js"></script>
+    
+
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <link href="lib/angular-ui-grid/ui-grid.css" rel="stylesheet">
+
+  </head>
+  <body>
+
+<style type="text/css">
+  form.tab-form-demo .tab-pane {
+    margin: 20px 20px;
+  }
+  #grid1 {
+            width: 100%;
+            height: 150px;
+      }
+  .dropdown-menu {
+            width: 1000%;
+  }    
+</style>
+<div class="container-fluid" >
+<div ng-controller="myCtrl">
+      <uib-tabset justified="true">
+        <uib-tab heading="Main ">  
+              <div class="row">
+                  <div class="col-md-2">
+                      <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1">Format</span>
+                        <input type="text" class="form-control" ng-model="search">
+                      </div>
+                      <div class="list-group">
+                        <a href="#" class="list-group-item">
+                            First item 
+                            <button type="button" class="btn btn-success" ng-click="successClick(220)">Success</button>
+                            <button type="button" class="btn btn-info">Info</button>
+                        </a>
+                        <a href="#" class="list-group-item">
+                            First item 
+                            <button type="button" class="btn btn-success" ng-click="successClick(220)">Success</button>
+                            <button type="button" class="btn btn-info">Info</button>
+                        </a>
+                        <a href="#" class="list-group-item">
+                            First item 
+                            <button type="button" class="btn btn-success" ng-click="successClick(220)">Success</button>
+                            <button type="button" class="btn btn-info">Info</button>
+                        </a>
+                      </div>
+                  </div>
+                  <div class="col-md-2">
+                      <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1">Tech</span>
+                        <input type="text" class="form-control" ng-model="search">
+                      </div>
+                      <div class="list-group">
+                        <a href="#" class="list-group-item">
+                            First item 
+                            <button type="button" class="btn btn-success" ng-click="successClick(220)">Success</button>
+                            <button type="button" class="btn btn-info">Info</button>
+                        </a>
+                        <a href="#" class="list-group-item">
+                            First item 
+                            <button type="button" class="btn btn-success" ng-click="successClick(220)">Success</button>
+                            <button type="button" class="btn btn-info">Info</button>
+                        </a>
+                        <a href="#" class="list-group-item">
+                            First item 
+                            <button type="button" class="btn btn-success" ng-click="successClick(220)">Success</button>
+                            <button type="button" class="btn btn-info">Info</button>
+                        </a>
+                      </div>
+                  </div>
+                  <div class="col-md-8">
+                      <uib-tabset justified="true">
+                          <uib-tab heading="Work Space">
+                              <div class="row">
+                                <div class="col-12"> First ROW</div>
+                              </div>
+                              <div class="row">
+                                <div class="col-12"> 
+                                  <div ng-dropdown-multiselect="" options="example14data" selected-model="example14model" extra-settings="example14settings" checkboxes="true"></div>
+                                  {{example14model}}
+                                  <div id="grid1" ui-grid="gridOptions" ui-grid-edit class="grid"></div>
+                                </div>
+                                <div class="col-12"> 
+                                  <div id="grid1" ui-grid="gridOptions" ui-grid-edit class="grid"></div>
+                                </div>
+                                <div class="col-12"> 
+                                  <div id="grid1" ui-grid="gridOptions" ui-grid-edit class="grid"></div>
+                                </div>
+                                <div class="col-12"> 
+                                  <div id="grid1" ui-grid="gridOptions" ui-grid-edit class="grid"></div>
+                                </div>
+                                <div class="col-12"> 
+                                  <div id="grid1" ui-grid="gridOptions" ui-grid-edit class="grid"></div>
+                                </div>
+                              </div>    
+                          </uib-tab>
+                          
+                          <uib-tab heading="Preview">
+                              <form method="post">
+                                <textarea ui-tinymce="tinymceOptions" ng-model="tinymceModel"></textarea>
+                              </form>
+                          </uib-tab>
+                          
+                      </uib-tabset>
+                  </div>
+              </div>
+          </uib-tab>
+
+
+
+          <uib-tab heading="Appiled Jobs ">  
+              <div class="row">
+                  <div class="col-md-1">
+                      <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1">U</span>
+                        <input type="text" class="form-control" ng-model="search">
+                      </div>
+                      <div class="list-group">
+                        <a href="#" class="list-group-item">First item</a>
+                        <a href="#" class="list-group-item">Second item</a>
+                        <a href="#" class="list-group-item">Third item</a>
+                      </div>
+                  </div>
+                  <div class="col-md-1">
+                      <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1">Date</span>
+                        <input type="text" class="form-control" ng-model="search">
+                      </div>
+                      <div class="list-group">
+                        <a href="#" class="list-group-item">First item</a>
+                        <a href="#" class="list-group-item">Second item</a>
+                        <a href="#" class="list-group-item">Third item</a>
+                      </div>
+                  </div>
+                  <div class="col-md-2">
+                      <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1">Company Names</span>
+                        <input type="text" class="form-control" ng-model="search">
+                      </div>
+                      <div class="list-group">
+                        <a href="#" class="list-group-item">First item</a>
+                        <a href="#" class="list-group-item">Second item</a>
+                        <a href="#" class="list-group-item">Third item</a>
+                      </div>
+                  </div>
+                  <div class="col-md-8">
+                      <uib-tabset justified="true">
+                          <uib-tab heading="Preview">
+                              <form method="post">
+                                <textarea ui-tinymce="tinymceOptions" ng-model="tinymceModel"></textarea>
+                              </form>
+                          </uib-tab>
+                      </uib-tabset>
+                  </div>
+              </div>
+          </uib-tab>
+          
+    </div>
+
+    <script type="text/ng-template" id="ModalContent.html">
+        <div class="modal-header">
+            <h3 class="modal-title">I'm a modal!</h3>
+        </div>
+        <div class="modal-body">
+            TEXT IS :::: {{parentText}}
+              <div class="row">
+                <div class="col-12"> First ROW</div>
+              </div>
+              <div class="row">
+                <div class="col-12"> 
+                  <div id="grid1" ui-grid="gridOptions" ui-grid-edit class="grid"></div>
+                </div>
+                <div class="col-12"> 
+                  <div id="grid1" ui-grid="gridOptions" ui-grid-edit class="grid"></div>
+                </div>
+                <div class="col-12"> 
+                  <div id="grid1" ui-grid="gridOptions" ui-grid-edit class="grid"></div>
+                </div>
+                <div class="col-12"> 
+                  <div id="grid1" ui-grid="gridOptions" ui-grid-edit class="grid"></div>
+                </div>
+                <div class="col-12"> 
+                  <div id="grid1" ui-grid="gridOptions" ui-grid-edit class="grid"></div>
+                </div>
+              </div>     
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+            <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
+</div>
+
+
+  </body>
+</html>
