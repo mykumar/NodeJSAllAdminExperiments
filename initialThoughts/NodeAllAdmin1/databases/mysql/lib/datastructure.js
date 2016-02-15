@@ -48,6 +48,24 @@ DB.prototype.getConnectionIndex = function(connectionName) {
 	});
 	return indexMain;
 };
+DB.prototype.getConnections = function() {
+	var jsonData = [];
+	for (var connectionIndex=0; connectionIndex < this.connections.length; connectionIndex++){
+		var connectionObj = {};
+		for (var property in this.connections[connectionIndex]) {
+			if(property === 'children') {
+				connectionObj[property] = [];	
+			}
+			connectionObj[property] = this.connections[connectionIndex][property];
+		}
+		jsonData.push(connectionObj);
+	}	
+	return jsonData;
+};	
+DB.prototype.getConnectionChildren = function(connectionName) {
+	var connectionIndex = this.getConnectionIndex(connectionName);
+	return this.connections[connectionIndex].children;
+};
 DB.prototype.getDatabaseIndex = function(databaseName) {
 	var connectionIndex = this.getConnectionIndex();
 	if(databaseName == undefined) { 
@@ -145,7 +163,7 @@ DB.prototype.createDatabase = function(object) {
 		newDatabaseParams.children = []; 
 		var tableParams = {};
 		tableParams.name =  "Tables"; 
-		tableParams.id = "SCH_C_myConnection_DB_" + object.name + "_TH";
+		tableParams.id = "SCH_C_" + this.connectionName + "_DB_" + object.name + "_TH";
 		tableParams.children = []; 
 		newDatabaseParams.children.push(tableParams);
 		// newDatabaseParams.views = [];

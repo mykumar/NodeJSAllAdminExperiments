@@ -20,7 +20,6 @@ mysqlManager.prototype.getConnectionParameters= function(connectionName) {
 				host:     'localhost',
 			    user:     'root',
 			    password: 'orbit786',
-			    
 			};
 			// password: 'newpwd',
 }
@@ -73,7 +72,12 @@ mysqlManager.prototype.query = function(req, res, that){
 	var results = this.wait.forMethod(that.connection, 'query', details.query);
  	res.send(JSON.stringify(results));   
 }
-mysqlManager.prototype.fillMetaDetails = function(req, res){
+mysqlManager.prototype.loadConnections = function(req, res){
+	var jsonData = this.ds.getConnections();
+	// res.json(that.ds.getConnectionChildren(req.connectionName));
+	res.json(jsonData);   
+};
+mysqlManager.prototype.loadConnectionsChildren = function(req, res){
 	req.databaseManager.connectToDatabase(req, res);
 	var that = this;
 	var callmes = [
@@ -82,11 +86,13 @@ mysqlManager.prototype.fillMetaDetails = function(req, res){
     				// console.dir({databases:databases});
     				console.dir('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$');
     				console.dir(databases);
+    				that.ds.setConnection(req.connectionName);
     				for(database=0;database < databases.length; database++) {
     						// console.dir(databases[database]);
     						var databaseParams = {};
 				            databaseParams.name =  databases[database]; 
-				            databaseParams.id =  "SCH_C_connection_DB_" + databases[database]; 
+
+				            databaseParams.id =  "SCH_C_" + req.connectionName + "_DB_" + databases[database]; 
 				            that.ds.createDatabase(databaseParams);
     				}	
     				callback(null);
@@ -96,14 +102,15 @@ mysqlManager.prototype.fillMetaDetails = function(req, res){
 				var databaseNames = that.ds.getDatabaseNames();
 				async.mapSeries(databaseNames, function(dataBaseName,mapseriesCallback){
 						console.dir('$$$$$$$$$$DATABASE NAME$$$$$$$$$$$$$$$$');
-						console.dir(dataBaseName);	
+						console.dir(dataBaseName);
+						that.ds.setConnection(req.connectionName);	
 						if(!that.isSystemDatabase(dataBaseName)) {
 							that.connection.databaseTables(dataBaseName, function(err, tables) {
 				            		for (var table in tables) {
 				            			console.dir('-------------TABLE NAME-----------');
 	            		                var tableParams = {};
 						                tableParams.name =  table;
-						                tableParams.id =  "SCH_C_connection_DB_" + that.ds.databaseName + "_T_" + table; 
+						                tableParams.id =  "SCH_C_" + req.connectionName + "_DB_" + that.ds.databaseName + "_T_" + table; 
 						                // that.ds.setDatabase(databaseNames[database]);
 						                console.dir(tableParams);
 						                that.ds.createTable(tableParams);
@@ -127,8 +134,9 @@ mysqlManager.prototype.fillMetaDetails = function(req, res){
 		console.dir('--------------------------------------------------------------------');
 		console.dir(that.ds.json());
 		console.dir('--------------------------------------------------------------------');
-		var jsonData = that.ds.connections;
-		res.json(jsonData);   
+		// var jsonData = that.ds.connections;
+		res.json(that.ds.getConnectionChildren(req.connectionName));
+		// res.json(jsonData);   
 	});
 }
 mysqlManager.prototype.fillDatabasesDetails = function() {

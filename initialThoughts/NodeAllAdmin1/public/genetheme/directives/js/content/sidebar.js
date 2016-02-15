@@ -19,8 +19,18 @@ angular.module('nodeAllAdmin').directive("sidebar",['$compile', 'communcationSer
                 console.dir('-----------------addMainTab-------------------------');                
                 $scope.sendRequest("Tabs", "addMainTab");
             };  
-            $scope.connectionRefreshClick = function() {
+            $scope.connectionRefreshClick = function(connectionId) {
                 console.dir('------connectionRefreshClick----------------------------');
+                console.dir(connectionId);
+                var connName = $scope.getSchemaParameter(connectionId, "connection");
+                console.dir(connName);
+                $scope.sendRequest("sidebar","loadConnectionsChildren", connName);
+            };
+            $scope.getSchemaParameter = function(parameter, schemaType) {
+                if(schemaType === 'connection') {
+                    return parameter.split("_")[2]; 
+                }
+                return null;
             };  
             $scope.addConfigTab = function() {
                 console.dir('-----------------addConfigTab-------------------------');                
@@ -91,18 +101,23 @@ angular.module('nodeAllAdmin').directive("sidebar",['$compile', 'communcationSer
               }]
             }]
             }];
-            $scope.sendRequest = function(to,type) {
-                
-                var obj = {"from": "sidebar", "to": to, "action": type};
+            $scope.sendRequest = function(to,type, connectionName) {
+                var obj = {"from": "sidebar", "to": to, "action": type, "connectionName" : connectionName};
                 communcationService.prepForBroadcast(obj);
-                
             };
+            $scope.getSchemeData = function(to,type) {
+
+            };  
 
             $scope.$on('handleBroadcast', function (event, args) {
                   console.log('--------I am in the GRIDDDDDDDDDDDD---controller-----------');
                   if(angular.isObject(args)) { 
-                    if(args.to === "sidebar") {
-                          console.dir('-------------------YES IT IS FOR Grid----------------------------');    
+                    if(args.to === "sidebar" && args.action === "loadConnections") {
+                          console.dir('-------------------YES IT IS FOR loadConnections----------------------------');    
+                          console.dir(args);
+                          $scope.schemaData = args.data;
+                    } else if(args.to === "sidebar" && args.action === "loadConnectionsChildren") {
+                          console.dir('-------------------YES IT IS FOR loadConnectionsChildren----------------------------');    
                           console.dir(args);
                           $scope.schemaData = args.data;
                     }
@@ -124,7 +139,7 @@ angular.module('nodeAllAdmin').directive("sidebar",['$compile', 'communcationSer
                   angular.element(document).ready(function() {
                       console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^evalAsync^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^');
                       // $scope.schemaData = $scope.getSchemeData();
-                      // $scope.sendRequest("sidebar","loadMetaSchema");
+                      $scope.sendRequest("sidebar","loadConnections");
                   });  
                 }); 
             }; 

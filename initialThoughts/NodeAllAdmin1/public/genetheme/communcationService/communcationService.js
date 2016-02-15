@@ -29,10 +29,25 @@ angular.module('nodeAllAdmin').factory('communcationService', function($rootScop
         if(obj)
         {
             if(obj.action) {
-                if(obj.action === "loadMetaSchema") {
+                if(obj.action === "loadConnectionsChildren") {
                     console.dir(" @@@@@@@@@@@@@@@@@@@@@@@@@This is the select action @@@@@@@@@@@@@@@@@@@@@@@@@");
                     console.dir(obj);
-                    var url = 'http://localhost:5000/sendSchemaJson';
+                    var url = 'http://localhost:5000/mysql/'  + '/' + obj.connectionName + '/' + obj.action;
+                    communcationService.sendRequest(url).then(function success(data) {
+                           // here you will get your server data
+                            console.dir('++++++++++++++++This is main program suig the promises++++++++++++++++' );
+                            console.dir(data);
+                            obj.data = data;               
+                            console.dir(obj);
+                            communcationService.broadcastItem(obj);
+                           // $scope.content = data;
+                        }, function error(){
+                    });
+                }
+                if(obj.action === "loadConnections") {
+                    console.dir(" @@@@@@@@@@@@@@@@@@@@@@@@@This is the select action @@@@@@@@@@@@@@@@@@@@@@@@@");
+                    console.dir(obj);
+                    var url = 'http://localhost:5000/mysql/loadConnections';
                     communcationService.sendRequest(url).then(function success(data) {
                            // here you will get your server data
                             console.dir('++++++++++++++++This is main program suig the promises++++++++++++++++' );

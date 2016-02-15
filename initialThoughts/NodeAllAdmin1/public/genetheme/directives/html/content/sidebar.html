@@ -43,7 +43,7 @@
                         
                         <ul class="nav side-menu">
                             <li ng-repeat="schemaLevel1 in schemaData">
-                                <a ng-click="expand = !expand"><i class="fa fa-refresh" ng-click="connectionRefreshClick()">
+                                <a ng-click="expand = !expand"><i class="fa fa-refresh" ng-click="connectionRefreshClick(schemaLevel1.id)">
                                     </i> {{schemaLevel1.name}} <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu" style=" " class="slide" ng-show="expand">
                                         <li ng-repeat="schemaLevel2 in schemaLevel1.children">
