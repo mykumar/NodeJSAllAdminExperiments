@@ -19,8 +19,10 @@ mysqlManager.prototype.getConnectionParameters= function(connectionName) {
 	return {
 				host:     'localhost',
 			    user:     'root',
-			    password: 'newpwd',
+			    password: 'orbit786',
+			    
 			};
+			// password: 'newpwd',
 }
 mysqlManager.prototype.createConnectionString= function(dataBaseName,connectionName) {
 	console.dir('This is createConnectionString');
@@ -72,12 +74,14 @@ mysqlManager.prototype.query = function(req, res, that){
  	res.send(JSON.stringify(results));   
 }
 mysqlManager.prototype.fillMetaDetails = function(req, res){
+	req.databaseManager.connectToDatabase(req, res);
 	var that = this;
 	var callmes = [
 		    function getDatases(callback) {
 		        that.connection.databases(function(err, databases) {
     				// console.dir({databases:databases});
     				console.dir('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$');
+    				console.dir(databases);
     				for(database=0;database < databases.length; database++) {
     						// console.dir(databases[database]);
     						var databaseParams = {};
@@ -127,7 +131,7 @@ mysqlManager.prototype.fillMetaDetails = function(req, res){
 		res.json(jsonData);   
 	});
 }
-mysqlManager.prototype.fillDatabasesDetails = function(){
+mysqlManager.prototype.fillDatabasesDetails = function() {
 	var databaseNames = this.wait.forMethod(this.connection, 'databases');
 	for(database=0;database < databaseNames.length; database++) {
             var databaseParams = {};
@@ -137,13 +141,13 @@ mysqlManager.prototype.fillDatabasesDetails = function(){
     }
     return this;	
 }
-mysqlManager.prototype.isSystemDatabase = function(databaseName){
+mysqlManager.prototype.isSystemDatabase = function(databaseName) {
 	if(this.isSystemDatabasesIgnored){
 		return this.systemDatabasesList.indexOf(databaseName) > -1 ? true : false;
 	}
 	return false;
 }	
-mysqlManager.prototype.fillTablesDetails = function(){
+mysqlManager.prototype.fillTablesDetails = function() {
 	var databaseNames = this.ds.getDatabaseNames();
     for(database=0;database < databaseNames.length; database++) {
         if(!this.isSystemDatabase(databaseNames[database])) {

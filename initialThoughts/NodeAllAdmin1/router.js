@@ -80,7 +80,7 @@ var router = function(config) {
     //For mysql databases we didnot require the specific database name to connect 
     //but, i am using this as it is, to follow the pattern
     req.databaseName = databaseName;
-    req.databaseManager.connectToDatabase(req, res,next);
+    req.databaseManager.connectToDatabase(req, res, next);
   });
   appRouter.param('collectionName', function(req, res, next, collectionName) {
     console.dir('This is collection Name-------');  

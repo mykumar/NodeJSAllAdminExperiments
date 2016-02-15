@@ -43,8 +43,8 @@
                         
                         <ul class="nav side-menu">
                             <li ng-repeat="schemaLevel1 in schemaData">
-                                <a ng-click="expand = !expand"><i class="fa fa-certificate"></i>
-</i> {{schemaLevel1.name}} <span class="fa fa-chevron-down"></span></a>
+                                <a ng-click="expand = !expand"><i class="fa fa-refresh" ng-click="connectionRefreshClick()">
+                                    </i> {{schemaLevel1.name}} <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu" style=" " class="slide" ng-show="expand">
                                         <li ng-repeat="schemaLevel2 in schemaLevel1.children">
                                             <a ng-click="level2Expand = !level2Expand"><i class="fa fa-database"></i> {{schemaLevel2.name}} <span class="fa fa-chevron-down"></span></a>

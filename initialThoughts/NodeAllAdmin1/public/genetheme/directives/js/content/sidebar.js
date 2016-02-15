@@ -19,30 +19,35 @@ angular.module('nodeAllAdmin').directive("sidebar",['$compile', 'communcationSer
                 console.dir('-----------------addMainTab-------------------------');                
                 $scope.sendRequest("Tabs", "addMainTab");
             };  
-
+            $scope.connectionRefreshClick = function() {
+                console.dir('------connectionRefreshClick----------------------------');
+            };  
             $scope.addConfigTab = function() {
                 console.dir('-----------------addConfigTab-------------------------');                
                 $scope.sendRequest("Tabs", "addConfigTab");
             };  
             $scope.endClick = function(id) {
-                  console.log('zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzI am in the clicker');
-                  console.log(id);
-                  // var obj = {"from": "sidebar", "data": id, "to": "Grid", "action": "select"};
-                  var obj = {"from": "sidebar", "data": id, "to": "Grid", "action": "select", "TabId": communcationService.selectedTabId};
-                  communcationService.prepForBroadcast(obj);
-                  var modalInstance = $uibModal.open({
-                    templateUrl: './genetheme/directives/html/content/modalContent.html',
-                    controller: 'modalContentCtrl',
-                  });  
-                  modalInstance.result.then(function (selectedItem) {
-                    $scope.selected = selectedItem;
-                    console.dir('--------------------------------THIS IS THE MODAL------------------------------------------------------');
-                    console.dir(selectedItem);
-                    console.dir('--------------------------------THIS IS THE MODAL------------------------------------------------------');
-                  }, function () {
-                    
-                  });
+              console.log('zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzI am in the clicker');
+              console.log(id);
+              // var obj = {"from": "sidebar", "data": id, "to": "Grid", "action": "select"};
+
+              var obj = {"from": "sidebar", "data": id, "to": "Grid", "action": "select", "TabId": communcationService.selectedTabId};
+              communcationService.prepForBroadcast(obj);
+
+              // var modalInstance = $uibModal.open({
+              //   templateUrl: './genetheme/directives/html/content/modalContent.html',
+              //   controller: 'modalContentCtrl',
+              // });  
+              // modalInstance.result.then(function (selectedItem) {
+              //   $scope.selected = selectedItem;
+              //   console.dir('--------------------------------THIS IS THE MODAL------------------------------------------------------');
+              //   console.dir(selectedItem);
+              //   console.dir('--------------------------------THIS IS THE MODAL------------------------------------------------------');
+              // }, function () {
+                
+              // });
               // $dialog.dialog({}).open('/genetheme/directives/html/content/modalContent.html');  
+
             };  
 
             $scope.Level1Click = function() {
@@ -97,9 +102,9 @@ angular.module('nodeAllAdmin').directive("sidebar",['$compile', 'communcationSer
                   console.log('--------I am in the GRIDDDDDDDDDDDD---controller-----------');
                   if(angular.isObject(args)) { 
                     if(args.to === "sidebar") {
-                      console.dir('-------------------YES IT IS FOR Grid----------------------------');    
-                      console.dir(args);
-                      $scope.schemaData = args.data;
+                          console.dir('-------------------YES IT IS FOR Grid----------------------------');    
+                          console.dir(args);
+                          $scope.schemaData = args.data;
                     }
                   }   
                   console.dir('-----------------------------------------------');
@@ -119,7 +124,7 @@ angular.module('nodeAllAdmin').directive("sidebar",['$compile', 'communcationSer
                   angular.element(document).ready(function() {
                       console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^evalAsync^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^');
                       // $scope.schemaData = $scope.getSchemeData();
-                      $scope.sendRequest("sidebar","loadMetaSchema");
+                      // $scope.sendRequest("sidebar","loadMetaSchema");
                   });  
                 }); 
             }; 

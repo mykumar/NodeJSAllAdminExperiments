@@ -15,9 +15,20 @@ angular.module('nodeAllAdmin').directive('aceEditor',['$compile', 'communcationS
                 console.log('--------I am in the GRIDDDDDDDDDDDD---controller-----------');
                 if(angular.isObject(args)) { 
                   if(args.to === "Grid" && args.TabId == $scope.fromTheParentID) {
-                    console.dir('-------------------YES IT IS FOR Grid NEW ONE BABY----------------------------');    
-                    console.dir(args);
-                    $scope.jsonData = args.data;
+                      console.dir('-------------------YES IT IS FOR Grid NEW ONE BABY----------------------------');    
+                      console.dir(args);
+                      console.dir($scope.columnData);
+                      $scope.columnData.splice(0,$scope.columnData.length);
+                      if(args.data.length > 0) {
+                          for (var property in args.data[0]) {
+                              var objColumnDefs = {};
+                              objColumnDefs['field'] = property;
+                              objColumnDefs['displayName'] = property;
+                              $scope.columnData.push(objColumnDefs);     
+                          } 
+                      }
+                      console.dir($scope.columnData);
+                      $scope.jsonData = args.data;
                   }
                 }   
                 console.dir('-----------------------------------------------');
@@ -131,7 +142,7 @@ angular.module('nodeAllAdmin').directive('aceEditor',['$compile', 'communcationS
                 };
         }
 
-        $scope.firstName = "John Smith";  
+        // $scope.firstName = "John Smith";  
               // $scope.jsonData = [      {
               //                            "id":12,
               //                            "first-name": "Cox",
@@ -157,9 +168,9 @@ angular.module('nodeAllAdmin').directive('aceEditor',['$compile', 'communcationS
 
             console.dir($scope.jsonData);                    
               
-            $scope.columnData = [{ id:'ID', field: 'id' },];
+            $scope.columnData = [];
             $scope.gridOptions = {};
-            $scope.gridOptions.enableSorting= true;
+            // $scope.gridOptions.enableSorting= true;
             $scope.gridOptions.columnDefs = $scope.columnData;
             
             $scope.gridOptions.data = 'jsonData';
