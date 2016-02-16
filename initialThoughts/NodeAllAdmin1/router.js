@@ -27,10 +27,8 @@ var router = function(config) {
   appRouter.use(favicon(__dirname + '/public/images/favicon.ico'));
   appRouter.use(logger('dev'));
   appRouter.use('/', express.static(__dirname + '/public'));
-  appRouter.use(bodyParser.urlencoded({
-    extended: true,
-    // limit:    config.site.requestSizeLimit,
-  }));
+  appRouter.use(bodyParser.json()); // for parsing application/json
+  appRouter.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
   appRouter.use(cookieParser('cookiesecret'));
   appRouter.use(session({
     key:                'cookieKeyName',
@@ -99,10 +97,13 @@ var router = function(config) {
   appRouter.get('/', dispatcher.root);
   appRouter.get('/sendJson', dispatcher.sendJson);
   appRouter.get('/sendSchemaJson', dispatcher.sendSchemaJson);
-  appRouter.post('/checkValid', dispatcher.dispatch);
+
+  appRouter.post('/checkValid', dispatcher.checkValid);
+
   appRouter.get('/:databaseType/:methodName', dispatcher.dispatch); 
   appRouter.get('/:databaseType/:connectionName/:methodName', dispatcher.dispatch); 
   appRouter.get('/:databaseType/:connectionName/:databaseName/:methodName', dispatcher.dispatch);
+  appRouter.post('/:databaseType/:connectionName/:databaseName/:methodName', dispatcher.dispatch);
   appRouter.get('/:databaseType/:connectionName/:databaseName/:collectionName/:methodName', dispatcher.dispatch);
   
   return appRouter;

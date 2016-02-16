@@ -4,6 +4,7 @@ var DB = function() {
 	this.databaseName = null;
 	this.tableName = null;
 	this.isTaskInProgress = false;
+	this.separator = "$%$$^";
 }
 DB.prototype.isObject = function(val) {
     return val instanceof Object; 
@@ -53,10 +54,11 @@ DB.prototype.getConnections = function() {
 	for (var connectionIndex=0; connectionIndex < this.connections.length; connectionIndex++){
 		var connectionObj = {};
 		for (var property in this.connections[connectionIndex]) {
-			if(property === 'children') {
+			if(this.compareStrings(property, 'children')) {
 				connectionObj[property] = [];	
-			}
-			connectionObj[property] = this.connections[connectionIndex][property];
+			} else {
+				connectionObj[property] = this.connections[connectionIndex][property];
+			}	
 		}
 		jsonData.push(connectionObj);
 	}	
@@ -163,7 +165,7 @@ DB.prototype.createDatabase = function(object) {
 		newDatabaseParams.children = []; 
 		var tableParams = {};
 		tableParams.name =  "Tables"; 
-		tableParams.id = "SCH_C_" + this.connectionName + "_DB_" + object.name + "_TH";
+		tableParams.id = "SCH" + this.separator  + "C" + this.separator + this.connectionName +  this.separator + "DB" + this.separator + object.name + this.separator + "TH";
 		tableParams.children = []; 
 		newDatabaseParams.children.push(tableParams);
 		// newDatabaseParams.views = [];

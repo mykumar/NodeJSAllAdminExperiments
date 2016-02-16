@@ -12,6 +12,7 @@ angular.module('nodeAllAdmin').directive("sidebar",['$compile', 'communcationSer
 
             var level1Expand = true;
             var level2Expand = true;
+            $scope.separator = "$%$$^";
 
             $scope.animationsEnabled = true;
             
@@ -27,36 +28,71 @@ angular.module('nodeAllAdmin').directive("sidebar",['$compile', 'communcationSer
                 $scope.sendRequest("sidebar","loadConnectionsChildren", connName);
             };
             $scope.getSchemaParameter = function(parameter, schemaType) {
+                console.dir('-----------------------------getSchemaParameter-----------------------------------------------------------------------------');
+
+                var paramArr = parameter.split($scope.separator);
                 if(schemaType === 'connection') {
-                    return parameter.split("_")[2]; 
+                    for (var i=0; i<paramArr.length;i++){
+                        console.dir(paramArr[i]);
+                        if(paramArr[i] === 'C') {
+                            i++;
+                            console.dir('--------------------------------------------It matched C-------------------------------------------------------------------------');
+                            console.dir(paramArr[i]);
+                            return paramArr[i];
+                        }
+                    }
                 }
-                return null;
+                if(schemaType === 'table') {
+                    for (var i=0; i<paramArr.length;i++){
+                        if(paramArr[i] === 'T') {
+                            console.dir('--------------------------------------------It matched T-------------------------------------------------------------------------');
+                            i++;
+                            console.dir(paramArr[i]);
+                            return paramArr[i];
+                        }
+                    }
+                }
+                if(schemaType === 'db') {
+                    for (var i=0; i<paramArr.length;i++){
+                        if(paramArr[i] === 'DB') {
+                            console.dir('--------------------------------------------It matched T-------------------------------------------------------------------------');
+                            i++;
+                            console.dir(paramArr[i]);
+                            return paramArr[i];
+                        }
+                    }
+                }
             };  
             $scope.addConfigTab = function() {
                 console.dir('-----------------addConfigTab-------------------------');                
                 $scope.sendRequest("Tabs", "addConfigTab");
             };  
             $scope.endClick = function(id) {
-              console.log('zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzI am in the clicker');
-              console.log(id);
-              // var obj = {"from": "sidebar", "data": id, "to": "Grid", "action": "select"};
+                console.log('zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzI am in the clicker');
+                // console.log(id);
+                // console.dir(id.split($scope.separator));
+                // var obj = {"from": "sidebar", "data": id, "to": "Grid", "action": "select"};
+                var connName = $scope.getSchemaParameter(id, "connection");
+                var tableName = $scope.getSchemaParameter(id, "table");
+                var dbName = $scope.getSchemaParameter(id, "db");
 
-              var obj = {"from": "sidebar", "data": id, "to": "Grid", "action": "select", "TabId": communcationService.selectedTabId};
-              communcationService.prepForBroadcast(obj);
+                $scope.sendRequest("Grid", "select", connName, dbName, tableName);
+                // var obj = {"from": "sidebar", "data": id, "to": "Grid", "action": "select", "TabId": communcationService.selectedTabId};
+                // communcationService.prepForBroadcast(obj);
 
-              // var modalInstance = $uibModal.open({
-              //   templateUrl: './genetheme/directives/html/content/modalContent.html',
-              //   controller: 'modalContentCtrl',
-              // });  
-              // modalInstance.result.then(function (selectedItem) {
-              //   $scope.selected = selectedItem;
-              //   console.dir('--------------------------------THIS IS THE MODAL------------------------------------------------------');
-              //   console.dir(selectedItem);
-              //   console.dir('--------------------------------THIS IS THE MODAL------------------------------------------------------');
-              // }, function () {
-                
-              // });
-              // $dialog.dialog({}).open('/genetheme/directives/html/content/modalContent.html');  
+                // var modalInstance = $uibModal.open({
+                //   templateUrl: './genetheme/directives/html/content/modalContent.html',
+                //   controller: 'modalContentCtrl',
+                // });  
+                // modalInstance.result.then(function (selectedItem) {
+                //   $scope.selected = selectedItem;
+                //   console.dir('--------------------------------THIS IS THE MODAL------------------------------------------------------');
+                //   console.dir(selectedItem);
+                //   console.dir('--------------------------------THIS IS THE MODAL------------------------------------------------------');
+                // }, function () {
+                  
+                // });
+                // $dialog.dialog({}).open('/genetheme/directives/html/content/modalContent.html');  
 
             };  
 
@@ -101,14 +137,26 @@ angular.module('nodeAllAdmin').directive("sidebar",['$compile', 'communcationSer
               }]
             }]
             }];
-            $scope.sendRequest = function(to,type, connectionName) {
-                var obj = {"from": "sidebar", "to": to, "action": type, "connectionName" : connectionName};
+            $scope.sendRequest = function(to,type, connectionName, dbName, tableName) {
+                var obj = {"from": "sidebar", "to": to, "action": type, "connectionName" : connectionName, "dbName" : dbName, "tableName" : tableName};
                 communcationService.prepForBroadcast(obj);
             };
             $scope.getSchemeData = function(to,type) {
 
             };  
-
+            $scope.updateConnectionChildren = function(args) {
+                console.dir('------------------------updateConnectionChildren---------------------------------------------------------------');
+                if($scope.schemaData.length > 0) {
+                  for (var connectionIndex in $scope.schemaData) {
+                    if($scope.schemaData[connectionIndex].name === args.connectionName) {
+                        console.dir('------------------------updateConnectionChildren if loop---------------------------------------------------------------');
+                        $scope.schemaData[connectionIndex].children = args.data;
+                        console.dir($scope.schemaData);
+                        console.dir($scope.schemaData[connectionIndex]);
+                    }
+                  }
+                }  
+            };  
             $scope.$on('handleBroadcast', function (event, args) {
                   console.log('--------I am in the GRIDDDDDDDDDDDD---controller-----------');
                   if(angular.isObject(args)) { 
@@ -119,7 +167,9 @@ angular.module('nodeAllAdmin').directive("sidebar",['$compile', 'communcationSer
                     } else if(args.to === "sidebar" && args.action === "loadConnectionsChildren") {
                           console.dir('-------------------YES IT IS FOR loadConnectionsChildren----------------------------');    
                           console.dir(args);
-                          $scope.schemaData = args.data;
+                          $scope.updateConnectionChildren(args);
+                          // $scope.schemaData = args.data;
+
                     }
                   }   
                   console.dir('-----------------------------------------------');
@@ -128,12 +178,9 @@ angular.module('nodeAllAdmin').directive("sidebar",['$compile', 'communcationSer
                   combo: 'ctrl+g',
                   description: 'This one goes to 11',
                   callback: function() {
-                      console.dir('----------------------sidebar directive ctrl+ggggggggggggggggg----------------------------');
-
+                        console.dir('----------------------sidebar directive ctrl+ggggggggggggggggg----------------------------');
                   }
             });
-
-
             var onDocumentReady = function(index) {
                 $scope.$evalAsync(function() {
                   angular.element(document).ready(function() {

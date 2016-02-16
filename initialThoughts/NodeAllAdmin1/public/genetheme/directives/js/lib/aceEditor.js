@@ -141,7 +141,7 @@ angular.module('nodeAllAdmin').directive('aceEditor',['$compile', 'communcationS
                    console.log('I am the onChange');
                 };
         }
-
+        $scope.jsonData = [];
         // $scope.firstName = "John Smith";  
               // $scope.jsonData = [      {
               //                            "id":12,

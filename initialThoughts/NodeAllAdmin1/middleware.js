@@ -5,6 +5,7 @@ var express     = require('express');
 // var swig        = require('swig');
 // var swigFilters = require('./filters');
 var router      = require('./router');
+// var bodyParser = require('body-parser');
 
 var middleware = function(config) {
   var app = express();
@@ -16,6 +17,11 @@ var middleware = function(config) {
   // });
 
   // //App configuration
+  // app.use( bodyParser.json() );       // to support JSON-encoded bodies
+  // app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
+  //     extended: true
+  // })); 
+
   app.set('views', __dirname + '/views');
   app.set('view engine', 'html');
   app.set('view options', {layout: false});

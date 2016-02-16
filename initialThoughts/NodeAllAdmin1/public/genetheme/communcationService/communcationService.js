@@ -30,9 +30,9 @@ angular.module('nodeAllAdmin').factory('communcationService', function($rootScop
         {
             if(obj.action) {
                 if(obj.action === "loadConnectionsChildren") {
-                    console.dir(" @@@@@@@@@@@@@@@@@@@@@@@@@This is the select action @@@@@@@@@@@@@@@@@@@@@@@@@");
+                    console.dir(" @@@@@@@@@@@@@@@@@@@@@@@@@This is the loadConnectionsChildren action @@@@@@@@@@@@@@@@@@@@@@@@@");
                     console.dir(obj);
-                    var url = 'http://localhost:5000/mysql/'  + '/' + obj.connectionName + '/' + obj.action;
+                    var url = 'http://localhost:5000/mysql/'  + obj.connectionName + '/' + obj.action;
                     communcationService.sendRequest(url).then(function success(data) {
                            // here you will get your server data
                             console.dir('++++++++++++++++This is main program suig the promises++++++++++++++++' );
@@ -45,9 +45,9 @@ angular.module('nodeAllAdmin').factory('communcationService', function($rootScop
                     });
                 }
                 if(obj.action === "loadConnections") {
-                    console.dir(" @@@@@@@@@@@@@@@@@@@@@@@@@This is the select action @@@@@@@@@@@@@@@@@@@@@@@@@");
+                    console.dir(" @@@@@@@@@@@@@@@@@@@@@@@@@This is the loadConnections action @@@@@@@@@@@@@@@@@@@@@@@@@");
                     console.dir(obj);
-                    var url = 'http://localhost:5000/mysql/loadConnections';
+                    var url = 'http://localhost:5000/mysql/' + obj.action;
                     communcationService.sendRequest(url).then(function success(data) {
                            // here you will get your server data
                             console.dir('++++++++++++++++This is main program suig the promises++++++++++++++++' );
@@ -63,7 +63,7 @@ angular.module('nodeAllAdmin').factory('communcationService', function($rootScop
                 if(obj.action === "select") {
                     console.dir(" @@@@@@@@@@@@@@@@@@@@@@@@@This is the select action @@@@@@@@@@@@@@@@@@@@@@@@@");
                     console.dir(obj);
-                    var url = 'http://localhost:5000/sendJson';
+                    var url = 'http://localhost:5000/mysql/' + obj.connectionName + '/' + obj.dbName + '/' + obj.action;
                     communcationService.sendRequest(url).then(function success(data){
                            // here you will get your server data
                             console.dir('++++++++++++++++This is main program suig the promises++++++++++++++++' );
