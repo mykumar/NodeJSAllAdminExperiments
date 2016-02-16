@@ -55,7 +55,8 @@ angular.module('nodeAllAdmin').directive("sidebar",['$compile', 'communcationSer
                 if(schemaType === 'db') {
                     for (var i=0; i<paramArr.length;i++){
                         if(paramArr[i] === 'DB') {
-                            console.dir('--------------------------------------------It matched T-------------------------------------------------------------------------');
+                            console.dir(paramArr);
+                            console.dir('--------------------------------------------It matched db-------------------------------------------------------------------------');
                             i++;
                             console.dir(paramArr[i]);
                             return paramArr[i];
@@ -69,14 +70,16 @@ angular.module('nodeAllAdmin').directive("sidebar",['$compile', 'communcationSer
             };  
             $scope.endClick = function(id) {
                 console.log('zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzI am in the clicker');
-                // console.log(id);
+                console.log(id);
                 // console.dir(id.split($scope.separator));
                 // var obj = {"from": "sidebar", "data": id, "to": "Grid", "action": "select"};
                 var connName = $scope.getSchemaParameter(id, "connection");
                 var tableName = $scope.getSchemaParameter(id, "table");
                 var dbName = $scope.getSchemaParameter(id, "db");
 
-                $scope.sendRequest("Grid", "select", connName, dbName, tableName);
+                // $scope.sendRequest("Grid", "selectQuery", connName, dbName, tableName);
+                var obj = {"from": "sidebar", "to": "Grid", "action": "selectQuery", "connectionName" : connName, "dbName" : dbName, "tableName" : tableName, "TabId": communcationService.selectedTabId};
+                communcationService.prepForBroadcast(obj);
                 // var obj = {"from": "sidebar", "data": id, "to": "Grid", "action": "select", "TabId": communcationService.selectedTabId};
                 // communcationService.prepForBroadcast(obj);
 

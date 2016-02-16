@@ -4,23 +4,43 @@ angular.module('nodeAllAdmin').factory('communcationService', function($rootScop
     communcationService.message = '';
     communcationService.databaseType = '';
     communcationService.selectedTabId = 0;
-    communcationService.sendRequest = function(requestUrl) {
+    communcationService.sendRequest = function(requestUrl, methodType, reqData) {
+        if(methodType === undefined) {
+            methodType = 'GET';     
+            return $http({
+              method: methodType,
+              url: requestUrl
+            }).then(
+                function successCallback(response) {
+                    console.dir('This is the response');
+                    console.dir(response);
+                    return response.data;
+                }, function errorCallback(response) {
+                    console.dir('This is the error');
+                    console.dir(response);
+                    return response;
+                }
+            );
+        } else if(methodType === 'POST') {
+            return $http({
+              method: methodType,
+              url: requestUrl,
+              data: reqData,
+            }).then(
+                function successCallback(response) {
+                    console.dir('This is the response');
+                    console.dir(response);
+                    return response.data;
+                }, function errorCallback(response) {
+                    console.dir('This is the error');
+                    console.dir(response);
+                    return response;
+                }
+            );
+        }
         // You should return $http's result
         // $http will return a promise
-        return $http({
-          method: 'GET',
-          url: requestUrl 
-        }).then(
-            function successCallback(response) {
-                console.dir('This is the response');
-                console.dir(response);
-                return response.data;
-            }, function errorCallback(response) {
-                console.dir('This is the error');
-                console.dir(response);
-                return response;
-            }
-        );
+        
     };
     communcationService.broadcastItem = function(obj) {
         $rootScope.$broadcast('handleBroadcast', obj);
@@ -60,11 +80,14 @@ angular.module('nodeAllAdmin').factory('communcationService', function($rootScop
                     });
                 }
 
-                if(obj.action === "select") {
+                if(obj.action === "selectQuery") {
                     console.dir(" @@@@@@@@@@@@@@@@@@@@@@@@@This is the select action @@@@@@@@@@@@@@@@@@@@@@@@@");
                     console.dir(obj);
                     var url = 'http://localhost:5000/mysql/' + obj.connectionName + '/' + obj.dbName + '/' + obj.action;
-                    communcationService.sendRequest(url).then(function success(data){
+                    var reqData = {'query' : 'select * from ' + obj.dbName + '.' + obj.tableName }; 
+                    console.dir(url);
+                    console.dir(reqData);
+                    communcationService.sendRequest(url, 'POST',reqData).then(function success(data){
                            // here you will get your server data
                             console.dir('++++++++++++++++This is main program suig the promises++++++++++++++++' );
                             console.dir(data);

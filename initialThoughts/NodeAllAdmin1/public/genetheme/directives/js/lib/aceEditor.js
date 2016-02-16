@@ -142,6 +142,14 @@ angular.module('nodeAllAdmin').directive('aceEditor',['$compile', 'communcationS
                 };
         }
         $scope.jsonData = [];
+        $scope.applyChanges = function(){
+            //take the data from the scope modified data arrray , create the update syntax for each and send them one after the other
+            //coming to the databases, connection, database type, tablename etc, we can get from the handleBroadcast
+        }
+        $scope.updateModifiedData = function(rowEntity, colDef, newValue, oldValue){
+          //push them to scope modified data arrray 
+
+        }
         // $scope.firstName = "John Smith";  
               // $scope.jsonData = [      {
               //                            "id":12,
@@ -181,7 +189,13 @@ angular.module('nodeAllAdmin').directive('aceEditor',['$compile', 'communcationS
                   console.log('I am in the afterCellEdit'); 
                   if(!(newValue.toUpperCase() === oldValue.toUpperCase())) {
                       console.dir('---------------------------------------------------');
-                      // $scope.updateModifiedData(rowEntity, colDef, newValue, oldValue);
+                      $scope.updateModifiedData(rowEntity, colDef, newValue, oldValue);
+                      console.dir('---------------------------------------------------');
+                      console.dir(rowEntity);
+                      console.dir(colDef);
+                      console.dir(newValue);
+                      console.dir(oldValue);
+                      console.dir("UPDATE `nodetest`.`employees` SET `" + colDef.field + "` = '"  +  newValue + "' WHERE `id` = " + rowEntity.id);
                       console.dir('---------------------------------------------------');
                   }  
             });

@@ -66,8 +66,16 @@ mysqlManager.prototype.waitforLaunchFiber = function(req, res, func){
 	this.wait.launchFiber(this[func], req, res, that); //handle in a fiber, keep node spinning
 }
 mysqlManager.prototype.selectQuery = function(req, res, that){
-	var results = this.wait.forMethod(that.connection, 'query', details.query);
- 	res.send(JSON.stringify(results));   
+	if(req.body.query != undefined) {
+		this.connection.query(req.body.query, function(err, rows, fields) {
+			  if (err) throw err;
+			  console.log('--------------------------QUERY---------------------------------------');
+			  console.dir(err);
+			  console.dir(rows);
+			  // console.dir(fields);
+			  res.send(JSON.stringify(rows));   
+		});
+	}	
 }
 mysqlManager.prototype.query = function(req, res, that){
 	var results = this.wait.forMethod(that.connection, 'query', details.query);
@@ -107,11 +115,12 @@ mysqlManager.prototype.loadConnectionsChildren = function(req, res){
 						that.ds.setConnection(req.connectionName);	
 						if(!that.isSystemDatabase(dataBaseName)) {
 							that.connection.databaseTables(dataBaseName, function(err, tables) {
+									that.ds.setDatabase(dataBaseName);
 				            		for (var table in tables) {
 				            			console.dir('-------------TABLE NAME-----------');
 	            		                var tableParams = {};
 						                tableParams.name =  table;
-						                tableParams.id =  "SCH" + that.ds.separator + "C" + that.ds.separator + req.connectionName + that.ds.separator + "DB" + that.ds.separator + "T" + that.ds.separator + table; 
+						                tableParams.id =  "SCH" + that.ds.separator + "C" + that.ds.separator + req.connectionName + that.ds.separator + "DB" + that.ds.separator + dataBaseName + that.ds.separator + "T" + that.ds.separator + table; 
 						                // that.ds.setDatabase(databaseNames[database]);
 						                that.ds.createTable(tableParams);
 				            		}
