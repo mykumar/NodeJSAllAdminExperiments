@@ -1,0 +1,7 @@
+1) clean code -- remove the comments
+2) convert the ace-editor to the realtional databases tab
+3) create different databases tab for the admin panel
+4) sidebar -- Adjust sidebar for relational databases and admin panel -- adjust the sidebar.html template
+5) sidebar -- communcation, events and others, according to the relational databases and admin panel -- check on the mysql
+6) node admin tabs -- we have to check to make sure the correct tab is added according to the mode
+7) create gulp, add package.json, bower.json etc and make sure the devloper can download and work on this and checkin the node all admin to the github  
