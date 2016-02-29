@@ -11,12 +11,17 @@ angular.module('nodeAllAdmin').directive('aceEditor',['$compile', 'communcationS
          // scope.tabIndex = element[0].tabIndex;
     },
     controller: function ($scope) {
+        $scope.currentArgs = {};
+        $scope.modifiedData = [];
         $scope.$on('handleBroadcast', function (event, args) {
                 console.log('--------I am in the GRIDDDDDDDDDDDD---controller-----------');
                 if(angular.isObject(args)) { 
                   if(args.to === "Grid" && args.TabId == $scope.fromTheParentID) {
                       console.dir('-------------------YES IT IS FOR Grid NEW ONE BABY----------------------------');    
                       console.dir(args);
+                      $scope.currentArgs = {};
+                      $scope.currentArgs = args;
+                      console.dir($scope.currentArgs);
                       console.dir($scope.columnData);
                       $scope.columnData.splice(0,$scope.columnData.length);
                       if(args.data.length > 0) {
@@ -145,10 +150,22 @@ angular.module('nodeAllAdmin').directive('aceEditor',['$compile', 'communcationS
         $scope.applyChanges = function(){
             //take the data from the scope modified data arrray , create the update syntax for each and send them one after the other
             //coming to the databases, connection, database type, tablename etc, we can get from the handleBroadcast
+          console.dir('--------------------------------------applyChanges-------------------------------------------------------------------------------------------------');  
+          console.dir(JSON.stringify($scope.modifiedData));
+          var obj = {"from": "sidebar", "to": "Grid", "action": "updateTable", "queries" : JSON.stringify($scope.modifiedData),
+                    "connectionName" : $scope.currentArgs.connectionName, "dbName" : $scope.currentArgs.dbName,"tableName" : $scope.currentArgs.tableName, 
+                    "TabId": communcationService.selectedTabId};
+          // var obj = { "from": "sidebar", "to": "Grid", "action": "updateTable", "queries" : JSON.stringify($scope.modifiedData), 
+          //             "connectionName" : $scope.currentArgs.connectionName, "dbName" : $scope.currentArgs.dbName,"tableName" : $scope.currentArgs.tableName};
+          communcationService.prepForBroadcast(obj);
+          console.dir('---------------------------------------applyChanges------------------------------------------------------------------------------------------------');  
+
         }
         $scope.updateModifiedData = function(rowEntity, colDef, newValue, oldValue){
-          //push them to scope modified data arrray 
-
+            //push them to scope modified data arrray 
+            var sql = "UPDATE " + $scope.currentArgs.dbName + "." +  $scope.currentArgs.tableName   + " SET `" + colDef.field + "` = '"  +  newValue + "' WHERE `id` = " + rowEntity.id;
+            console.dir(sql);
+            $scope.modifiedData.push(sql);
         }
         // $scope.firstName = "John Smith";  
               // $scope.jsonData = [      {
@@ -188,15 +205,14 @@ angular.module('nodeAllAdmin').directive('aceEditor',['$compile', 'communcationS
               gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
                   console.log('I am in the afterCellEdit'); 
                   if(!(newValue.toUpperCase() === oldValue.toUpperCase())) {
-                      console.dir('---------------------------------------------------');
+                      console.dir('------------------afterCellEdit---------------------------------');
                       $scope.updateModifiedData(rowEntity, colDef, newValue, oldValue);
-                      console.dir('---------------------------------------------------');
                       console.dir(rowEntity);
                       console.dir(colDef);
                       console.dir(newValue);
                       console.dir(oldValue);
-                      console.dir("UPDATE `nodetest`.`employees` SET `" + colDef.field + "` = '"  +  newValue + "' WHERE `id` = " + rowEntity.id);
-                      console.dir('---------------------------------------------------');
+                      // console.dir("UPDATE `nodetest`.`employees` SET `" + colDef.field + "` = '"  +  newValue + "' WHERE `id` = " + rowEntity.id);
+                      console.dir('--------------------afterCellEdit-------------------------------');
                   }  
             });
 

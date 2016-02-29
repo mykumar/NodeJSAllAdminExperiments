@@ -13,6 +13,7 @@ angular.module('nodeAllAdmin').directive('mainDlg',['$compile', 'communcationSer
     controller: function ($scope) {
         $scope.check = function() {
             console.dir('---------------check---------------');
+            console.dir($scope.fromTheParentID);
         }
     }
   }

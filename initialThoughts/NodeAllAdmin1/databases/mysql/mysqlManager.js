@@ -65,7 +65,7 @@ mysqlManager.prototype.waitforLaunchFiber = function(req, res, func){
 	var that = this;
 	this.wait.launchFiber(this[func], req, res, that); //handle in a fiber, keep node spinning
 }
-mysqlManager.prototype.selectQuery = function(req, res, that){
+mysqlManager.prototype.selectQuery = function(req, res){
 	if(req.body.query != undefined) {
 		this.connection.query(req.body.query, function(err, rows, fields) {
 			  if (err) throw err;
@@ -77,9 +77,41 @@ mysqlManager.prototype.selectQuery = function(req, res, that){
 		});
 	}	
 }
-mysqlManager.prototype.query = function(req, res, that){
-	var results = this.wait.forMethod(that.connection, 'query', details.query);
- 	res.send(JSON.stringify(results));   
+mysqlManager.prototype.query = function(queryStr, callback) {
+		console.dir('--------------------------query--------------------------------------------------------------------------');
+		console.dir(queryStr);
+		var that = this;
+		that.connection.query(queryStr, function (err, result) {
+			if (err) throw err;
+			console.log('updated ' + result.affectedRows + ' rows');
+			callback(null);
+		}); 
+		console.dir('--------------------------query--------------------------------------------------------------------------');
+}
+mysqlManager.prototype.updateTable = function(req, res){
+	console.dir('--------------------------updateTable--------------------------------------------------------------------------');
+	console.dir(req.body);
+	console.dir(req.body.queries);
+	console.dir(JSON.parse(req.body.queries));
+	var queries = JSON.parse(req.body.queries);
+	var that = this;
+
+	async.map(queries, function(queryStr, callback) {
+		console.dir('--------------------------query--------------------------------------------------------------------------');
+		console.dir(queryStr);
+		that.connection.query(queryStr, function (err, result) {
+			if (err) throw err;
+			console.log('updated ' + result.affectedRows + ' rows');
+			callback(null);
+		}); 
+		console.dir('--------------------------query--------------------------------------------------------------------------');
+	}, function(error, result){
+		console.dir('$$$$$$$$$$UPDATE QUERIES RETURNED $$$$$$$$$$$$$$$');
+		console.dir(result);
+		console.dir(req.body.query);
+		that.selectQuery(req, res);
+	});
+	console.dir('--------------------------updateTable--------------------------------------------------------------------------');
 }
 mysqlManager.prototype.loadConnections = function(req, res){
 	var jsonData22 = this.ds.getConnections();
