@@ -1,0 +1,19 @@
+skumar@skumar-Lenovo-B50-70:~/shiva/nodealladmin/NodeJSAllAdminExperiments/initialThoughts/NodeAllAdmin1$ apm install symbol-gen
+Installing symbol-gen to /home/skumar/.atom/packages ✓
+skumar@skumar-Lenovo-B50-70:~/shiva/nodealladmin/NodeJSAllAdminExperiments/initialThoughts/NodeAllAdmin1$ atom .
+skumar@skumar-Lenovo-B50-70:~/shiva/nodealladmin/NodeJSAllAdminExperiments/initialThoughts/NodeAllAdmin1$ apm install autoclose-html
+Installing autoclose-html to /home/skumar/.atom/packages ✓
+skumar@skumar-Lenovo-B50-70:~/shiva/nodealladmin/NodeJSAllAdminExperiments/initialThoughts/NodeAllAdmin1$ apm install highlight-selected
+Installing highlight-selected to /home/skumar/.atom/packages ✓
+skumar@skumar-Lenovo-B50-70:~/shiva/nodealladmin/NodeJSAllAdminExperiments/initialThoughts/NodeAllAdmin1$ apm install linter
+Installing linter to /home/skumar/.atom/packages  apm install linter-jshint
+✓
+skumar@skumar-Lenovo-B50-70:~/shiva/nodealladmin/NodeJSAllAdminExperiments/initialThoughts/NodeAllAdmin1$  apm install linter-jshint
+Installing linter-jshint to /home/skumar/.atom/packages ✓
+skumar@skumar-Lenovo-B50-70:~/shiva/nodealladmin/NodeJSAllAdminExperiments/initialThoughts/NodeAllAdmin1$ apm install atom-beautify
+Installing atom-beautify to /home/skumar/.atom/packages ✓
+skumar@skumar-Lenovo-B50-70:~/shiva/nodealladmin/NodeJSAllAdminExperiments/initialThoughts/NodeAllAdmin1$ apm install file-icons
+Installing file-icons to /home/skumar/.atom/packages ✓
+skumar@skumar-Lenovo-B50-70:~/shiva/nodealladmin/NodeJSAllAdminExperiments/initialThoughts/NodeAllAdmin1$ apm install javascript-snippets
+Installing javascript-snippets to /home/skumar/.atom/packages ✓
+skumar@skumar-Lenovo-B50-70:~/shiva/nodealladmin/NodeJSAllAdminExperiments/initialThoughts/NodeAllAdmin1$ apm install autocomplete-json
